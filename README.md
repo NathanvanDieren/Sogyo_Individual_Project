@@ -1,5 +1,7 @@
 # Individueel project
-In dit project wordt er een fullstack applicatie gebouwd voor het individueel project van Sogyo. Hierin word ik als trainee uitgedaagd om in 3 weken een fullstack applicatie vanaf de grond op te bouwen. 
+In dit project wordt er een fullstack applicatie gebouwd voor het individuele project van Sogyo. Hierin word ik als trainee uitgedaagd om in 3 weken tijd een complete fullstack applicatie vanaf de grond op te bouwen.
+
+![TasteBuds Logo](assets/TasteBuds-logo.png "TasteBuds - Find your media kin")
 
 ## Doel
 Het doel van [Naam Applicatie] is om mensen op een laagdrempelige en authentieke manier met elkaar in contact te brengen op basis van gedeelde interesses.

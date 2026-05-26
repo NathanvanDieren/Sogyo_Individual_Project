@@ -1,0 +1,36 @@
+# Backend
+[Db]in/
+[Ob]ject/
+[Bb]in/
+[Oo]bj/
+bin/
+obj/
+*.DotSettings.user
+_ReSharper*/
+
+# Frontend
+node_modules/
+/dist
+/dist-ssr
+.output
+
+# secrets
+.env
+.env.local
+.env.*.local
+appsettings.Development.json
+appsettings.Local.json
+secrets.json
+*.pem
+*.key
+
+# local storage
+.postgres-data/
+pgdata/
+*.sql.bak
+*.dump
+.env.db
+
+# Rider
+.idea/
+*.sln.iml
