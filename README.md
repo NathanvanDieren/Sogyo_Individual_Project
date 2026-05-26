@@ -1,14 +1,14 @@
 # Individueel project
 In dit project wordt er een fullstack applicatie gebouwd voor het individuele project van Sogyo. Hierin word ik als trainee uitgedaagd om in 3 weken tijd een complete fullstack applicatie vanaf de grond op te bouwen.
 
-![TasteBuds Logo](assets/TasteBuds-logo.png "TasteBuds - Find your media kin")
+![TasteBuds Logo](assets/TasteBuds-favicon.png "TasteBuds - Find your media kin")
 
 ## Doel
-Het doel van [Naam Applicatie] is om mensen op een laagdrempelige en authentieke manier met elkaar in contact te brengen op basis van gedeelde interesses.
+Het doel van TasteBuds is om mensen op een laagdrempelige en authentieke manier met elkaar in contact te brengen op basis van gedeelde interesses.
 
 Hoewel er op traditionele sociale media enorm veel gedeeld wordt, ligt de focus daar vaak op uiterlijke schijn. Dit maakt het lastig om iemands werkelijke persoonlijkheid en diepere interesses te ontdekken. Daarnaast is het vaak een flinke zoektocht om te achterhalen wat vrienden of connecties in hun vrije tijd écht bezighoudt, zoals de boeken die ze lezen of de video's die ze inspireren.
 
-[Naam Applicatie] lost dit op door een gezamenlijk platform te bieden waar gebruikers hun ervaringen met content – zoals boeken, films, video's en blogs – kunnen delen. Het platform fungeert als een plek om enerzijds je eigen favoriete media vast te leggen en anderzijds geïnspireerd te raken door de oprechte interesses van je vrienden.
+TasteBuds lost dit op door een gezamenlijk platform te bieden waar gebruikers hun ervaringen met content – zoals boeken, films, video's en blogs – kunnen delen. Het platform fungeert als een plek om enerzijds je eigen favoriete media vast te leggen en anderzijds geïnspireerd te raken door de oprechte interesses van je vrienden.
 
 ## Leerdoelen
 ### 🚀 Technisch
