@@ -1,9 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using Persistence;
+using Api.DTOs;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddOpenApi();
+builder.Services.AddControllers(); 
 
 string connectionString = "Host=localhost;Database=ip_tastebuds;Username=IP_db_owner;Password=wachtwoord123!;";
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -17,7 +19,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
-app.MapGet("/", () => "Hello World!"); 
+app.MapControllers();
 
 app.Run();

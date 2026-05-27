@@ -14,7 +14,7 @@ public class UserTest
     }
 
     [Fact]
-    public void TestDifferentUsersGetDifferentid()
+    public void TestDifferentUsersGetDifferentId()
     {
         User secondUser = new User("Nathan", "nvdieren@sogyo.nl", "nvdieren", "user");  
         Assert.NotEqual(newUser.Id, secondUser.Id);
