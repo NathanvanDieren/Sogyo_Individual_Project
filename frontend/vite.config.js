@@ -11,20 +11,20 @@ export default defineConfig({
       registerType: 'autoUpdate',
       injectRegister: 'auto',
       manifest: {
-        name: 'Mijn C# en Vue PWA',
-        short_name: 'CorePWA',
-        description: 'Mijn gelaagde full-stack Progressive Web App!',
+        name: 'TasteBuds',
+        short_name: 'TasteBuds',
+        description: 'My Fullstack PWA app for sharing interesting content!',
         theme_color: '#4DBA87',
         background_color: '#ffffff',
         display: 'standalone',
         icons: [
           {
-            src: 'pwa-192x192.png',
+            src: 'TasteBuds-favicon.png',
             sizes: '192x192',
             type: 'image/png'
           },
           {
-            src: 'pwa-512x512.png',
+            src: 'Tastebuds-logo.png',
             sizes: '512x512',
             type: 'image/png',
             purpose: 'any maskable'
