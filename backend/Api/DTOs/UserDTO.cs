@@ -1,7 +1,7 @@
 namespace Api.DTOs;
 
 public record CreateUserDto(
-    string UserName, 
+    string Username, 
     string Email, 
     string Password
 );

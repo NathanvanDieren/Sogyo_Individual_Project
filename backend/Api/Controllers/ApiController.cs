@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Persistence;
 using Domain;
 using Api.DTOs;
@@ -19,8 +20,14 @@ public class UsersController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> CreateUser([FromBody] CreateUserDto model)
     {   
+        bool emailExists = await _context.Users.AnyAsync(u => u.Email.ToLower() == model.Email.ToLower().Trim());
+        if (emailExists)
+        {
+            return BadRequest("Dit e-mailadres is al in gebruik.");
+        }
+        
         string hashedPassword = BC.HashPassword(model.Password);
-        var newUser = new User(model.UserName, model.Email, hashedPassword, "user");
+        var newUser = new User(model.Username, model.Email, hashedPassword, "user");
         
 
         _context.Users.Add(newUser);
@@ -28,7 +35,7 @@ public class UsersController : ControllerBase
 
         var response = new UserResponseDto(
             newUser.Id,
-            newUser.Name, 
+            newUser.Username, 
             newUser.Email, 
             newUser.RoleId
         );
