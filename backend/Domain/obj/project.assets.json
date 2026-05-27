@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/nvdieren/Documents/Academy/repositories/ip/backend/Domain/Domain.csproj",
+      "projectUniqueName": "/home/nvdieren/Documents/Academy/repositories/individual-project/backend/Domain/Domain.csproj",
       "projectName": "Domain",
-      "projectPath": "/home/nvdieren/Documents/Academy/repositories/ip/backend/Domain/Domain.csproj",
+      "projectPath": "/home/nvdieren/Documents/Academy/repositories/individual-project/backend/Domain/Domain.csproj",
       "packagesPath": "/home/nvdieren/.nuget/packages/",
-      "outputPath": "/home/nvdieren/Documents/Academy/repositories/ip/backend/Domain/obj/",
+      "outputPath": "/home/nvdieren/Documents/Academy/repositories/individual-project/backend/Domain/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/nvdieren/.nuget/NuGet/NuGet.Config"
