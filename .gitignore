@@ -32,5 +32,4 @@ pgdata/
 .env.db
 
 # Rider
-.idea/
 *.sln.iml

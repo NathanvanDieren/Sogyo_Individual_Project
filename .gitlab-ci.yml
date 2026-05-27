@@ -1,0 +1,25 @@
+stages:
+  - build
+  - test
+
+
+build_backend:
+  stage: build
+  script:
+    - cd backend
+    - dotnet clean
+    - dotnet build
+
+build_frontend:
+  stage: build
+  script:
+    - cd frontend
+    - npm run build
+  
+
+test_backend:
+  stage: test
+  script: 
+    - cd backend
+    - dotnet clean
+    - dotnet test
