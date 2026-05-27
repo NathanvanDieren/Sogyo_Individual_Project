@@ -4,25 +4,23 @@ stages:
   - build
   - test
 
-
 build_backend:
   stage: build
   script:
     - cd backend
-    - dotnet clean
-    - dotnet build
+    - dotnet restore 
+    - dotnet build --no-restore -c Release    
 
 build_frontend:
   stage: build
   image: node:20
   script:
     - cd frontend
+    - npm ci
     - npm run build
-  
 
 test_backend:
   stage: test
-  script: 
+  script:
     - cd backend
-    - dotnet clean
-    - dotnet test
+    - dotnet test --no-build -c Release       
