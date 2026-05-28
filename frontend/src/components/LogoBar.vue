@@ -1,6 +1,7 @@
 <script setup lang="ts">
 
 import IconButton from "./IconButton.vue";
+import Logo from "./Logo.vue";
 </script>
 
 <template>
@@ -11,9 +12,7 @@ import IconButton from "./IconButton.vue";
     >   ☰
        </IconButton>
 
-    <div class="header-center">
-      <img class="logo" src="/TasteBuds-favicon.png" alt="TasteBuds logo">
-    </div>
+    <Logo/>
 
       <IconButton
           ariaLabel="Open account"
@@ -48,10 +47,6 @@ import IconButton from "./IconButton.vue";
   justify-self: end;
 }
 
-.logo {
-  height: 45px;
-  width: auto;
-  object-fit: contain;
-}
+
 
 </style>
