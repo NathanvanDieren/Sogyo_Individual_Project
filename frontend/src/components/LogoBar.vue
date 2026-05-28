@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
 import IconButton from "./IconButton.vue";
-import Logo from "./Logo.vue";
+import LogoSmall from "./LogoSmall.vue";
 </script>
 
 <template>
@@ -12,7 +12,7 @@ import Logo from "./Logo.vue";
     >   ☰
        </IconButton>
 
-    <Logo/>
+    <LogoSmall/>
 
       <IconButton
           ariaLabel="Open account"

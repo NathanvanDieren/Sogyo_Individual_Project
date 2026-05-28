@@ -1,5 +1,4 @@
 <script setup lang="ts">
-
 import LogoBar from "../components/LogoBar.vue";
 </script>
 
