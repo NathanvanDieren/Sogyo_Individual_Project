@@ -18,6 +18,15 @@ internal class TokenService
     public string GenerateToken(User user)
     {
         var secretKey = _configuration["JwtSettings:Secret"];
+        
+        if (string.IsNullOrEmpty(secretKey))
+        {
+            throw new Exception("DETECTIVE: Ik kan JWT_SECRET helemaal niet vinden in de configuratie!");
+        }
+        if (secretKey.Length < 16)
+        {
+            throw new Exception($"DETECTIVE: Ik vind de sleutel wel, maar hij is te kort! Lengte is: {secretKey.Length}. Waarde is: '{secretKey}'");
+        }
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey!));
         
         var claims = new[]

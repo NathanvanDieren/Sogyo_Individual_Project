@@ -1,11 +1,19 @@
 @Api_HostAddress = https://localhost:7082
 
 ### Registreer een nieuwe gebruiker
-POST {{Api_HostAddress}}/api/users
+POST {{Api_HostAddress}}/api/register
 Content-Type: application/json
 
 {
   "userName": "NathanvdDieren",
   "email": "nathan@example.com",
   "password": "MijnVeiligWachtwoord123!"
+}
+### Log een gebruiker in
+POST {{Api_HostAddress}}/api/login
+Content-Type: application/json
+
+{
+"email": "nathan@example.com",
+"password": "MijnVeiligWachtwoord123!"
 }

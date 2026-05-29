@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Persistence;
+using Domain;
 using DotNetEnv;
 
 DotNetEnv.Env.Load();
@@ -9,9 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi();
 builder.Services.AddControllers(); 
 
-string connectionString = "Host=localhost;Database=ip_tastebuds;Username=IP_db_owner;Password=wachtwoord123!;";
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseNpgsql(connectionString));
+builder.Services.AddPersistenceServices(builder.Configuration);
+builder.Services.AddDomainServices();
 builder.Configuration.AddEnvironmentVariables();
 
 var app = builder.Build();

@@ -15,5 +15,11 @@ public record UserResponseDto(
 
 public record LoginResponseDto(
     Guid Id,
-    string token
+    string Token
+);
+
+public record LoginDto
+(
+    string Email,
+    string Password
 );

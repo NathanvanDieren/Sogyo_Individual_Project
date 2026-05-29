@@ -1,5 +1,6 @@
 using Domain.Services;
 using Domain.DTOs;
+using Microsoft.AspNetCore.Http;
 using BC = BCrypt.Net.BCrypt;
 
 namespace Domain;
@@ -17,6 +18,12 @@ internal class UserFacade : IUserFacade
 
     public async Task<UserResponseDto> CreateUser(string username, string email, string password)
     {
+        var existingUser = await _userRepository.GetUserByEmail(email);
+        if (existingUser != null)
+        {
+            throw new BadHttpRequestException("Dit e-mailadres is al in gebruik.");
+        }
+        
         string hashedPassword = BC.HashPassword(password);
         
         User newUser = new User(username, email, hashedPassword, "user");
