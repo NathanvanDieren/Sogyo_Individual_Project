@@ -1,6 +1,6 @@
 ﻿namespace Domain;
 
-public class User
+internal class User
 {
     public Guid Id { get; private set; } 
     
@@ -14,7 +14,7 @@ public class User
     {
         Id = Guid.NewGuid();
         Username = username;
-        Email = email;
+        Email = email.ToLower().Trim();
         PasswordHash = passwordHash;
         RoleId = roleId;
     }

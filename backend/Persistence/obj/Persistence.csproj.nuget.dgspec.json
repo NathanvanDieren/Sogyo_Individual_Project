@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/nvdieren/Documents/Academy/repositories/individual-project/backend/Persistence/Persistence.csproj": {}
+    "/home/nvdieren/Documents/Sogyo/repositories/individual-project/backend/Persistence/Persistence.csproj": {}
   },
   "projects": {
-    "/home/nvdieren/Documents/Academy/repositories/individual-project/backend/Domain/Domain.csproj": {
+    "/home/nvdieren/Documents/Sogyo/repositories/individual-project/backend/Domain/Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/nvdieren/Documents/Academy/repositories/individual-project/backend/Domain/Domain.csproj",
+        "projectUniqueName": "/home/nvdieren/Documents/Sogyo/repositories/individual-project/backend/Domain/Domain.csproj",
         "projectName": "Domain",
-        "projectPath": "/home/nvdieren/Documents/Academy/repositories/individual-project/backend/Domain/Domain.csproj",
+        "projectPath": "/home/nvdieren/Documents/Sogyo/repositories/individual-project/backend/Domain/Domain.csproj",
         "packagesPath": "/home/nvdieren/.nuget/packages/",
-        "outputPath": "/home/nvdieren/Documents/Academy/repositories/individual-project/backend/Domain/obj/",
+        "outputPath": "/home/nvdieren/Documents/Sogyo/repositories/individual-project/backend/Domain/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/nvdieren/.nuget/NuGet/NuGet.Config"
@@ -20,6 +20,7 @@
           "net10.0"
         ],
         "sources": {
+          "/usr/lib/dotnet/library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -38,11 +39,21 @@
           "auditLevel": "low",
           "auditMode": "all"
         },
-        "SdkAnalysisLevel": "10.0.200"
+        "SdkAnalysisLevel": "10.0.100"
       },
       "frameworks": {
         "net10.0": {
           "targetAlias": "net10.0",
+          "dependencies": {
+            "BCrypt.Net-Next": {
+              "target": "Package",
+              "version": "[4.2.0, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[10.0.8, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -59,7 +70,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/home/nvdieren/.dotnet/sdk/10.0.201/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/10.0.108/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",
@@ -337,14 +348,14 @@
         }
       }
     },
-    "/home/nvdieren/Documents/Academy/repositories/individual-project/backend/Persistence/Persistence.csproj": {
+    "/home/nvdieren/Documents/Sogyo/repositories/individual-project/backend/Persistence/Persistence.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/nvdieren/Documents/Academy/repositories/individual-project/backend/Persistence/Persistence.csproj",
+        "projectUniqueName": "/home/nvdieren/Documents/Sogyo/repositories/individual-project/backend/Persistence/Persistence.csproj",
         "projectName": "Persistence",
-        "projectPath": "/home/nvdieren/Documents/Academy/repositories/individual-project/backend/Persistence/Persistence.csproj",
+        "projectPath": "/home/nvdieren/Documents/Sogyo/repositories/individual-project/backend/Persistence/Persistence.csproj",
         "packagesPath": "/home/nvdieren/.nuget/packages/",
-        "outputPath": "/home/nvdieren/Documents/Academy/repositories/individual-project/backend/Persistence/obj/",
+        "outputPath": "/home/nvdieren/Documents/Sogyo/repositories/individual-project/backend/Persistence/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/nvdieren/.nuget/NuGet/NuGet.Config"
@@ -353,14 +364,15 @@
           "net10.0"
         ],
         "sources": {
+          "/usr/lib/dotnet/library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "/home/nvdieren/Documents/Academy/repositories/individual-project/backend/Domain/Domain.csproj": {
-                "projectPath": "/home/nvdieren/Documents/Academy/repositories/individual-project/backend/Domain/Domain.csproj"
+              "/home/nvdieren/Documents/Sogyo/repositories/individual-project/backend/Domain/Domain.csproj": {
+                "projectPath": "/home/nvdieren/Documents/Sogyo/repositories/individual-project/backend/Domain/Domain.csproj"
               }
             }
           }
@@ -375,7 +387,7 @@
           "auditLevel": "low",
           "auditMode": "all"
         },
-        "SdkAnalysisLevel": "10.0.200"
+        "SdkAnalysisLevel": "10.0.100"
       },
       "frameworks": {
         "net10.0": {
@@ -408,7 +420,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/home/nvdieren/.dotnet/sdk/10.0.201/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/10.0.108/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",

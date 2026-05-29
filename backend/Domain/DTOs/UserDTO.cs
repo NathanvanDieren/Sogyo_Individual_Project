@@ -1,4 +1,4 @@
-namespace Api.DTOs;
+namespace Domain.DTOs;
 
 public record CreateUserDto(
     string Username, 
@@ -11,4 +11,9 @@ public record UserResponseDto(
     string Username,
     string Email, 
     string Role
+);
+
+public record LoginResponseDto(
+    Guid Id,
+    string token
 );

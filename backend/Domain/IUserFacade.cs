@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using Domain.DTOs;
 
 namespace Domain;
@@ -5,7 +6,9 @@ namespace Domain;
 
 public interface IUserFacade
 {
-    public Task<Guid?> CreateUser(string username, string email, string password);
+    public Task<UserResponseDto> CreateUser(string username, string email, string password);
+    public Task<UserResponseDto?> GetUserById(Guid guid);
     
-    public Task ChangePassword(User user, string password);
+    public Task<LoginResponseDto?> UserLogin(string email, string hashedPassword);
+    
 }
