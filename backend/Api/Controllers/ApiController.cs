@@ -19,8 +19,26 @@ public class MainController : ControllerBase
     [HttpPost("register")]
     public async Task<IActionResult> CreateUser([FromBody] CreateUserDto model)
     {   
-        UserResponseDto response = await _userFacade.CreateUser(model.Username, model.Email, model.Password);
-        return CreatedAtAction(nameof(Login), new { id = response.Id }, response);
+        try 
+        {
+            UserResponseDto response = await _userFacade.CreateUser(model.Username, model.Email, model.Password);
+        
+            if (response == null)
+            {
+                return BadRequest(new { message = "Registratie mislukt. Probeer het opnieuw." });
+            }
+        
+            return Ok(response);
+        }
+        catch (BadHttpRequestException ex)
+        {
+
+            return BadRequest(new { message = ex.Message });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { message = "Er is een interne serverfout opgetreden." });
+        }
     }
     
     [HttpPost("login")]

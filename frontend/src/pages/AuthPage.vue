@@ -35,7 +35,6 @@ async function LoginAndGoToHome() {
     errorText.value = err.message || 'Er is een onbekende fout opgetreden.'
   }
 }
-
 function goToRegister() {
   router.push('/register')
 }
@@ -62,15 +61,15 @@ function goToRegister() {
                 md:max-w-md md:p-10 md:shadow-lg">
 
       <h2 class="text-2xl font-bold text-gray-800 mb-6 md:hidden text-center">Inloggen</h2>
-      <h2 class="text-2xl font-bold text-gray-800 mb-6 hidden md:block">Account Login</h2>
+      <h2 class="text-2xl font-bold text-gray-800 mb-6 hidden md:block">Log hier in</h2>
 
-      <form class="w-full">
-        <label for="fname" class="block font-medium text-gray-700 mb-1">Username</label>
-        <input type="text" id="fname" name="fname"
+      <form @submit.prevent="LoginAndGoToHome" class="w-full">
+        <label for="fname" class="block font-medium text-gray-700 mb-1">Email Address</label>
+        <input type="text" id="fname" name="fname" v-model="emailInput" required
                class="w-full border border-gray-300 rounded-lg px-3 py-2 mb-4 focus:outline-none focus:border-blue-500 bg-gray-50">
 
         <label for="lname" class="block font-medium text-gray-700 mb-1">Password</label>
-        <input type="password" id="lname" name="lname"
+        <input type="password" id="lname" name="lname" v-model="passwordInput" required
                class="w-full border border-gray-300 rounded-lg px-3 py-2 mb-6 focus:outline-none focus:border-blue-500 bg-gray-50">
 
         <ErrorBox :error-type="errorType" :error-text="errorText" />
