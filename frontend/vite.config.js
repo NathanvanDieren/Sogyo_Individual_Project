@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { VitePWA } from 'vite-plugin-pwa'
 import tailwindcss from '@tailwindcss/vite'
+import https from 'https'
 
 export default defineConfig({
   plugins: [
@@ -37,9 +38,11 @@ export default defineConfig({
     port: 5173,
     proxy: {
       '/api': {
-        target: 'http://localhost:5075', 
+        target: 'https://localhost:7082',
         changeOrigin: true,
-        secure: false
+        secure: false,
+        agent: new https.Agent({ keepAlive: true, rejectUnauthorized: false }),
+        ws: true
       }
     }
   }
