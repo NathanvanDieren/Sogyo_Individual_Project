@@ -1,0 +1,54 @@
+namespace Domain;
+
+internal class Review
+{
+    public Guid Id { get; private set; }
+    public User Creator { get; private set; }
+    public string Title { get; private set; }
+    public string Description { get; private set; }
+    public string ItemType { get; private set; }
+    public DateTime LastUpdated { get; private set; }
+    
+    private readonly List<Group> _groups = new();
+    
+    public IReadOnlyCollection<Group> Groups => _groups.AsReadOnly();
+    
+    public Review(User creator, string title, string description, string itemType, List<Group> groups)
+    {
+        Id = Guid.NewGuid();
+        Creator = creator;
+        Title = title;
+        Description = description;
+        ItemType = itemType;
+        LastUpdated = DateTime.UtcNow;
+        
+        if (groups != null)
+        {
+            _groups.AddRange(groups);
+        }
+    }
+    public Review(User creator, string title, string description, string itemType) 
+        : this(creator, title, description, itemType, new List<Group>())
+    {
+    }
+    
+    public void AddGroup(Group group)
+    {
+        if (group != null && !_groups.Contains(group)) 
+        {
+            _groups.Add(group);
+            LastUpdated = DateTime.UtcNow;
+        }
+    }
+    
+    public void RemoveGroup(Group group)
+    {
+        if (group != null && _groups.Contains(group)) 
+        {
+            _groups.Remove(group);
+            LastUpdated = DateTime.UtcNow;
+        }
+    }
+
+    protected Review() {}
+}

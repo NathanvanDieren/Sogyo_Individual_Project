@@ -7,7 +7,6 @@ internal class User
     public string Username { get; private set; }
     public string Email { get; private set; }
     public string PasswordHash { get; private set; }
-    
     public string RoleId { get; private set; } 
 
     public User(string username, string email, string passwordHash, string roleId)
@@ -18,7 +17,6 @@ internal class User
         PasswordHash = passwordHash;
         RoleId = roleId;
     }
-
     public bool ChangeUsername(string newUsername)
     {
         if (Username.ToLower().Trim() == newUsername.ToLower().Trim())

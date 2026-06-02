@@ -12,14 +12,3 @@ public record UserResponseDto(
     string Email, 
     string Role
 );
-
-public record LoginResponseDto(
-    Guid Id,
-    string Token
-);
-
-public record LoginDto
-(
-    string Email,
-    string Password
-);

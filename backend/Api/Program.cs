@@ -2,6 +2,9 @@ using Microsoft.EntityFrameworkCore;
 using Persistence;
 using Domain;
 using DotNetEnv;
+using Microsoft.AspNetCore.Authentication.JwtBearer; 
+using Microsoft.IdentityModel.Tokens;               
+using System.Text;
 
 DotNetEnv.Env.Load();
 

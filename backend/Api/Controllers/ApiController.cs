@@ -50,7 +50,21 @@ public class MainController : ControllerBase
         {
             return Unauthorized(new { message = "Ongeldig e-mailadres of wachtwoord." });
         }
+        string token = response.Token;
         
-        return Ok(response);
+        var cookieOptions = new CookieOptions
+        {
+            HttpOnly = true,               
+            Secure = true,
+            SameSite = SameSiteMode.Lax, 
+            Expires = DateTimeOffset.UtcNow.AddMinutes(15)
+        };
+        
+        Response.Cookies.Append("X-Access-Token", token, cookieOptions);
+        
+        return Ok(new { 
+            message = "Succesvol ingelogd",
+            Id = response.Id 
+        });
     }
 }

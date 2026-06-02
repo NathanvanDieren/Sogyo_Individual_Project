@@ -1,6 +1,7 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Security.Cryptography;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
@@ -19,14 +20,6 @@ internal class TokenService
     {
         var secretKey = _configuration["JwtSettings:Secret"];
         
-        if (string.IsNullOrEmpty(secretKey))
-        {
-            throw new Exception("DETECTIVE: Ik kan JWT_SECRET helemaal niet vinden in de configuratie!");
-        }
-        if (secretKey.Length < 16)
-        {
-            throw new Exception($"DETECTIVE: Ik vind de sleutel wel, maar hij is te kort! Lengte is: {secretKey.Length}. Waarde is: '{secretKey}'");
-        }
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey!));
         
         var claims = new[]
@@ -42,10 +35,18 @@ internal class TokenService
             issuer: _configuration["JwtSettings:Issuer"],
             audience: _configuration["JwtSettings:Audience"],
             claims: claims,
-            expires: DateTime.UtcNow.AddDays(7),
+            expires: DateTime.UtcNow.AddMinutes(15),
             signingCredentials: creds
         );
         
         return new JwtSecurityTokenHandler().WriteToken(tokenOptions);
     }
+    public string GenerateRefreshToken()
+    {
+        var randomNumber = new byte[64];
+        using var rng = RandomNumberGenerator.Create();
+        rng.GetBytes(randomNumber);
+        return Convert.ToBase64String(randomNumber);
+    }
+    
 }
