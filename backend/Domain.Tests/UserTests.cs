@@ -1,7 +1,7 @@
 ﻿using Domain;
 using Xunit;
 
-namespace Api.Tests;
+namespace Domain.Tests;
 
 public class UserTest
 {

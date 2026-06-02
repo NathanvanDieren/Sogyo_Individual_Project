@@ -6,14 +6,14 @@ internal class Review
     public User Creator { get; private set; }
     public string Title { get; private set; }
     public string Description { get; private set; }
-    public string ItemType { get; private set; }
+    public ItemType ItemType { get; private set; }
     public DateTime LastUpdated { get; private set; }
     
     private readonly List<Group> _groups = new();
     
     public IReadOnlyCollection<Group> Groups => _groups.AsReadOnly();
     
-    public Review(User creator, string title, string description, string itemType, List<Group> groups)
+    public Review(User creator, string title, string description, ItemType itemType, List<Group> groups)
     {
         Id = Guid.NewGuid();
         Creator = creator;
@@ -27,7 +27,7 @@ internal class Review
             _groups.AddRange(groups);
         }
     }
-    public Review(User creator, string title, string description, string itemType) 
+    public Review(User creator, string title, string description, ItemType itemType) 
         : this(creator, title, description, itemType, new List<Group>())
     {
     }

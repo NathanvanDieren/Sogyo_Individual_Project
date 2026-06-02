@@ -29,7 +29,7 @@ internal class Group
     
     public void RemoveMember(User user)
     {
-        if (user != null && !_members.Contains(user)) _members.Remove(user);
+        if (user != null && _members.Contains(user)) _members.Remove(user);
     }
 
     protected Group() {} 
