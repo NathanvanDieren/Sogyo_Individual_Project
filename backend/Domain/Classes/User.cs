@@ -1,6 +1,6 @@
 ﻿namespace Domain;
 
-internal class User
+public class User
 {
     public Guid Id { get; private set; } 
     

@@ -1,19 +1,21 @@
 using Microsoft.AspNetCore.Mvc;
-using Persistence;
 using Domain;
 using Domain.DTOs;
-using BC = BCrypt.Net.BCrypt;
+using Domain.Services;
+
 namespace Api.Controllers;
 
 [ApiController]
-[Route("api/")]
-public class MainController : ControllerBase
+[Route("api/user/")]
+public class UserController : ControllerBase
 {
     private readonly IUserFacade _userFacade;       
+    private readonly CurrentUserService _currentUserService;
 
-    public MainController(IUserFacade userFacade)
+    public UserController(IUserFacade userFacade, CurrentUserService currentUserService)
     {
         _userFacade = userFacade;
+        _currentUserService = currentUserService;
     }
 
     [HttpPost("register")]
@@ -50,21 +52,33 @@ public class MainController : ControllerBase
         {
             return Unauthorized(new { message = "Ongeldig e-mailadres of wachtwoord." });
         }
-        string token = response.Token;
         
-        var cookieOptions = new CookieOptions
+        Response.Cookies.Append("UserId", response.Id.ToString(), new CookieOptions
         {
-            HttpOnly = true,               
-            Secure = true,
-            SameSite = SameSiteMode.Lax, 
-            Expires = DateTimeOffset.UtcNow.AddMinutes(15)
-        };
+            HttpOnly = true, 
+            Expires = DateTime.UtcNow.AddDays(7)
+        });
         
-        Response.Cookies.Append("X-Access-Token", token, cookieOptions);
-        
+       
         return Ok(new { 
             message = "Succesvol ingelogd",
             Id = response.Id 
+        });
+    }
+
+    [HttpGet("test")]
+    public IActionResult GetMe()
+    {
+        if (!_currentUserService.IsAuthenticated)
+        {
+            return Unauthorized(new { message = "Geen actieve gebruiker ingeladen via cookie." });
+        }
+
+        return Ok(new
+        {
+            message = "Het werkt!",
+            username = _currentUserService.User!.Username,
+            email = _currentUserService.User!.Email
         });
     }
 }

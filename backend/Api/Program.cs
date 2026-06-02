@@ -1,10 +1,6 @@
-using Microsoft.EntityFrameworkCore;
 using Persistence;
-using Domain;
-using DotNetEnv;
-using Microsoft.AspNetCore.Authentication.JwtBearer; 
-using Microsoft.IdentityModel.Tokens;               
-using System.Text;
+using Domain.Services;
+using Api.Middleware;
 
 DotNetEnv.Env.Load();
 
@@ -15,6 +11,7 @@ builder.Services.AddControllers();
 
 builder.Services.AddPersistenceServices(builder.Configuration);
 builder.Services.AddDomainServices();
+builder.Services.AddScoped<CurrentUserService>();
 builder.Configuration.AddEnvironmentVariables();
 
 var app = builder.Build();
@@ -24,6 +21,7 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
+app.UseMiddleware<UserLoaderMiddleware>();
 app.UseHttpsRedirection();
 app.MapControllers();
 

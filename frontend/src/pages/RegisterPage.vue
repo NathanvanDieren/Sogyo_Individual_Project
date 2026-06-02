@@ -30,7 +30,7 @@ async function RegisterAndGoToAuth() {
   }
 
   try {
-    await apiPost<RegisterProps, any>('/api/register', data)
+    await apiPost<RegisterProps, any>('/api/user/register', data)
 
     router.push('/')
   } catch (err: any) {

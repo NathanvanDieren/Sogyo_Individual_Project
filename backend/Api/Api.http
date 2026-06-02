@@ -1,7 +1,7 @@
 @Api_HostAddress = https://localhost:7082
 
 ### Registreer een nieuwe gebruiker
-POST {{Api_HostAddress}}/api/register
+POST {{Api_HostAddress}}/api/user/register
 Content-Type: application/json
 
 {
@@ -10,10 +10,14 @@ Content-Type: application/json
   "password": "MijnVeiligWachtwoord123!"
 }
 ### Log een gebruiker in
-POST {{Api_HostAddress}}/api/login
+POST {{Api_HostAddress}}/api/user/login
 Content-Type: application/json
 
 {
 "email": "nathan@example.com",
 "password": "MijnVeiligWachtwoord123!"
 }
+
+### 3. Test MET cookie (Dit moet nu "Het werkt!" en de username teruggeven)
+GET {{Api_HostAddress}}/api/user/test
+Accept: application/json

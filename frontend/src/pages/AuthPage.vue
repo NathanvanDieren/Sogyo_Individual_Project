@@ -27,7 +27,7 @@ async function LoginAndGoToHome() {
   }
 
   try {
-    await apiPost<LoginProps, any>('/api/login', data)
+    await apiPost<LoginProps, any>('/api/user/login', data)
 
     router.push('/homepage')
   } catch (err: any) {

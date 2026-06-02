@@ -1,6 +1,7 @@
+using Domain.Interfaces;
 namespace Domain;
 
-public class GroupFacade
+public class GroupFacade: IGroupFacade
 {
     
 }
