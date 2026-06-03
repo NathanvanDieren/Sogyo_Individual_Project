@@ -29,7 +29,7 @@ async function LoginAndGoToHome() {
   try {
     await apiPost<LoginProps, any>('/api/user/login', data)
 
-    router.push('/homepage')
+    router.push('/')
   } catch (err: any) {
     errorType.value = err.type || 'Fout'
     errorText.value = err.message || 'Er is een onbekende fout opgetreden.'

@@ -32,7 +32,7 @@ async function RegisterAndGoToAuth() {
   try {
     await apiPost<RegisterProps, any>('/api/user/register', data)
 
-    router.push('/')
+    router.push('/login')
   } catch (err: any) {
     errorType.value = err.type || 'Fout'
     errorText.value = err.message || 'Er is een onbekende fout opgetreden.'
