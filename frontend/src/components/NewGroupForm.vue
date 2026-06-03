@@ -4,7 +4,6 @@ import ErrorBox from "./ErrorBox.vue";
 const emit = defineEmits(['close'])
 import {Ref, ref} from 'vue'
 import {apiPost} from "../services/api.ts";
-import router from "../router";
 
 const newEmail: Ref<string> = ref('')
 const errorMessage: Ref<string> = ref('')
