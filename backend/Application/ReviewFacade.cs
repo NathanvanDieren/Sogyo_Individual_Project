@@ -1,6 +1,7 @@
-using Domain.Interfaces;
+using Application.Interfaces;
+using Domain;
 
-namespace Domain;
+namespace Application;
 
 internal class ReviewFacade: IReviewFacade
 {

@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using Domain;
-using Domain.DTOs;
-using Domain.Interfaces;
-using Domain.Services;
+using Application.DTOs;
+using Application.Interfaces;
 
 namespace Api.Controllers;
 

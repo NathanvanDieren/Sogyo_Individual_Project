@@ -1,5 +1,4 @@
 using Domain;
-using Domain.DTOs;
 using Microsoft.EntityFrameworkCore;
 
 namespace Persistence;

@@ -1,9 +1,11 @@
-using Domain.Services;
-using Domain.DTOs;
+using Application.Services;
+using Application.DTOs;
+using Application.Interfaces;
+using Domain;
 using Microsoft.AspNetCore.Http;
 using BC = BCrypt.Net.BCrypt;
 
-namespace Domain;
+namespace Application;
 
 internal class UserFacade : IUserFacade
 {

@@ -1,6 +1,7 @@
-using Domain.Interfaces;
+using Application.Interfaces;
+using Domain;
 
-namespace Domain.Services;
+namespace Application.Services;
 
 internal class CurrentUserService : ICurrentUserService
 {

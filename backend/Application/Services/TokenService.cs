@@ -4,8 +4,9 @@ using System.Text;
 using System.Security.Cryptography;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using Domain;
 
-namespace Domain.Services;
+namespace Application.Services;
 
 internal class TokenService
 {

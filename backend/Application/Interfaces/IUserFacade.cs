@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
-using Domain.DTOs;
+using Application.DTOs;
 
-namespace Domain;
+namespace Application.Interfaces;
 
 
 public interface IUserFacade

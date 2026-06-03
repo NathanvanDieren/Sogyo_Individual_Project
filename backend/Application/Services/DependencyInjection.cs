@@ -1,12 +1,12 @@
 using Microsoft.Extensions.DependencyInjection;
-using Domain.Services;
-using Domain.Interfaces;
+using Application.Interfaces;
+using Application.Services;
 
-namespace Domain.Services;
+namespace Application;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddDomainServices(this IServiceCollection services)
+    public static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
         services.AddScoped<TokenService>();
         
@@ -16,7 +16,7 @@ public static class DependencyInjection
         
         services.AddScoped<IGroupFacade, GroupFacade>();
         
-        services.AddScoped<ICurrentUserService,  CurrentUserService>();
+        services.AddScoped<ICurrentUserService, CurrentUserService>();
 
         return services;
     }

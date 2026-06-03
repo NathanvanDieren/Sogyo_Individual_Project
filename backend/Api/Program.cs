@@ -1,5 +1,5 @@
 using Persistence;
-using Domain.Services;
+using Application;
 using Api.Middleware;
 
 DotNetEnv.Env.Load();
@@ -10,7 +10,7 @@ builder.Services.AddOpenApi();
 builder.Services.AddControllers(); 
 
 builder.Services.AddPersistenceServices(builder.Configuration);
-builder.Services.AddDomainServices();
+builder.Services.AddApplicationServices();
 builder.Configuration.AddEnvironmentVariables();
 
 var app = builder.Build();

@@ -833,13 +833,24 @@
           }
         }
       },
-      "Domain/1.0.0": {
+      "Application/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
           "BCrypt.Net-Next": "4.2.0",
+          "Domain": "1.0.0",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "10.0.8"
         },
+        "compile": {
+          "bin/placeholder/Application.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Application.dll": {}
+        }
+      },
+      "Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
         "compile": {
           "bin/placeholder/Domain.dll": {}
         },
@@ -2621,6 +2632,11 @@
         "system.identitymodel.tokens.jwt.nuspec"
       ]
     },
+    "Application/1.0.0": {
+      "type": "project",
+      "path": "../Application/Application.csproj",
+      "msbuildProject": "../Application/Application.csproj"
+    },
     "Domain/1.0.0": {
       "type": "project",
       "path": "../Domain/Domain.csproj",
@@ -2634,6 +2650,7 @@
   },
   "projectFileDependencyGroups": {
     "net10.0": [
+      "Application >= 1.0.0",
       "Domain >= 1.0.0",
       "DotNetEnv >= 3.2.0",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 10.0.8",
@@ -2669,6 +2686,9 @@
         "net10.0": {
           "targetAlias": "net10.0",
           "projectReferences": {
+            "/home/nvdieren/Documents/Sogyo/repositories/individual-project/backend/Application/Application.csproj": {
+              "projectPath": "/home/nvdieren/Documents/Sogyo/repositories/individual-project/backend/Application/Application.csproj"
+            },
             "/home/nvdieren/Documents/Sogyo/repositories/individual-project/backend/Domain/Domain.csproj": {
               "projectPath": "/home/nvdieren/Documents/Sogyo/repositories/individual-project/backend/Domain/Domain.csproj"
             },
