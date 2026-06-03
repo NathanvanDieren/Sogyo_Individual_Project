@@ -15,6 +15,8 @@ public static class DependencyInjection
         services.AddScoped<IReviewFacade, ReviewFacade>();
         
         services.AddScoped<IGroupFacade, GroupFacade>();
+        
+        services.AddScoped<ICurrentUserService,  CurrentUserService>();
 
         return services;
     }

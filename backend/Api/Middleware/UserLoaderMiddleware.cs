@@ -1,5 +1,3 @@
-using Domain;
-using Domain.Services; 
 using Domain.Interfaces;
 
 namespace Api.Middleware;
@@ -15,19 +13,13 @@ public class UserLoaderMiddleware
     
     public async Task InvokeAsync(
         HttpContext context, 
-        IUserRepository userRepository, 
-        CurrentUserService currentUserService)
+        ICurrentUserService currentUserService)
     {
         if (context.Request.Cookies.TryGetValue("UserId", out string? cookieValue))
         {
             if (Guid.TryParse(cookieValue, out Guid userId))
             {
-                var user = await userRepository.GetUserById(userId);
-                
-                if (user != null)
-                {
-                    currentUserService.SetCurrentUser(user); 
-                }
+                await currentUserService.SetUserByIdAsync(userId);
             }
         }
         await _next(context);

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Domain;
 using Domain.DTOs;
+using Domain.Interfaces;
 using Domain.Services;
 
 namespace Api.Controllers;
@@ -10,9 +11,9 @@ namespace Api.Controllers;
 public class UserController : ControllerBase
 {
     private readonly IUserFacade _userFacade;       
-    private readonly CurrentUserService _currentUserService;
+    private readonly ICurrentUserService _currentUserService;
 
-    public UserController(IUserFacade userFacade, CurrentUserService currentUserService)
+    public UserController(IUserFacade userFacade, ICurrentUserService currentUserService)
     {
         _userFacade = userFacade;
         _currentUserService = currentUserService;
@@ -65,6 +66,19 @@ public class UserController : ControllerBase
             Id = response.Id 
         });
     }
+    
+    [HttpPost("logout")]
+    public IActionResult Logout()
+    {
+        Response.Cookies.Delete("UserId", new CookieOptions
+        {
+            HttpOnly = true,
+            Secure = true,
+            SameSite = SameSiteMode.None
+        });
+
+        return Ok(new { message = "Succesvol uitgelogd." });
+    }
 
     [HttpGet("test")]
     public IActionResult GetMe()
@@ -77,8 +91,6 @@ public class UserController : ControllerBase
         return Ok(new
         {
             message = "Het werkt!",
-            username = _currentUserService.User!.Username,
-            email = _currentUserService.User!.Email
         });
     }
 }
