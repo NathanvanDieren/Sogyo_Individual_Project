@@ -68,7 +68,7 @@ public class UserController : ControllerBase
     }
     
     [HttpPost("logout")]
-    public IActionResult Logout()
+    public async Task<IActionResult> Logout()
     {
         Response.Cookies.Delete("UserId", new CookieOptions
         {
@@ -79,6 +79,7 @@ public class UserController : ControllerBase
 
         return Ok(new { message = "Succesvol uitgelogd." });
     }
+    
 
     [HttpGet("test")]
     public IActionResult GetMe()

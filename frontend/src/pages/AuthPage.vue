@@ -79,10 +79,35 @@ function goToRegister() {
               @click = LoginAndGoToHome()>
         <label for="lname" class="block font-medium pt-4 text-gray-700 mb-1">Nog geen account? </label>
         <input type="submit" value="Register"
-               class="w-full bg-blue-600 text-white py-2.5 rounded-lg font-semibold cursor-pointer hover:bg-blue-700 transition shadow-sm"
+               class="inputField"
                 @click = goToRegister()>
       </form>
 
     </div>
   </div>
 </template>
+
+<style scoped>
+.inputField {
+  width: 100%;
+  background-color: #2563eb;
+  color: #ffffff;
+  padding-top: 0.625rem;
+  padding-bottom: 0.625rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+
+.inputField:hover {
+  background-color: #1d4ed8;            /* bg-blue-700 */
+}
+
+</style>
+

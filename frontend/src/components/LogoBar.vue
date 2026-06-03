@@ -2,6 +2,18 @@
 
 import IconButton from "./IconButton.vue";
 import LogoSmall from "./LogoSmall.vue";
+import {apiPost} from "../services/api.ts";
+import router from "../router";
+
+async function logout() {
+  try {
+    await apiPost<object, any>('/api/user/logout', {})
+
+    router.push('/')
+  } catch (err: any) {
+    console.error("Uitloggen mislukt:", err)
+  }
+}
 </script>
 
 <template>
@@ -17,8 +29,9 @@ import LogoSmall from "./LogoSmall.vue";
       <IconButton
           ariaLabel="Open account"
           class="header-right"
+          @click = logout
       >
-        👤 </IconButton>
+        ➜] </IconButton>
 
   </header>
 </template>

@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
 
-// Reactieve status voor het menu
 const isOpen = ref(false)
 const menuRef = ref<HTMLElement | null>(null)
 
@@ -13,17 +12,16 @@ const closeMenu = () => {
   isOpen.value = false
 }
 
-// Dummy functies voor de acties (Vervang dit door jouw eigen logica!)
+const emit = defineEmits(['open-group', 'open-review'])
+
 const handleNewGroup = () => {
   closeMenu()
-  alert("Nieuwe groep aanmaken getriggerd!")
-  // data.showGroupModal = true of router.push('/groups/create')
+  emit('open-group') // Stuur seintje naar de homepage
 }
 
 const handleNewReview = () => {
   closeMenu()
-  alert("Nieuwe review aanmaken getriggerd!")
-  // data.showReviewModal = true of router.push('/reviews/create')
+  emit('open-review') // Stuur seintje naar de homepage
 }
 
 const handleClickOutside = (event: MouseEvent) => {
