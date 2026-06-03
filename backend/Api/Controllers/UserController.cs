@@ -79,17 +79,13 @@ public class UserController : ControllerBase
     }
     
 
-    [HttpGet("test")]
-    public IActionResult GetMe()
+    [HttpGet("validate")]
+    public async Task<IActionResult> Validate()
     {
-        if (!_currentUserService.IsAuthenticated)
+        if (_currentUserService.IsAuthenticated)
         {
-            return Unauthorized(new { message = "Geen actieve gebruiker ingeladen via cookie." });
+            return Ok(new { message = "Succesvol gevalideerd." });
         }
-
-        return Ok(new
-        {
-            message = "Het werkt!",
-        });
+        return StatusCode(401, new { message = "U kan niet ingelogd worden" });
     }
 }
