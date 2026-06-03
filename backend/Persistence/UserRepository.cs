@@ -31,4 +31,17 @@ internal class UserRepository: IUserRepository
             .SingleOrDefaultAsync(u => u.Email == email);
         return user;
     }
+
+    public async Task<List<User>> GetUsersByEmailsAsync(List<string> emails)
+    {
+        if (emails == null || !emails.Any())
+        {
+            return new List<User>();
+        }
+
+        return await _context.Users
+            .Where(u => emails.Contains(u.Email))
+            .ToListAsync();
+    }
+
 }

@@ -1,6 +1,6 @@
 namespace Domain;
 
-internal class Group
+public class Group
 {
     public Guid Id { get; private set; }
     public string Name { get; private set; }

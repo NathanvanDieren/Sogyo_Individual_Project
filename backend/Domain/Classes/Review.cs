@@ -1,6 +1,6 @@
-namespace Domain;
+namespace Domain.Classes;
 
-internal class Review
+public class Review
 {
     public Guid Id { get; private set; }
     public User Creator { get; private set; }

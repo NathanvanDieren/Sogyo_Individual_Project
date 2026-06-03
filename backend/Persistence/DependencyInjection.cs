@@ -2,6 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Domain;
+using Domain.Interfaces;
+
 namespace Persistence;
 
 public static class DependencyInjection
@@ -15,6 +17,7 @@ public static class DependencyInjection
             options.UseNpgsql(connectionString));
         
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IGroupRepository, GroupRepository>();
 
         return services;
     }

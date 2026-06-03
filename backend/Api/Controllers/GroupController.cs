@@ -1,16 +1,43 @@
 using Microsoft.AspNetCore.Mvc;
+using Application.DTOs;
 using Application.Interfaces;
+
 namespace Api.Controllers;
 
 [ApiController]
 [Route("api/group/")]
-public class GroupController
+public class GroupController: ControllerBase
 {
     private readonly IGroupFacade _groupFacade;       
 
     public GroupController(IGroupFacade groupFacade)
     {
         _groupFacade = groupFacade;
+    }
+    
+    [HttpPost("create")]
+    public async Task<IActionResult> CreateUser([FromBody] CreateGroupDto model)
+    {   
+        try 
+        {
+            GroupResponseDto response = await _groupFacade.CreateGroup(model.Name, model.Emails);
+        
+            if (response == null)
+            {
+                return BadRequest(new { message = "Groep registratie mislukt. Probeer het opnieuw." });
+            }
+        
+            return Ok(response);
+        }
+        catch (BadHttpRequestException ex)
+        {
+
+            return BadRequest(new { message = ex.Message });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { message = "Er is een interne serverfout opgetreden." });
+        }
     }
     
     

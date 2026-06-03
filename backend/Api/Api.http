@@ -17,6 +17,14 @@ Content-Type: application/json
 "email": "nathan@example.com",
 "password": "MijnVeiligWachtwoord123!"
 }
+### Maak een nieuwe groep aan
+POST {{Api_HostAddress}}/api/group/create
+Content-Type: application/json
+
+{
+"name": "nathan@example.com",
+"emails": ["nathan@example.com", "nathanvdieren@gmail.com"]
+}
 
 ### 3. Test MET cookie (Dit moet nu "Het werkt!" en de username teruggeven)
 GET {{Api_HostAddress}}/api/user/test
