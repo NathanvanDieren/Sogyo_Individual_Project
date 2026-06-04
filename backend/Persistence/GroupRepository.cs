@@ -1,5 +1,6 @@
 using Domain;
-using Domain.Interfaces;
+using Application.Interfaces;
+using Application.DTOs;
 using Microsoft.EntityFrameworkCore;
 
 namespace Persistence;
@@ -19,5 +20,31 @@ internal class GroupRepository: IGroupRepository
         await _context.SaveChangesAsync();
     }
     
-    
+    public async Task<GroupListDto> GetAllGroupsByUserIdAsync(Guid userId)
+    {
+        if (userId == Guid.Empty)
+        {
+            return new GroupListDto { Groups = new List<GroupDto>(), TotalCount = 0 };
+        }
+
+        var groups = await _context.Groups
+            .Where(g => g.CreatorId == userId || g.Members.Any(m => m.Id == userId))
+            .Select(g => new GroupDto
+            {
+                Id = g.Id,
+                Name = g.Name,
+                Members = g.Members.Select(m => new GroupMemberDto
+                {
+                    Id = m.Id,
+                    Name = m.Username
+                }).ToList()
+            })
+            .ToListAsync();
+
+        return new GroupListDto
+        {
+            Groups = groups,
+            TotalCount = groups.Count
+        };
+    }
 }

@@ -1,7 +1,7 @@
 using Application.DTOs;
 using Application.Interfaces;
 using Domain;
-using Domain.Interfaces;
+using Application.Interfaces;
 using Microsoft.AspNetCore.Http;
 
 public class GroupFacade: IGroupFacade
@@ -19,7 +19,6 @@ public class GroupFacade: IGroupFacade
 
     public async Task<GroupResponseDto> CreateGroup(string name, List<string> emails)
     {
-        // 1. Check direct of de huidige gebruiker bestaat (Faalt snel)
         var currentUser = _currentUserService.User;
         if (currentUser == null)
         {
@@ -42,6 +41,19 @@ public class GroupFacade: IGroupFacade
 
         // 6. Return de DTO
         return new GroupResponseDto(newGroup.Id);
+    }
+    
+    public async Task<GroupListDto> GetGroups()
+    {
+        var currentUser = _currentUserService.User;
+        if (currentUser == null)
+        {
+            throw new UnauthorizedAccessException("Gebruiker is niet ingelogd.");
+        }
+        
+        var groups = await _groupRepository.GetAllGroupsByUserIdAsync(currentUser.Id);
+
+        return groups;
     }
     
 }

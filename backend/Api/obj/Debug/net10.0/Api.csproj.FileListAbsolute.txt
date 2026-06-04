@@ -268,9 +268,11 @@
 /home/nvdieren/Documents/Sogyo/repositories/individual-project/backend/Api/bin/Debug/net10.0/tr/Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
 /home/nvdieren/Documents/Sogyo/repositories/individual-project/backend/Api/bin/Debug/net10.0/zh-Hans/Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
 /home/nvdieren/Documents/Sogyo/repositories/individual-project/backend/Api/bin/Debug/net10.0/zh-Hant/Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
+/home/nvdieren/Documents/Sogyo/repositories/individual-project/backend/Api/bin/Debug/net10.0/Application.dll
 /home/nvdieren/Documents/Sogyo/repositories/individual-project/backend/Api/bin/Debug/net10.0/Domain.dll
 /home/nvdieren/Documents/Sogyo/repositories/individual-project/backend/Api/bin/Debug/net10.0/Persistence.dll
 /home/nvdieren/Documents/Sogyo/repositories/individual-project/backend/Api/bin/Debug/net10.0/Domain.pdb
+/home/nvdieren/Documents/Sogyo/repositories/individual-project/backend/Api/bin/Debug/net10.0/Application.pdb
 /home/nvdieren/Documents/Sogyo/repositories/individual-project/backend/Api/bin/Debug/net10.0/Persistence.pdb
 /home/nvdieren/Documents/Sogyo/repositories/individual-project/backend/Api/obj/Debug/net10.0/Api.csproj.AssemblyReference.cache
 /home/nvdieren/Documents/Sogyo/repositories/individual-project/backend/Api/obj/Debug/net10.0/rpswa.dswa.cache.json
@@ -295,5 +297,3 @@
 /home/nvdieren/Documents/Sogyo/repositories/individual-project/backend/Api/obj/Debug/net10.0/Api.pdb
 /home/nvdieren/Documents/Sogyo/repositories/individual-project/backend/Api/obj/Debug/net10.0/Api.genruntimeconfig.cache
 /home/nvdieren/Documents/Sogyo/repositories/individual-project/backend/Api/obj/Debug/net10.0/ref/Api.dll
-/home/nvdieren/Documents/Sogyo/repositories/individual-project/backend/Api/bin/Debug/net10.0/Application.dll
-/home/nvdieren/Documents/Sogyo/repositories/individual-project/backend/Api/bin/Debug/net10.0/Application.pdb

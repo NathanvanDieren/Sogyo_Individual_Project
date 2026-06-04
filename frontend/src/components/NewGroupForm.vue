@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import ErrorBox from "./ErrorBox.vue";
-
-const emit = defineEmits(['close'])
 import {Ref, ref} from 'vue'
 import {apiPost} from "../services/api.ts";
 
@@ -12,6 +10,8 @@ const emailList: Ref<string[]> = ref([])
 const nameInput = ref<string>('')
 const errorType = ref<string>('')
 const errorText = ref<string>('')
+
+const emit = defineEmits(['close', 'success'])
 
 // Regex voor e-mailvalidatie
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -61,6 +61,7 @@ async function CreateGroupAndClose() {
   try {
     await apiPost<CreateGroupProps, any>('/api/group/create', data)
 
+    emit('success')
     emit('close')
   } catch (err: any) {
     errorType.value = err.type || 'Fout'

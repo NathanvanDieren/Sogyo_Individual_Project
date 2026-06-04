@@ -1,4 +1,6 @@
-namespace Domain;
+using Domain;
+
+namespace Application.Interfaces;
 public interface IUserRepository
 {
     Task AddUserAsync(User newUser);

@@ -1220,6 +1220,9 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
+              "/home/nvdieren/Documents/Sogyo/repositories/individual-project/backend/Application/Application.csproj": {
+                "projectPath": "/home/nvdieren/Documents/Sogyo/repositories/individual-project/backend/Application/Application.csproj"
+              },
               "/home/nvdieren/Documents/Sogyo/repositories/individual-project/backend/Domain/Domain.csproj": {
                 "projectPath": "/home/nvdieren/Documents/Sogyo/repositories/individual-project/backend/Domain/Domain.csproj"
               }

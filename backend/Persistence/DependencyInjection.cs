@@ -1,8 +1,9 @@
+using Application.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Domain;
-using Domain.Interfaces;
+using Application.Interfaces;
 
 namespace Persistence;
 
