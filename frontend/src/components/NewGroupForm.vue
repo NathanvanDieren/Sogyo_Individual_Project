@@ -16,7 +16,6 @@ const emit = defineEmits(['close', 'success'])
 // Regex voor e-mailvalidatie
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
-// Logica voor toevoegen
 const addEmail = (): void => {
   const trimmedEmail: string = newEmail.value.trim()
   errorMessage.value = ''
@@ -91,7 +90,7 @@ async function CreateGroupAndClose() {
           <button @click="addEmail" type="button">Toevoegen</button>
         </div>
 
-        <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
+
 
         <ul class="email-list">
           <li v-for="(email, index) in emailList" :key="index">
