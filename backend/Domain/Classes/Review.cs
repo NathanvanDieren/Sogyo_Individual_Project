@@ -5,6 +5,8 @@ public class Review
     public Guid Id { get; private set; }
     public User Creator { get; private set; }
     public string Title { get; private set; }
+    
+    public int Rating { get; private set; }
     public string Description { get; private set; }
     public ItemType ItemType { get; private set; }
     public DateTime LastUpdated { get; private set; }
@@ -13,11 +15,12 @@ public class Review
     
     public IReadOnlyCollection<Group> Groups => _groups.AsReadOnly();
     
-    public Review(User creator, string title, string description, ItemType itemType, List<Group> groups)
+    public Review(User creator, string title, int rating, string description, ItemType itemType, List<Group> groups)
     {
         Id = Guid.NewGuid();
         Creator = creator;
         Title = title;
+        Rating = rating;
         Description = description;
         ItemType = itemType;
         LastUpdated = DateTime.UtcNow;
@@ -27,8 +30,8 @@ public class Review
             _groups.AddRange(groups);
         }
     }
-    public Review(User creator, string title, string description, ItemType itemType) 
-        : this(creator, title, description, itemType, new List<Group>())
+    public Review(User creator, string title, int rating, string description, ItemType itemType) 
+        : this(creator, title, rating, description, itemType, new List<Group>())
     {
     }
     

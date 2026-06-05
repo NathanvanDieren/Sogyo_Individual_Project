@@ -33,3 +33,5 @@ Content-Type: application/json
 ### 3. Test GetGroups
 GET {{Api_HostAddress}}/api/group/getgroups
 Accept: application/json
+### 3. Test GetGroups
+GET{{Api_HostAddress}}/api/review/getitemtypes

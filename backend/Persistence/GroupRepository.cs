@@ -20,6 +20,18 @@ internal class GroupRepository: IGroupRepository
         await _context.SaveChangesAsync();
     }
     
+    public async Task<List<Group>> GetGroupsByGuidAsync(List<Guid> guids)
+    {
+        if (guids == null || !guids.Any())
+        {
+            return new List<Group>();
+        }
+
+        return await _context.Groups
+            .Where(u => guids.Contains(u.Id))
+            .ToListAsync();
+    }
+    
     public async Task<GroupListDto> GetAllGroupsByUserIdAsync(Guid userId)
     {
         if (userId == Guid.Empty)

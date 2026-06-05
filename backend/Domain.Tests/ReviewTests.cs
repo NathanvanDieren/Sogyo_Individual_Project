@@ -16,9 +16,10 @@ public class ReviewTests
 
         string title = "Het Gouden Ei";
         string description = "Ik vond hem erg spannend en vlot geschreven.";
+        int rating = 5;
         ItemType type = ItemType.Book;
         
-        var review = new Review(_newUser1, title, description, type, groups);
+        var review = new Review(_newUser1, title, rating, description, type, groups);
         
         Assert.NotNull(review);
         Assert.NotEqual(Guid.Empty, review.Id);
@@ -39,9 +40,10 @@ public class ReviewTests
 
         string title = "Het Gouden Ei";
         string description = "Ik vond hem erg spannend en vlot geschreven.";
+        int rating = 5;
         ItemType type = ItemType.Book;
         
-        var review = new Review(_newUser1, title, description, type, groups);
+        var review = new Review(_newUser1, title, rating, description, type, groups);
         review.AddGroup(group2);
         Assert.Contains(group1, review.Groups);
     }
@@ -55,9 +57,10 @@ public class ReviewTests
 
         string title = "Het Gouden Ei";
         string description = "Ik vond hem erg spannend en vlot geschreven.";
+        int rating = 5;
         ItemType type = ItemType.Book;
         
-        var review = new Review(_newUser1, title, description, type, groups);
+        var review = new Review(_newUser1, title, rating, description, type, groups);
         review.AddGroup(group2);
         review.RemoveGroup(group2);
         Assert.DoesNotContain(group2, review.Groups);
@@ -73,9 +76,10 @@ public class ReviewTests
 
         string title = "Het Gouden Ei";
         string description = "Ik vond hem erg spannend en vlot geschreven.";
+        int rating = 5;
         ItemType type = ItemType.Book;
         
-        var review = new Review(_newUser1, title, description, type, groups);
+        var review = new Review(_newUser1, title, rating, description, type, groups);
         review.RemoveGroup(group2);
         Assert.DoesNotContain(group2, review.Groups);
     }
