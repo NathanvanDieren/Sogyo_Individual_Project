@@ -16,12 +16,12 @@ const emit = defineEmits(['open-group', 'open-review'])
 
 const handleNewGroup = () => {
   closeMenu()
-  emit('open-group') // Stuur seintje naar de homepage
+  emit('open-group')
 }
 
 const handleNewReview = () => {
   closeMenu()
-  emit('open-review') // Stuur seintje naar de homepage
+  emit('open-review')
 }
 
 const handleClickOutside = (event: MouseEvent) => {
@@ -51,8 +51,8 @@ onUnmounted(() => {
     </button>
 
     <ul v-show="isOpen" id="submenu" class="submenu">
-      <li><a @click="handleNewGroup">New Group</a></li>
-      <li><a @click="handleNewReview">New Review</a></li>
+      <li><a @click="handleNewGroup">Nieuwe Groep</a></li>
+      <li><a @click="handleNewReview">Nieuwe Review</a></li>
     </ul>
   </div>
 </template>

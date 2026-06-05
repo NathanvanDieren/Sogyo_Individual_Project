@@ -51,7 +51,7 @@ async function GetGroups() {
       </li>
     </ul>
   </div>
-
+  <p v-else-if="groupList?.groups?.length === 0">Nog geen groepen aangemaakt</p>
   <p v-else>Groepen laden...</p>
 </template>
 
@@ -102,10 +102,9 @@ async function GetGroups() {
   box-shadow: 0 6px 12px rgba(59, 130, 246, 0.15);
 }
 
-/* Active effect: wanneer je daadwerkelijk op de kaart klikt */
 .group-item:active {
-  transform: translateY(0); /* Kaart veert weer terug */
-  background-color: #f8fafc; /* Lichtgrijze achtergrond bij klik */
+  transform: translateY(0);
+  background-color: #f8fafc;
 }
 
 /* Styling voor de inhoud van de kaart */
