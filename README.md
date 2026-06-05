@@ -12,22 +12,33 @@ TasteBuds lost dit op door een gezamenlijk platform te bieden waar gebruikers hu
 
 
 ## Build Instructie
-Zorg ervoor dat je minimal Node.js 20.19+ of 22.12+ gebruikt om `npm run dev` te kunnen runnen. Voor de backend is dotnet 
-Om de frontend op te starten op Linux zijn de volgende commands nodig.
-```bash
-    cd frontend/
-    npm clean
-    npm run dev
-```
+Zorg ervoor dat de volgende software op je systeem is geïnstalleerd:
+* **Node.js**: Versie `20.19+` of `22.12+` (LTS aanbevolen)
+* **.NET SDK**: Versie `9.0+`
+---
+Open je terminal in de hoofdmap van het project en voer de volgende stappen uit.
+  r naar de frontend-map, herstel de pakketten en start de development server:
 
-Om de backend op te starten zijn de volgende commands nodig.
 ```bash
-    cd backend/
-    dotnet clean
-    dotnet restore
-    dotnet build
-    dotnet run --project Api --launch-profile https
+cd frontend/
+npm clean
+npm run dev
 ```
+*De frontend is nu bereikbaar via de URL die in de terminal verschijnt (meestal `http://localhost:5173`).*
+
+### 2. Backend (API)
+Open een nieuwe terminal/tabblad in de hoofdmap en start de .NET Web API op:
+
+```bash
+cd backend/
+dotnet clean
+dotnet restore
+dotnet build
+dotnet run --project Api --launch-profile https
+```
+*De API draait nu beveiligd op: **`https://localhost:7082`***
+
+---
 
 
 ## Architecture
