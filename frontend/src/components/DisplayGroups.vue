@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {apiGet} from "../services/api.ts";
 import ErrorBox from "./ErrorBox.vue";
-import {GroupListDto} from "../Dtos/GroupDtos.ts"
+import {GroupListDto} from "../dtos/GroupDtos.ts"
 import { ref } from 'vue'
 
 
