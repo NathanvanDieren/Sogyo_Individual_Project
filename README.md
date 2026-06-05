@@ -10,6 +10,26 @@ Hoewel er op traditionele sociale media enorm veel gedeeld wordt, ligt de focus 
 
 TasteBuds lost dit op door een gezamenlijk platform te bieden waar gebruikers hun ervaringen met content – zoals boeken, films, video's en blogs – kunnen delen. Het platform fungeert als een plek om enerzijds je eigen favoriete media vast te leggen en anderzijds geïnspireerd te raken door de oprechte interesses van je vrienden.
 
+
+## Build Instructie
+Zorg ervoor dat je minimal Node.js 20.19+ of 22.12+ gebruikt om `npm run dev` te kunnen runnen. Voor de backend is dotnet 
+Om de frontend op te starten op Linux zijn de volgende commands nodig.
+```bash
+    cd frontend/
+    npm clean
+    npm run dev
+```
+
+Om de backend op te starten zijn de volgende commands nodig.
+```bash
+    cd backend/
+    dotnet clean
+    dotnet restore
+    dotnet build
+    dotnet run --project Api --launch-profile https
+```
+
+
 ## Architecture
 ### 🧬 Laag 1 — Domain (De Kern)
 
