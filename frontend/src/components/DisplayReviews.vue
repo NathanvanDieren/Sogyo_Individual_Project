@@ -60,6 +60,7 @@ async function GetReviews() {
 
         <small class="members-title">Beoordeling: {{ review.rating }} ⭐</small>
         <small class="members-title">Beschrijving: {{ review.description }}</small>
+        <small class="members-title">Geschreven door: {{review.name}}</small>
       </li>
     </ul>
   </div>
@@ -105,18 +106,12 @@ async function GetReviews() {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
 
-.group-item:hover {
-  border-color: #3b82f6;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(59, 130, 246, 0.15);
-}
 
 .group-item:active {
   transform: translateY(0);
   background-color: #f8fafc;
 }
 
-/* Header layout fixes */
 .review-header {
   display: flex;
   justify-content: space-between;

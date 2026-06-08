@@ -73,7 +73,7 @@ async function CreateGroupAndClose() {
   <div class="modal-overlay" @click="emit('close')">
     <form class="modal-content" @click.stop>
       <h2 class="font-bold text-2xl">Creeer nieuwe groep</h2>
-      <label for="fname"  class="block font-medium text-gray-700 mb-1">Name</label>
+      <label for="fname"  class="block font-medium text-gray-700 mb-1">Naam van de groep:</label>
       <input type="text" id="fname" name="fname" v-model="nameInput" required
              class="w-full border border-gray-300 rounded-lg px-3 py-2 mb-4 focus:outline-none focus:border-blue-500 bg-gray-50">
 
@@ -102,7 +102,7 @@ async function CreateGroupAndClose() {
           Totaal aantal adressen: {{ emailList.length }}
         </p>
       </div>
-      <button type="button" class = "submitButton" @click="CreateGroupAndClose">Create</button>
+      <button type="button" class = "submitButton" @click="CreateGroupAndClose">Creeer</button>
       <ErrorBox error-text=""></ErrorBox>
     </form>
   </div>

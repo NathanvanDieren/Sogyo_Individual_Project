@@ -15,5 +15,6 @@ export interface ReviewDto {
     rating: number
     description: string
     groupIds: string[]
+    name: string
 }
 

@@ -67,7 +67,8 @@ internal class ReviewRepository: IReviewRepository
                 Title = g.Title,
                 Rating = g.Rating,
                 Description = g.Description,
-                Itemtype = g.ItemType.ToString() 
+                Itemtype = g.ItemType.ToString(), 
+                Name = g.Creator.Username 
             })
             .ToListAsync();
 
