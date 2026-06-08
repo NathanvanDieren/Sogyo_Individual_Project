@@ -5,7 +5,8 @@ import type { Ref } from 'vue'
 import { apiGet, apiPost } from "../services/api.ts";
 import { ItemTypeDto } from "../dtos/ReviewDtos.ts";
 
-const titleInput = ref<string>('')
+
+const title = ref<string>('')
 const description = ref<string>('')
 const rating = ref<number>(0)
 const itemType = ref<string>('')
@@ -30,23 +31,23 @@ onMounted(() => {
 
 async function CreateReviewAndClose() {
   interface CreateReviewResponse {
-    titleInput: string,
-    description: string,
+    title: string,
     rating: number,
+    description: string,
     itemType: string,
-    groupIds: string[]
+    groupsguids: string[]
   }
 
   const data: CreateReviewResponse = {
-    titleInput: titleInput.value,
-    description: description.value,
+    title: title.value,
     rating: rating.value,
+    description: description.value,
     itemType: itemType.value,
-    groupIds: ["", ""]
+    groupsguids: []
   }
 
   try {
-    await apiPost<CreateReviewResponse, any>('/api/group/create', data)
+    await apiPost<CreateReviewResponse, any>('/api/review/create', data)
     emit('success')
     emit('close')
   } catch (err: any) {
@@ -61,7 +62,7 @@ async function CreateReviewAndClose() {
       <h2 class="font-bold text-2xl mb-4">Schrijf een Review</h2>
 
       <label for="title" class="label">Titel</label>
-      <input type="text" id="title" v-model="titleInput" required
+      <input type="text" id="title" v-model="title" required
              class="inputField">
 
       <label for="description" class="label">Omschrijving</label>

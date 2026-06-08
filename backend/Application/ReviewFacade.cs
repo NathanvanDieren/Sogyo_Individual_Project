@@ -56,4 +56,17 @@ internal class ReviewFacade : IReviewFacade
 
         return await Task.FromResult(itemTypes);
     }
+
+    public async Task<ReviewListDto> GetReviews()
+    {
+        var currentUser = _currentUserService.User;
+        if (currentUser == null)
+        {
+            throw new UnauthorizedAccessException("Gebruiker is niet ingelogd.");
+        }
+        
+        var reviews = await _reviewRepository.GetAllReviewsByUserIdAsync(currentUser);
+
+        return reviews;
+    }
 }

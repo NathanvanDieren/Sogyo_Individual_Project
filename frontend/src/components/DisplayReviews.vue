@@ -1,29 +1,29 @@
 <script setup lang="ts">
 import {apiGet} from "../services/api.ts";
 import ErrorBox from "./ErrorBox.vue";
-import {GroupListDto} from "../dtos/GroupDtos.ts"
+import {ReviewListDto} from "../dtos/ReviewDtos.ts"
 import { ref } from 'vue'
 
 
 const errorType = ref<string>('')
 const errorText = ref<string>('')
 
-const groupList = ref<GroupListDto | null>(null)
+const reviewList = ref<ReviewListDto | null>(null)
 defineExpose({
-  GetGroups
+  GetReviews
 })
 
-GetGroups().then(() => {
-  if (groupList.value?.groups) {
-    groupList.value.groups.forEach(group => {
-      console.log(group.name)
+GetReviews().then(() => {
+  if (reviewList.value?.reviews) {
+    reviewList.value.reviews.forEach(group => {
+      console.log(group.title)
     })
   }
 })
 
-async function GetGroups() {
+async function GetReviews() {
   try {
-    groupList.value = await apiGet<GroupListDto>('/api/group/getgroups')
+    reviewList.value = await apiGet<ReviewListDto>('/api/review/getreviews')
   } catch (err: any) {
     errorType.value = err.type || 'Fout'
     errorText.value = err.message || 'Er is een onbekende fout opgetreden.'
@@ -34,25 +34,26 @@ async function GetGroups() {
 <template>
   <ErrorBox v-if="errorText" :error-text="errorText" :error-type="errorType" />
 
-  <div v-else-if="groupList && groupList.groups.length > 0" class="groups-container">
-    <p class="total-count">Groepen: {{ groupList.totalCount }}</p>
+  <div v-else-if="reviewList && reviewList.reviews.length > 0" class="groups-container">
+    <p class="total-count">Reviews: {{ reviewList.totalCount }}</p>
 
     <ul class="groups-list">
       <li
-          v-for="group in groupList.groups"
-          :key="group.id"
+          v-for="review in reviewList.reviews"
+          :key="review.id"
           class="group-item"
           role="button"
           tabindex="0"
       >
-        <h3>{{ group.name }}</h3>
+        <h3>{{ review.title }}</h3>
 
-        <small class="members-title">👤: {{ group.members.length }}</small>
+        <small class="members-title">Rating: {{review.rating}} ⭐</small>
+        <small class="members-title">Description: {{review.description}}</small>
       </li>
     </ul>
   </div>
-  <p v-else-if="groupList?.groups?.length === 0">Nog geen groepen aangemaakt</p>
-  <p v-else>Groepen laden...</p>
+  <p v-else-if="reviewList?.reviews?.length === 0">Nog geen reviews geschreven</p>
+  <p v-else>Reviews laden...</p>
 </template>
 
 

@@ -5,7 +5,6 @@ public class Review
     public Guid Id { get; private set; }
     public User Creator { get; private set; }
     public string Title { get; private set; }
-    
     public int Rating { get; private set; }
     public string Description { get; private set; }
     public ItemType ItemType { get; private set; }
