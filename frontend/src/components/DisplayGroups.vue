@@ -3,10 +3,15 @@ import {apiGet} from "../services/api.ts";
 import ErrorBox from "./ErrorBox.vue";
 import {GroupListDto} from "../dtos/GroupDtos.ts"
 import { ref } from 'vue'
+import router from "../router";
 
 
 const errorType = ref<string>('')
 const errorText = ref<string>('')
+
+const emit = defineEmits<{
+  (e: 'groups-loaded', groups: any[]): void
+}>()
 
 const groupList = ref<GroupListDto | null>(null)
 defineExpose({
@@ -15,9 +20,7 @@ defineExpose({
 
 GetGroups().then(() => {
   if (groupList.value?.groups) {
-    groupList.value.groups.forEach(group => {
-      console.log(group.name)
-    })
+    emit('groups-loaded', groupList.value.groups)
   }
 })
 
@@ -28,6 +31,9 @@ async function GetGroups() {
     errorType.value = err.type || 'Fout'
     errorText.value = err.message || 'Er is een onbekende fout opgetreden.'
   }
+}
+function goToGroup(groupId: string) {
+  router.push({ name: 'GroupReviews', params: { id: groupId } })
 }
 </script>
 
@@ -42,6 +48,7 @@ async function GetGroups() {
           v-for="group in groupList.groups"
           :key="group.id"
           class="group-item"
+          @click="goToGroup(group.id)"
           role="button"
           tabindex="0"
       >

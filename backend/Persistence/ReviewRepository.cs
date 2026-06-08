@@ -23,7 +23,7 @@ internal class ReviewRepository: IReviewRepository
     
     public async Task<ReviewListDto> GetAllReviewsByUserIdAsync(User user)
     {
-        if (user == null)
+        if (user != null)
         {
             return new ReviewListDto { Reviews = new List<ReviewDto>(), TotalCount = 0 };
         }
@@ -36,12 +36,38 @@ internal class ReviewRepository: IReviewRepository
                 Title = g.Title,
                 Rating = g.Rating,
                 Description = g.Description,
-                ItemType =  g.ItemType.ToString(),
+                Itemtype =  g.ItemType.ToString(),
                 Groups = g.Groups.Select(m => new GroupInReviewDto
                 {
                     Id = m.Id,
                     Name = m.Name
                 }).ToList()
+            })
+            .ToListAsync();
+
+        return new ReviewListDto()
+        {
+            Reviews = reviews,
+            TotalCount = reviews.Count
+        };
+    }
+
+    public async Task<ReviewListDto> GetReviewsByGroupIdAsync(Guid groupId)
+    {
+        if (groupId == null)
+        {
+            return new ReviewListDto { Reviews = new List<ReviewDto>(), TotalCount = 0 };
+        }
+
+        var reviews = await _context.Reviews
+            .Where(r => r.Groups.Any(g => g.Id == groupId))
+            .Select(g => new ReviewDto
+            {
+                Id = g.Id,
+                Title = g.Title,
+                Rating = g.Rating,
+                Description = g.Description,
+                Itemtype = g.ItemType.ToString() 
             })
             .ToListAsync();
 

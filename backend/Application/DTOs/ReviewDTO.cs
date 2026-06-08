@@ -25,7 +25,7 @@ public class ReviewDto
     public string Title { get; set; } = string.Empty;
     public int Rating { get; set; }
     public string Description { get; set; } = string.Empty;
-    public string ItemType { get; set; }
+    public string Itemtype { get; set; }
     public List<GroupInReviewDto> Groups { get; set; } = new(); 
 }
 

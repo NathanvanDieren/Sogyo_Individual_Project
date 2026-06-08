@@ -14,8 +14,12 @@ const itemType = ref<string>('')
 const errorMessage: Ref<string> = ref('')
 const emit = defineEmits(['close', 'success'])
 
+defineProps<{
+  availableGroups: any[]
+}>()
 
 const itemTypeList = ref<ItemTypeDto[]>([])
+const selectedGroupsGuids = ref<string[]>([])
 
 async function GetItemTypes() {
   try {
@@ -43,7 +47,7 @@ async function CreateReviewAndClose() {
     rating: rating.value,
     description: description.value,
     itemType: itemType.value,
-    groupsguids: []
+    groupsguids: selectedGroupsGuids.value,
   }
 
   try {
@@ -86,8 +90,21 @@ async function CreateReviewAndClose() {
         </option>
       </select>
 
+      <div class="groups-selection" v-if="availableGroups.length > 0">
+        <label class="label">Delen met groepen:</label>
+        <div v-for="group in availableGroups" :key="group.id" class="checkbox-item">
+          <input
+              type="checkbox"
+              :id="group.id"
+              :value="group.id"
+              v-model="selectedGroupsGuids"
+          />
+          <label :for="group.id">{{ group.name }}</label>
+        </div>
+      </div>
+
       <p v-if="errorMessage" class="error mb-4">{{ errorMessage }}</p>
-      <button type="button" class="submitButton w-full bg-blue-500 text-white py-2 rounded-lg font-medium" @click="CreateReviewAndClose">Create</button>
+      <button type="button" class="submitButton w-full bg-blue-500 text-white py-2 rounded-lg font-medium" @click="CreateReviewAndClose">Post</button>
 
       <ErrorBox v-if="errorMessage" :error-text="errorMessage"></ErrorBox>
     </form>

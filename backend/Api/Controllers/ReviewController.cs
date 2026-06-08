@@ -95,4 +95,18 @@ public class ReviewController: ControllerBase
             return StatusCode(500, new { message = "Er is een interne serverfout opgetreden." });
         }
     }
+    
+    [HttpGet("getreviews/{groupId}")]
+    public async Task<IActionResult> GetReviewsByGroup([FromRoute] Guid groupId)
+    {
+        try
+        {
+            ReviewListDto response = await _reviewFacade.GetReviewsByGroupId(groupId);
+            return Ok(response);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { message = "Fout bij ophalen van groepsreviews." });
+        }
+    }
 }

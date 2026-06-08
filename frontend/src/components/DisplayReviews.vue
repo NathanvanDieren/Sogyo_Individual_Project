@@ -1,17 +1,21 @@
 <script setup lang="ts">
-import {apiGet} from "../services/api.ts";
-import ErrorBox from "./ErrorBox.vue";
-import {ReviewListDto} from "../dtos/ReviewDtos.ts"
+import { apiGet } from "../services/api.ts";
+import ErrorBox  from "../components/ErrorBox.vue";
+import { ReviewListDto } from "../dtos/ReviewDtos.ts"
 import { ref } from 'vue'
-
 
 const errorType = ref<string>('')
 const errorText = ref<string>('')
 
 const reviewList = ref<ReviewListDto | null>(null)
+
 defineExpose({
   GetReviews
 })
+
+const props = defineProps<{
+  id: string
+}>()
 
 GetReviews().then(() => {
   if (reviewList.value?.reviews) {
@@ -23,7 +27,7 @@ GetReviews().then(() => {
 
 async function GetReviews() {
   try {
-    reviewList.value = await apiGet<ReviewListDto>('/api/review/getreviews')
+    reviewList.value = await apiGet<ReviewListDto>(`/api/review/getreviews/${props.id}`)
   } catch (err: any) {
     errorType.value = err.type || 'Fout'
     errorText.value = err.message || 'Er is een onbekende fout opgetreden.'
@@ -45,17 +49,23 @@ async function GetReviews() {
           role="button"
           tabindex="0"
       >
-        <h3>{{ review.title }}</h3>
+        <div class="review-header">
+          <h3>{{ review.title }}</h3>
+          <div class="itemtype">
+            <small class="itemtext">
+              {{ review.itemtype|| 'Onbekend' }}
+            </small>
+          </div>
+        </div>
 
-        <small class="members-title">Rating: {{review.rating}} ⭐</small>
-        <small class="members-title">Description: {{review.description}}</small>
+        <small class="members-title">Beoordeling: {{ review.rating }} ⭐</small>
+        <small class="members-title">Beschrijving: {{ review.description }}</small>
       </li>
     </ul>
   </div>
   <p v-else-if="reviewList?.reviews?.length === 0">Nog geen reviews geschreven</p>
   <p v-else>Reviews laden...</p>
 </template>
-
 
 <style scoped>
 .groups-container {
@@ -72,7 +82,6 @@ async function GetReviews() {
   margin-bottom: 20px;
 }
 
-
 .groups-list, .members-list {
   list-style: none;
   padding: 0;
@@ -85,8 +94,8 @@ async function GetReviews() {
   gap: 16px;
 }
 
-
 .group-item {
+  position: relative;
   background-color: #ffffff;
   border: 2px solid #e0e0e0;
   border-radius: 12px;
@@ -95,7 +104,6 @@ async function GetReviews() {
   transition: all 0.2s ease-in-out;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
-
 
 .group-item:hover {
   border-color: #3b82f6;
@@ -108,10 +116,34 @@ async function GetReviews() {
   background-color: #f8fafc;
 }
 
-.group-item h3 {
-  margin-top: 0;
+/* Header layout fixes */
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
   margin-bottom: 8px;
+}
+
+.group-item h3 {
+  margin: 0;
   color: #1e293b;
+  max-width: 70%; /* Voorkomt dat een hele lange titel door je label heen loopt */
+}
+
+.itemtype {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.itemtext {
+  font-size: 0.8rem;
+  color: black;
+  background-color: mediumseagreen;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-weight: 500;
+  white-space: nowrap;
 }
 
 .members-title {

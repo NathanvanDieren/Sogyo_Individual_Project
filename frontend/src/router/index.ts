@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomePage from '../pages/HomePage.vue'
 import AuthPage from "../pages/AuthPage.vue";
 import RegisterPage from "../pages/RegisterPage.vue";
+import GroupReviewView from "../pages/GroupReviewView.vue";
 import {apiGet} from "../services/api.ts";
 
 const routes = [
@@ -20,6 +21,13 @@ const routes = [
         path: '/register',
         name: 'register',
         component: RegisterPage
+    },
+    {
+        path: '/group/:id',
+        name: 'GroupReviews',
+        component: GroupReviewView,
+        props: true,
+        meta: { requiresAuth: true }
     }
 ]
 
