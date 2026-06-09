@@ -6,7 +6,7 @@ import { apiPost } from "../services/api.ts";
 interface GroupEditData {
   id: string
   name: string
-  members: string[]
+  emails: string[]
 }
 
 const props = defineProps<{
@@ -33,9 +33,8 @@ function initializeForm() {
 
   if (props.groupToEdit) {
     nameInput.value = props.groupToEdit.name
-    emailList.value = props.groupToEdit.members
-        ? props.groupToEdit.members.map((m: any) => m.email)
-        : []
+    emailList.value = props.groupToEdit.emails
+
   } else {
     nameInput.value = ''
     emailList.value = []
@@ -43,7 +42,13 @@ function initializeForm() {
 }
 
 onMounted(initializeForm)
-watch(() => props.groupToEdit, initializeForm)
+watch(
+    () => props.groupToEdit,
+    () => {
+      initializeForm()
+    },
+    { immediate: true }
+)
 
 const addEmail = (): void => {
   const trimmedEmail: string = newEmail.value.trim()

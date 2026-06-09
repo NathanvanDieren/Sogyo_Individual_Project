@@ -9,9 +9,8 @@ import { GroupListDto } from "../dtos/GroupDtos.ts";
 const errorType = ref<string>('')
 const errorText = ref<string>('')
 
-// 2. Definieer de benodigde states voor de modal en bewerken
 const showReviewModal = ref(false)
-const selectedReview = ref<any>(null) // null = nieuw, gevuld = edit
+const selectedReview = ref<any>(null)
 
 const reviewList = ref<ReviewListDto | null>(null)
 const groupList = ref<GroupListDto | null>(null)
@@ -113,7 +112,21 @@ async function deleteReview(reviewId: string) {
             </div>
           </div>
 
-          <small class="members-title">Beoordeling: {{ review.rating }} ⭐</small>
+          <div class="rating-field">
+            <label class="block font-medium text-gray-700 mb-1">Beoordeling:</label>
+
+            <div class="stars-display">
+                <span
+                    v-for="star in [1, 2, 3, 4, 5]"
+                    :key="star"
+                    class="star"
+                    :class="{ 'active': star <= review.rating }"
+                >
+                  ★
+                </span>
+            </div>
+          </div>
+
           <small class="members-title">Beschrijving: {{ review.description }}</small>
           <small class="members-title mb-4">Geschreven door: {{ review.name }}</small>
 
@@ -275,5 +288,21 @@ async function deleteReview(reviewId: string) {
 
 .mb-4 {
   margin-bottom: 16px;
+}
+
+.stars-display {
+  display: flex;
+  gap: 4px;
+}
+
+.stars-display .star {
+  font-size: 2.5rem;
+  color: #ccc;
+  user-select: none;
+}
+
+
+.stars-display .star.active {
+  color: #ffc107;
 }
 </style>

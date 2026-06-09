@@ -39,9 +39,6 @@ public class ReviewController: ControllerBase
             return StatusCode(500, new 
             { 
                 message = "Er is een interne serverfout opgetreden.",
-                error = ex.Message,             // Wat is er precies kapot? (bijv. NullReferenceException)
-                detail = ex.StackTrace,         // Op welke regel in welke file ging het mis?
-                innerError = ex.InnerException?.Message // Soms zit de échte fout hierin (bijv. bij Database fouten)
             });
         }
     }
@@ -69,6 +66,9 @@ public class ReviewController: ControllerBase
             return StatusCode(500, new 
             { 
                 message = "Er is een interne serverfout opgetreden.",
+                error = ex.Message,                                 // De directe foutmelding (bijv. "NullReferenceException")
+                innerError = ex.InnerException?.Message,            // De dieperliggende fout (bijv. PostgreSQL "Duplicate key violation")
+                type = ex.GetType().Name                            // Het exacte type exception
             });
         }
     }

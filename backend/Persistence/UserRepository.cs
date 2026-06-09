@@ -38,10 +38,14 @@ internal class UserRepository: IUserRepository
         {
             return new List<User>();
         }
-
+        
+        var cleanEmails = emails
+            .Where(e => !string.IsNullOrWhiteSpace(e))
+            .Select(e => e.Trim().ToLower())
+            .ToList();
+        
         return await _context.Users
-            .Where(u => emails.Contains(u.Email))
+            .Where(u => cleanEmails.Contains(u.Email.ToLower()))
             .ToListAsync();
     }
-
 }

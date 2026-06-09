@@ -55,6 +55,10 @@ async function handleFormSuccess() {
     emit('groups-loaded', groupList.value.groups)
   }
 }
+function openCreateModal() {
+  showGroupModal.value = true
+  selectedGroup.value = null
+}
 
 function goToGroup(groupId: string) {
   router.push({ name: 'GroupReviews', params: { id: groupId } })
@@ -88,8 +92,9 @@ async function deleteGroup(groupId: string) {
   />
 
   <div v-if="groupList" class="groups-container">
-    <p v-if="groupList.groups.length > 0" class="total-count">Groepen: {{ groupList.totalCount }}</p>
+    <button @click="openCreateModal" class="create-main-btn">+ Nieuwe Groep</button>
 
+    <p v-if="groupList.groups.length > 0" class="total-count">Groepen: {{ groupList.totalCount }}</p>
     <ul v-if="groupList.groups.length > 0" class="groups-list">
       <li
           v-for="group in groupList.groups"
@@ -220,5 +225,22 @@ async function deleteGroup(groupId: string) {
   justify-content: space-between;
   align-items: flex-start;
   margin-bottom: 8px;
+}
+
+.create-main-btn {
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 20px;
+  display: block;
+  transition: background-color 0.2s;
+}
+
+.create-main-btn:hover {
+  background-color: #2563eb;
 }
 </style>

@@ -26,27 +26,38 @@ public class Group
 
     public void AddMember(User user)
     {
-        if (user != null && !_members.Contains(user)) _members.Add(user);
+        if (user != null && !_members.Any(m => m.Id == user.Id)) 
+        {
+            _members.Add(user);
+        }
     }
-    
+
     public void RemoveMember(User user)
     {
-        if (user != null && _members.Contains(user)) _members.Remove(user);
+        if (user != null)
+        {
+            var memberToRemove = _members.FirstOrDefault(m => m.Id == user.Id);
+            if (memberToRemove != null)
+            {
+                _members.Remove(memberToRemove);
+            }
+        }
     }
 
     public void UpdateMembers(IEnumerable<User> targetMembers)
     {
         var newMemberList = targetMembers ?? Enumerable.Empty<User>();
-
+        
         var memberToRemove = _members
             .Where(currentGroup => !newMemberList.Any(targetGroup => targetGroup.Id == currentGroup.Id))
+            .Where(currentGroup => currentGroup.Id != CreatorId) 
             .ToList();
 
         foreach (var member in memberToRemove)
         {
-            RemoveMember(member);
+            RemoveMember(member); 
         }
-
+        
         var memberToAdd = newMemberList
             .Where(targetGroup => !_members.Any(currentGroup => currentGroup.Id == targetGroup.Id))
             .ToList();
@@ -55,8 +66,7 @@ public class Group
         {
             AddMember(member);
         }
-
-        ChangeLastUpdated();
+        
     }
 
     public void ChangeName(string newName)

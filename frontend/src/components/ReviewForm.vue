@@ -104,6 +104,7 @@ async function SaveReviewAndClose() {
     errorMessage.value = err.message || 'Er is een onbekende fout opgetreden.'
   }
 }
+
 </script>
 
 <template>
@@ -120,8 +121,23 @@ async function SaveReviewAndClose() {
       <label for="description" class="label">Omschrijving</label>
       <input type="text" id="description" v-model="description" required class="inputField">
 
-      <label for="rating" class="label">Beoordeling</label>
-      <input type="number" id="rating" v-model.number="rating" required min="0" max="5" class="inputField">
+      <div class="rating-field">
+        <label class="block font-medium text-gray-700 mb-1">Beoordeling:</label>
+
+        <div class="stars">
+          <template v-for="star in [5, 4, 3, 2, 1]" :key="star">
+            <input
+                type="radio"
+                :id="'review-star-' + star"
+                name="review-rating"
+                :value="star"
+                :checked="rating === star"
+                @change="rating = star"
+            />
+            <label :for="'review-star-' + star" :title="star + ' sterren'"></label>
+          </template>
+        </div>
+      </div>
 
       <label for="itemtypes" class="label">Type</label>
       <select name="itemtypes" id="itemtypes" v-model="itemType" required class="inputField">
@@ -247,5 +263,41 @@ async function SaveReviewAndClose() {
 }
 .submitButton:hover {
   background-color: #2563eb;
+}
+
+.rating-field {
+  margin-bottom: 15px;
+}
+.stars {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+}
+
+.stars input {
+  display: none;
+}
+
+.stars label {
+  font-size: 2.5rem;
+  color: #ccc;
+  cursor: pointer;
+  transition: color 0.15s ease-in-out;
+  padding: 0 4px;
+}
+
+.stars label::before {
+  content: '★';
+}
+.stars label:hover,
+.stars label:hover ~ label {
+  color: #ffca08;
+}
+.stars input:checked ~ label {
+  color: #ffc107;
+}
+.stars input:checked ~ label:hover,
+.stars input:checked ~ label:hover ~ label {
+  color: #ffca08;
 }
 </style>

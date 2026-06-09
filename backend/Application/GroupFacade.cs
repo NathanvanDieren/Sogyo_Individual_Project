@@ -1,8 +1,8 @@
 using Application.DTOs;
 using Application.Interfaces;
 using Domain;
-using Application.Interfaces;
-using Microsoft.AspNetCore.Http;
+
+namespace Application; 
 
 public class GroupFacade: IGroupFacade
 {   
@@ -17,7 +17,7 @@ public class GroupFacade: IGroupFacade
         _currentUserService = currentUserService;
     }
 
-    public async Task<GroupResponseDto> CreateGroup(string name, List<string> emails)
+    public async Task<GroupResponseDto> CreateGroup(CreateGroupDto model)
     {
         var currentUser = _currentUserService.User;
         if (currentUser == null)
@@ -25,24 +25,23 @@ public class GroupFacade: IGroupFacade
             throw new UnauthorizedAccessException("Gebruiker is niet ingelogd.");
         }
         
-        var newGroup = new Group(name, currentUser);
+        var newGroup = new Group(model.Name, currentUser);
 
-        if (emails != null && emails.Any())
+        IEnumerable<User> targetMembers = Enumerable.Empty<User>();
+        
+        if (model.Emails != null && model.Emails.Any())
         {
-            var existingUsers = await _userRepository.GetUsersByEmailsAsync(emails);
-            
-            foreach (var user in existingUsers)
-            {
-                newGroup.AddMember(user);
-            }
+            targetMembers = await _userRepository.GetUsersByEmailsAsync(model.Emails);
         }
+        
+        newGroup.UpdateMembers(targetMembers);
         
         await _groupRepository.AddGroupAsync(newGroup);
         
         return new GroupResponseDto(newGroup.Id);
     }
     
-    public async Task<ReviewResponseDto> EditGroup(Guid groupId, CreateGroupDto model)
+    public async Task<GroupResponseDto> EditGroup(Guid groupId, CreateGroupDto model)
     {
         var currentUser = _currentUserService.User;
         if (currentUser == null)
@@ -64,7 +63,7 @@ public class GroupFacade: IGroupFacade
 
         await _groupRepository.SaveChangesAsync();
         
-        return new ReviewResponseDto(group.Id);
+        return new GroupResponseDto(group.Id);
     }
     
     public async Task<GroupListDto> GetGroups()

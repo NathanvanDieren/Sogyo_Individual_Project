@@ -21,7 +21,7 @@ public class GroupController: ControllerBase
     {   
         try 
         {
-            GroupResponseDto response = await _groupFacade.CreateGroup(model.Name, model.Emails);
+            GroupResponseDto response = await _groupFacade.CreateGroup(model);
         
             if (response == null)
             {
@@ -38,6 +38,36 @@ public class GroupController: ControllerBase
         catch (Exception ex)
         {
             return StatusCode(500, new { message = "Er is een interne serverfout opgetreden." });
+        }
+    }
+    
+    [HttpPost("edit/{groupId}")]
+    public async Task<IActionResult> CreateReview([FromRoute] Guid groupId, [FromBody] CreateGroupDto model)
+    {   
+        try
+        {
+            GroupResponseDto response = await _groupFacade.EditGroup(groupId, model);
+            if (response == null)
+            {
+                return BadRequest(new { message = "Review aanpassen is mislukt. Probeer het opnieuw." });
+            }
+        
+            return Ok(response);
+        }
+        catch (BadHttpRequestException ex)
+        {
+
+            return BadRequest(new { message = ex.Message });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new 
+            { 
+                message = "Er is een interne serverfout opgetreden.",
+                error = ex.Message,             // Wat is er precies kapot? (bijv. NullReferenceException)
+                detail = ex.StackTrace,         // Op welke regel in welke file ging het mis?
+                innerError = ex.InnerException?.Message // Soms zit de échte fout hierin (bijv. bij Database fouten)
+            });
         }
     }
     
