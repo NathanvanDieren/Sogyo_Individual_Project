@@ -1,20 +1,49 @@
 <script setup lang="ts">
 import ErrorBox from "./ErrorBox.vue";
-import {Ref, ref} from 'vue'
-import {apiPost} from "../services/api.ts";
+import {ref, onMounted, watch } from 'vue'
+import { apiPost } from "../services/api.ts";
 
-const newEmail: Ref<string> = ref('')
-const errorMessage: Ref<string> = ref('')
-const emailList: Ref<string[]> = ref([])
+interface GroupEditData {
+  id: string
+  name: string
+  members: string[]
+}
 
-const nameInput = ref<string>('')
-const errorType = ref<string>('')
-const errorText = ref<string>('')
+const props = defineProps<{
+  groupToEdit?: GroupEditData | null
+}>()
 
 const emit = defineEmits(['close', 'success'])
 
+const nameInput = ref<string>('')
+const emailList = ref<string[]>([])
+const newEmail = ref<string>('')
+const errorMessage = ref<string>('')
+
+const errorType = ref<string>('')
+const errorText = ref<string>('')
+
 // Regex voor e-mailvalidatie
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+function initializeForm() {
+  errorType.value = ''
+  errorText.value = ''
+  errorMessage.value = ''
+
+  if (props.groupToEdit) {
+    nameInput.value = props.groupToEdit.name
+    emailList.value = props.groupToEdit.members
+        ? props.groupToEdit.members.map((m: any) => m.email)
+        : []
+  } else {
+    nameInput.value = ''
+    emailList.value = []
+  }
+}
+
+onMounted(initializeForm)
+watch(() => props.groupToEdit, initializeForm)
 
 const addEmail = (): void => {
   const trimmedEmail: string = newEmail.value.trim()
@@ -43,22 +72,32 @@ const removeEmail = (index: number): void => {
   emailList.value.splice(index, 1)
 }
 
-async function CreateGroupAndClose() {
+async function saveGroupAndClose() {
   errorType.value = ''
   errorText.value = ''
 
-  interface CreateGroupProps {
-    name: String,
-    emails: String[]
+  if (!nameInput.value.trim()) {
+    errorType.value = 'Validatie Fout'
+    errorText.value = 'Groepsnaam is verplicht.'
+    return
   }
-  const data: CreateGroupProps = {
+
+  interface SaveGroupProps {
+    name: string,
+    emails: string[]
+  }
+
+  const data: SaveGroupProps = {
     name: nameInput.value,
     emails: emailList.value
-
   }
 
   try {
-    await apiPost<CreateGroupProps, any>('/api/group/create', data)
+    if (props.groupToEdit) {
+      await apiPost<SaveGroupProps, any>(`/api/group/edit/${props.groupToEdit.id}`, data)
+    } else {
+      await apiPost<SaveGroupProps, any>('/api/group/create', data)
+    }
 
     emit('success')
     emit('close')
@@ -71,21 +110,31 @@ async function CreateGroupAndClose() {
 
 <template>
   <div class="modal-overlay" @click="emit('close')">
-    <form class="modal-content" @click.stop>
-      <h2 class="font-bold text-2xl">Creeer nieuwe groep</h2>
-      <label for="fname"  class="block font-medium text-gray-700 mb-1">Naam van de groep:</label>
-      <input type="text" id="fname" name="fname" v-model="nameInput" required
-             class="w-full border border-gray-300 rounded-lg px-3 py-2 mb-4 focus:outline-none focus:border-blue-500 bg-gray-50">
+    <form class="modal-content" @click.stop @submit.prevent="saveGroupAndClose">
 
-      <div class="email-manager">
-        <h3>E-mailadressen toevoegen</h3>
+      <h2 class="font-bold text-2xl mb-4">
+        {{ props.groupToEdit ? 'Groep bewerken' : 'Creëer nieuwe groep' }}
+      </h2>
+
+      <label for="fname" class="block font-medium text-gray-700 mb-1">Naam van de groep:</label>
+      <input
+          type="text"
+          id="fname"
+          name="fname"
+          v-model="nameInput"
+          required
+          class="w-full border border-gray-300 rounded-lg px-3 py-2 mb-4 focus:outline-none focus:border-blue-500 bg-gray-50"
+      >
+
+      <div class="email-manager mb-4">
+        <h3>E-mailadressen van groepsleden</h3>
 
         <div class="input-group">
           <input
               v-model="newEmail"
               type="email"
               placeholder="vriend@voorbeeld.nl"
-              @keyup.enter="addEmail"
+              @keyup.enter.prevent="addEmail"
           />
           <button @click="addEmail" type="button">Toevoegen</button>
         </div>
@@ -102,8 +151,15 @@ async function CreateGroupAndClose() {
           Totaal aantal adressen: {{ emailList.length }}
         </p>
       </div>
-      <button type="button" class = "submitButton" @click="CreateGroupAndClose">Creeer</button>
-      <ErrorBox error-text=""></ErrorBox>
+
+      <ErrorBox v-if="errorText" :error-type="errorType" :error-text="errorText"></ErrorBox>
+
+      <div class="flex gap-2 mt-4">
+        <button type="button" class="cancelButton" @click="emit('close')">Annuleren</button>
+        <button type="submit" class="submitButton">
+          {{ props.groupToEdit ? 'Opslaan' : 'Creëren' }}
+        </button>
+      </div>
     </form>
   </div>
 </template>
@@ -200,5 +256,26 @@ button {
 .meta {
   font-size: 12px;
   color: #666;
+}
+.flex {
+  display: flex;
+}
+.gap-2 {
+  gap: 8px;
+}
+.mt-4 {
+  margin-top: 16px;
+}
+.cancelButton {
+  padding: 8px 16px;
+  background-color: #64748b;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 500;
+}
+.cancelButton:hover {
+  background-color: #475569;
 }
 </style>

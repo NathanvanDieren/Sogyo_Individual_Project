@@ -1,10 +1,14 @@
 <script setup lang="ts">
-import {apiGet} from "../services/api.ts";
+import {apiDelete, apiGet} from "../services/api.ts";
 import ErrorBox from "./ErrorBox.vue";
-import {GroupListDto} from "../dtos/GroupDtos.ts"
+import {GroupDto, GroupListDto, GroupMemberDto} from "../dtos/GroupDtos.ts"
 import { ref } from 'vue'
 import router from "../router";
+import GroupForm from "./GroupForm.vue";
 
+const showGroupModal = ref(false);
+
+const selectedGroup = ref<any>(null);
 
 const errorType = ref<string>('')
 const errorText = ref<string>('')
@@ -14,9 +18,7 @@ const emit = defineEmits<{
 }>()
 
 const groupList = ref<GroupListDto | null>(null)
-defineExpose({
-  GetGroups
-})
+defineExpose({ GetGroups })
 
 GetGroups().then(() => {
   if (groupList.value?.groups) {
@@ -32,18 +34,63 @@ async function GetGroups() {
     errorText.value = err.message || 'Er is een onbekende fout opgetreden.'
   }
 }
+
+function editGroup(group: GroupDto) {
+  const existingEmails: string[] = group.members
+      ? group.members.map((member: GroupMemberDto) => member.email)
+      : [];
+
+  selectedGroup.value = {
+    id: group.id,
+    name: group.name,
+    emails: existingEmails
+  };
+
+  showGroupModal.value = true;
+}
+
+async function handleFormSuccess() {
+  await GetGroups();
+  if (groupList.value?.groups) {
+    emit('groups-loaded', groupList.value.groups)
+  }
+}
+
 function goToGroup(groupId: string) {
   router.push({ name: 'GroupReviews', params: { id: groupId } })
+}
+
+async function deleteGroup(groupId: string) {
+  const bevestigd = confirm("Weet je zeker dat je deze groep wilt verwijderen? Dit kan niet ongedaan worden gemaakt.");
+  if (!bevestigd) return;
+
+  try {
+    await apiDelete(`/api/group/delete/${groupId}`)
+    await GetGroups()
+    if (groupList.value?.groups) {
+      emit('groups-loaded', groupList.value.groups)
+    }
+  } catch (err: any) {
+    errorType.value = err.type || 'Fout'
+    errorText.value = err.message || 'Er is een onbekende fout opgetreden.'
+  }
 }
 </script>
 
 <template>
   <ErrorBox v-if="errorText" :error-text="errorText" :error-type="errorType" />
 
-  <div v-else-if="groupList && groupList.groups.length > 0" class="groups-container">
-    <p class="total-count">Groepen: {{ groupList.totalCount }}</p>
+  <GroupForm
+      v-if="showGroupModal"
+      :group-to-edit="selectedGroup"
+      @close="showGroupModal = false"
+      @success="handleFormSuccess"
+  />
 
-    <ul class="groups-list">
+  <div v-if="groupList" class="groups-container">
+    <p v-if="groupList.groups.length > 0" class="total-count">Groepen: {{ groupList.totalCount }}</p>
+
+    <ul v-if="groupList.groups.length > 0" class="groups-list">
       <li
           v-for="group in groupList.groups"
           :key="group.id"
@@ -52,13 +99,24 @@ function goToGroup(groupId: string) {
           role="button"
           tabindex="0"
       >
-        <h3>{{ group.name }}</h3>
+        <div class="group-header">
+          <h3>{{ group.name }}</h3>
+          <div class="editbuttoncontainer">
+            <button @click.stop="editGroup(group)" class="editbutton">
+              Edit
+            </button>
+            <button @click.stop="deleteGroup(group.id)" class="deletebutton">
+              Delete
+            </button>
+          </div>
+        </div>
 
         <small class="members-title">👤: {{ group.members.length }}</small>
       </li>
     </ul>
+
+    <p v-else-if="groupList.groups.length === 0">Nog geen groepen aangemaakt</p>
   </div>
-  <p v-else-if="groupList?.groups?.length === 0">Nog geen groepen aangemaakt</p>
   <p v-else>Groepen laden...</p>
 </template>
 
@@ -83,14 +141,34 @@ function goToGroup(groupId: string) {
   list-style: none;
   padding: 0;
   margin: 0;
-}
-
-.groups-list {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
+.editbutton {
+  font-size: 0.8rem;
+  color: black;
+  background-color: mediumseagreen;
+  opacity: 0.7;
+  padding: 4px 8px;
+  margin: 4px;
+  border-radius: 6px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.deletebutton {
+  font-size: 0.8rem;
+  color: white;
+  background-color: red;
+  opacity: 0.7;
+  padding: 4px 8px;
+  margin: 4px;
+  border-radius: 6px;
+  font-weight: 500;
+  white-space: nowrap;
+}
 
 .group-item {
   background-color: #ffffff;
@@ -101,7 +179,6 @@ function goToGroup(groupId: string) {
   transition: all 0.2s ease-in-out;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
-
 
 .group-item:hover {
   border-color: #3b82f6;
@@ -136,5 +213,12 @@ function goToGroup(groupId: string) {
 
 .members-list li:last-child {
   border-bottom: none;
+}
+
+.group-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 8px;
 }
 </style>

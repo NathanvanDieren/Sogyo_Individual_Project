@@ -8,6 +8,8 @@ public class User
     public string Email { get; private set; }
     public string PasswordHash { get; private set; }
     public string RoleId { get; private set; } 
+    
+    public DateTime LastUpdated { get; private set; }
 
     public User(string username, string email, string passwordHash, string roleId)
     {
@@ -16,6 +18,7 @@ public class User
         Email = email.ToLower().Trim();
         PasswordHash = passwordHash;
         RoleId = roleId;
+        ChangeLastUpdated();
     }
     public bool ChangeUsername(string newUsername)
     {
@@ -25,7 +28,13 @@ public class User
         }
         
         Username = newUsername.Trim();
+        ChangeLastUpdated();
         return true;
+    }
+
+    private void ChangeLastUpdated()
+    {
+        LastUpdated = DateTime.Now;
     }
 
     protected User() { } 

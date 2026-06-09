@@ -19,6 +19,8 @@ internal class ReviewFacade : IReviewFacade
         _groupRepository = groupRepository;
     }
 
+    
+    
     public async Task<ReviewResponseDto> CreateReview(CreateReviewDto model)
     {
         var currentUser = _currentUserService.User;
@@ -29,19 +31,47 @@ internal class ReviewFacade : IReviewFacade
         
         var newReview = new Review(currentUser, model.Title, model.Rating, model.Description, model.ItemType);
 
+        IEnumerable<Group> targetGroups = Enumerable.Empty<Group>();
+        
         if (model.GroupsGuids != null && model.GroupsGuids.Any())
         {
-            var existingUsers = await _groupRepository.GetGroupsByGuidAsync(model.GroupsGuids);
-            
-            foreach (var user in existingUsers)
-            {
-                newReview.AddGroup(user);
-            }
+            targetGroups = await _groupRepository.GetGroupsByGuidAsync(model.GroupsGuids);
         }
+        
+        newReview.UpdateGroups(targetGroups);
         
         await _reviewRepository.AddReviewAsync(newReview);
         
         return new ReviewResponseDto(newReview.Id);
+    }
+    
+    public async Task<ReviewResponseDto> EditReview(Guid reviewId, CreateReviewDto model)
+    {
+        var currentUser = _currentUserService.User;
+        if (currentUser == null)
+        {
+            throw new UnauthorizedAccessException("Gebruiker is niet ingelogd.");
+        }
+
+        Review? review = await _reviewRepository.GetReviewWithGroupsByReviewIdAsync(reviewId);
+        review.ChangeTitle(model.Title);
+        review.ChangeRating(model.Rating);
+        review.ChangeDescription(model.Description);
+        review.ChangeItemType(model.ItemType);
+        
+
+        IEnumerable<Group> targetGroups = Enumerable.Empty<Group>();
+        
+        if (model.GroupsGuids != null && model.GroupsGuids.Any())
+        {
+            targetGroups = await _groupRepository.GetGroupsByGuidAsync(model.GroupsGuids);
+        }
+        
+        review.UpdateGroups(targetGroups);
+
+        await _reviewRepository.SaveChangesAsync();
+        
+        return new ReviewResponseDto(review.Id);
     }
 
     public async Task<IEnumerable<object>> GetItemTypes()
@@ -81,5 +111,17 @@ internal class ReviewFacade : IReviewFacade
         var reviews = await _reviewRepository.GetReviewsByGroupIdAsync(groupId);
 
         return reviews;
+    }
+    
+    public async Task DeleteReviewByReviewId(Guid reviewId)
+    {
+        try
+        {
+            await _reviewRepository.DeleteReviewAsync(reviewId);
+        }
+        catch (Exception ex)
+        {
+            throw new ApplicationException("Kon de groep niet verwijderen.", ex);
+        }
     }
 }

@@ -2,8 +2,8 @@
 import { ref } from 'vue'
 import LogoBar from "../components/LogoBar.vue";
 import AddButton from "../components/AddButton.vue";
-import NewGroupForm from "../components/NewGroupForm.vue";
-import NewReviewForm from "../components/NewReviewForm.vue";
+import GroupForm from "../components/GroupForm.vue";
+import ReviewForm from "../components/ReviewForm.vue";
 import DisplayGroups from "../components/DisplayGroups.vue";
 
 const showGroupModal = ref(false)
@@ -34,13 +34,13 @@ function handleSuccess() {
       @open-review="showReviewModal = true"
   />
 
-  <NewGroupForm
+  <GroupForm
       v-if="showGroupModal"
       @close="showGroupModal = false"
       @success="handleSuccess"
   />
 
-  <NewReviewForm
+  <ReviewForm
       v-if="showReviewModal"
       @close="showReviewModal = false"
       :available-groups="availableGroups"

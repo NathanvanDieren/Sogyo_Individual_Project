@@ -34,22 +34,73 @@ public class Review
     {
     }
     
-    public void AddGroup(Group group)
+    private void AddGroup(Group group)
     {
         if (group != null && !_groups.Contains(group)) 
         {
             _groups.Add(group);
-            LastUpdated = DateTime.UtcNow;
+            ChangeLastUpdated();
         }
     }
     
-    public void RemoveGroup(Group group)
+    private void RemoveGroup(Group group)
     {
         if (group != null && _groups.Contains(group)) 
         {
             _groups.Remove(group);
-            LastUpdated = DateTime.UtcNow;
+            ChangeLastUpdated();
         }
+    }
+    public void UpdateGroups(IEnumerable<Group> targetGroups)
+    {
+        var newGroupList = targetGroups ?? Enumerable.Empty<Group>();
+        
+        var groupsToRemove = _groups
+            .Where(currentGroup => !newGroupList.Any(targetGroup => targetGroup.Id == currentGroup.Id))
+            .ToList();
+        
+        foreach (var group in groupsToRemove)
+        {
+            RemoveGroup(group);
+        }
+        
+        var groupsToAdd = newGroupList
+            .Where(targetGroup => !_groups.Any(currentGroup => currentGroup.Id == targetGroup.Id))
+            .ToList();
+        
+        foreach (var group in groupsToAdd)
+        {
+            AddGroup(group);
+        }
+    }
+
+    public void ChangeTitle(string title)
+    {
+        Title = title;
+        ChangeLastUpdated();
+    }
+
+    public void ChangeRating(int rating)
+    {
+        Rating = rating;
+        ChangeLastUpdated();
+    }
+
+    public void ChangeDescription(string description)
+    {
+        Description = description;
+        ChangeLastUpdated();
+    }
+
+    public void ChangeItemType(ItemType itemType)
+    {
+        ItemType = itemType;
+        ChangeLastUpdated();
+    }
+
+    private void ChangeLastUpdated()
+    {
+        LastUpdated = DateTime.UtcNow;
     }
 
     protected Review() {}

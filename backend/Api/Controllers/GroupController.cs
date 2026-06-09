@@ -66,5 +66,19 @@ public class GroupController: ControllerBase
         }
     }
     
+    [HttpDelete("delete/{groupId}")]
+    public async Task<IActionResult> DeleteGroupByGroupId(Guid groupId)
+    {
+        try
+        {
+            await _groupFacade.DeleteGroupByGroupId(groupId);
+            
+            return NoContent(); 
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { message = "Er is iets fout gegaan bij het verwijderen.", error = ex.Message });
+        }
+    }
     
 }

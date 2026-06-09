@@ -7,8 +7,13 @@ namespace Application.Interfaces;
 public interface IReviewRepository
 {
     Task AddReviewAsync(Review newReview);
+    
+    Task SaveChangesAsync(); 
 
     Task<ReviewListDto> GetAllReviewsByUserIdAsync(User user);
     
+    Task<Review> GetReviewWithGroupsByReviewIdAsync(Guid reviewId);
     Task<ReviewListDto> GetReviewsByGroupIdAsync(Guid groupId);
+    
+    Task DeleteReviewAsync(Guid reviewId);
 }

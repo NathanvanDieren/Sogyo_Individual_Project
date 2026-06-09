@@ -12,4 +12,5 @@ export interface GroupDto {
 export interface GroupMemberDto {
     id: string
     name: string
+    email: string
 }

@@ -44,7 +44,7 @@ public class ReviewTests
         ItemType type = ItemType.Book;
         
         var review = new Review(_newUser1, title, rating, description, type, groups);
-        review.AddGroup(group2);
+        review.UpdateGroups([group1, group2]);
         Assert.Contains(group1, review.Groups);
     }
     
@@ -61,8 +61,8 @@ public class ReviewTests
         ItemType type = ItemType.Book;
         
         var review = new Review(_newUser1, title, rating, description, type, groups);
-        review.AddGroup(group2);
-        review.RemoveGroup(group2);
+        review.UpdateGroups([group1, group2]);
+        review.UpdateGroups([group1]);
         Assert.DoesNotContain(group2, review.Groups);
     }
 
@@ -80,7 +80,7 @@ public class ReviewTests
         ItemType type = ItemType.Book;
         
         var review = new Review(_newUser1, title, rating, description, type, groups);
-        review.RemoveGroup(group2);
+        review.UpdateGroups([group1]);
         Assert.DoesNotContain(group2, review.Groups);
     }
 }

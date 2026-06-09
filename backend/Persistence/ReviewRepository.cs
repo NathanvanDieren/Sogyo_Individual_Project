@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Persistence;
 
-internal class ReviewRepository: IReviewRepository
+internal class ReviewRepository : IReviewRepository
 {
     private readonly AppDbContext _context;
 
@@ -21,6 +21,13 @@ internal class ReviewRepository: IReviewRepository
         await _context.SaveChangesAsync();
     }
     
+    public async Task<Review?> GetReviewWithGroupsByReviewIdAsync(Guid reviewId)
+    {
+        return await _context.Reviews
+            .Include(r => r.Groups) 
+            .FirstOrDefaultAsync(r => r.Id == reviewId);
+    }
+
     public async Task<ReviewListDto> GetAllReviewsByUserIdAsync(User user)
     {
         if (user != null)
@@ -36,7 +43,7 @@ internal class ReviewRepository: IReviewRepository
                 Title = g.Title,
                 Rating = g.Rating,
                 Description = g.Description,
-                Itemtype =  g.ItemType.ToString(),
+                Itemtype = g.ItemType.ToString(),
                 Groups = g.Groups.Select(m => new GroupInReviewDto
                 {
                     Id = m.Id,
@@ -67,8 +74,8 @@ internal class ReviewRepository: IReviewRepository
                 Title = g.Title,
                 Rating = g.Rating,
                 Description = g.Description,
-                Itemtype = g.ItemType.ToString(), 
-                Name = g.Creator.Username 
+                Itemtype = g.ItemType.ToString(),
+                Name = g.Creator.Username
             })
             .ToListAsync();
 
@@ -78,4 +85,21 @@ internal class ReviewRepository: IReviewRepository
             TotalCount = reviews.Count
         };
     }
+
+    public async Task DeleteReviewAsync(Guid reviewId)
+    {
+        var review = await _context.Reviews.FindAsync(reviewId);
+
+        if (review != null)
+        {
+            _context.Reviews.Remove(review);
+            await _context.SaveChangesAsync();
+        }
+    }
+
+    public Task SaveChangesAsync()
+    {
+        return  _context.SaveChangesAsync();
+    }
+
 }

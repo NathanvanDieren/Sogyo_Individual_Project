@@ -38,9 +38,33 @@ public class GroupFacade: IGroupFacade
         }
         
         await _groupRepository.AddGroupAsync(newGroup);
-
-        // 6. Return de DTO
+        
         return new GroupResponseDto(newGroup.Id);
+    }
+    
+    public async Task<ReviewResponseDto> EditGroup(Guid groupId, CreateGroupDto model)
+    {
+        var currentUser = _currentUserService.User;
+        if (currentUser == null)
+        {
+            throw new UnauthorizedAccessException("Gebruiker is niet ingelogd.");
+        }
+
+        Group? group = await _groupRepository.GetGroupAndMembersByGroupIdAsync(groupId);
+        group.ChangeName(model.Name);
+        
+        IEnumerable<User> targetMembers = Enumerable.Empty<User>();
+        
+        if (model.Emails != null && model.Emails.Any())
+        {
+            targetMembers = await _userRepository.GetUsersByEmailsAsync(model.Emails);
+        }
+        
+        group.UpdateMembers(targetMembers);
+
+        await _groupRepository.SaveChangesAsync();
+        
+        return new ReviewResponseDto(group.Id);
     }
     
     public async Task<GroupListDto> GetGroups()
@@ -54,6 +78,18 @@ public class GroupFacade: IGroupFacade
         var groups = await _groupRepository.GetAllGroupsByUserIdAsync(currentUser.Id);
 
         return groups;
+    }
+
+    public async Task DeleteGroupByGroupId(Guid groupId)
+    {
+        try
+        {
+            await _groupRepository.DeleteGroupAsync(groupId);
+        }
+        catch (Exception ex)
+        {
+            throw new ApplicationException("Kon de groep niet verwijderen.", ex);
+        }
     }
     
 }

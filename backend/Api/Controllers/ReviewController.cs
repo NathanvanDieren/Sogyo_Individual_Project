@@ -45,6 +45,33 @@ public class ReviewController: ControllerBase
             });
         }
     }
+    
+    [HttpPost("edit/{reviewId}")]
+    public async Task<IActionResult> CreateReview([FromRoute] Guid reviewId, [FromBody] CreateReviewDto model)
+    {   
+        try
+        {
+            ReviewResponseDto response = await _reviewFacade.EditReview(reviewId, model);
+            if (response == null)
+            {
+                return BadRequest(new { message = "Review aanpassen is mislukt. Probeer het opnieuw." });
+            }
+        
+            return Ok(response);
+        }
+        catch (BadHttpRequestException ex)
+        {
+
+            return BadRequest(new { message = ex.Message });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new 
+            { 
+                message = "Er is een interne serverfout opgetreden.",
+            });
+        }
+    }
 
     [HttpGet("getitemtypes")]
     public async Task<IActionResult> GetItemTypes()
@@ -107,6 +134,21 @@ public class ReviewController: ControllerBase
         catch (Exception ex)
         {
             return StatusCode(500, new { message = "Fout bij ophalen van groepsreviews." });
+        }
+    }
+    
+    [HttpDelete("delete/{reviewId}")]
+    public async Task<IActionResult> DeleteReviewByReviewId(Guid reviewID)
+    {
+        try
+        {
+            await _reviewFacade.DeleteReviewByReviewId(reviewID);
+            
+            return NoContent(); 
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { message = "Er is iets fout gegaan bij het verwijderen.", error = ex.Message });
         }
     }
 }

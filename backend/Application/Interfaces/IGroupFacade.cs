@@ -8,4 +8,6 @@ public interface IGroupFacade
     
     public Task<GroupListDto> GetGroups();
 
+    public Task DeleteGroupByGroupId(Guid groupId);
+
 }
