@@ -5,6 +5,11 @@ import LogoSmall from "./LogoSmall.vue";
 import {apiPost} from "../services/api.ts";
 import router from "../router";
 
+const emit = defineEmits(['open-menu'])
+ function openMenu() {
+    emit("open-menu");
+}
+
 async function logout() {
   try {
     await apiPost<object, any>('/api/user/logout', {})
@@ -21,6 +26,7 @@ async function logout() {
     <IconButton
         ariaLabel="Open account"
         class="header-left"
+        @click = openMenu
     >   ☰
        </IconButton>
 

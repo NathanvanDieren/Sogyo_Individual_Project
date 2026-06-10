@@ -111,7 +111,7 @@ async function SaveReviewAndClose() {
   <div class="modal-overlay" @click="emit('close')">
     <form class="modal-content" @click.stop @submit.prevent="SaveReviewAndClose">
 
-      <h2 class="font-bold text-2xl mb-4">
+      <h2 class="modal-title">
         {{ props.reviewToEdit ? 'Review bewerken' : 'Schrijf een Review' }}
       </h2>
 
@@ -122,7 +122,7 @@ async function SaveReviewAndClose() {
       <input type="text" id="description" v-model="description" required class="inputField">
 
       <div class="rating-field">
-        <label class="block font-medium text-gray-700 mb-1">Beoordeling:</label>
+        <label class="rating-label">Beoordeling:</label>
 
         <div class="stars">
           <template v-for="star in [5, 4, 3, 2, 1]" :key="star">
@@ -151,7 +151,7 @@ async function SaveReviewAndClose() {
         </option>
       </select>
 
-      <div class="groups-selection mb-4" v-if="availableGroups.length > 0">
+      <div class="groups-selection" v-if="availableGroups.length > 0">
         <label class="label">Delen met groepen:</label>
         <div v-for="group in availableGroups" :key="group.id" class="checkbox-item">
           <input
@@ -160,13 +160,13 @@ async function SaveReviewAndClose() {
               :value="group.id"
               v-model="selectedGroupsGuids"
           />
-          <label :for="group.id" class="ml-2">{{ group.name }}</label>
+          <label :for="group.id" class="checkbox-label">{{ group.name }}</label>
         </div>
       </div>
 
       <ErrorBox v-if="errorMessage" :error-type="errorType" :error-text="errorMessage"></ErrorBox>
 
-      <div class="flex gap-2 mt-4">
+      <div class="form-actions">
         <button type="button" class="cancelButton" @click="emit('close')">Annuleren</button>
         <button type="submit" class="submitButton">
           {{ props.reviewToEdit ? 'Opslaan' : 'Post' }}
@@ -197,19 +197,27 @@ async function SaveReviewAndClose() {
   min-width: 350px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
-.label{
-  display: block;
-  font-weight: var(--font-weight-medium);
-  margin-bottom: calc(var(--spacing) * 1);
-  color: var(--color-gray-700)
+
+.modal-title {
+  font-weight: bold;
+  font-size: 1.5rem;
+  margin-bottom: 16px;
 }
+
+.label {
+  display: block;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 4px;
+}
+
 .inputField {
   width: 100%;
   background-color: #f9fafb;
   border: 1px solid #d1d5db;
-  border-radius: 0.5rem;
-  padding: 0.5rem 0.75rem;
-  margin-bottom: 1rem;
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin-bottom: 16px;
   box-sizing: border-box;
 }
 
@@ -217,50 +225,57 @@ async function SaveReviewAndClose() {
   outline: none;
   border-color: #3b82f6;
 }
+
 .error {
   color: red;
   font-size: 14px;
 }
 
-.flex {
+.form-actions {
   display: flex;
-}
-.gap-2 {
   gap: 8px;
-}
-.mt-4 {
   margin-top: 16px;
 }
-.ml-2 {
-  margin-left: 8px;
-}
+
 .checkbox-item {
   display: flex;
   align-items: center;
-  margin-bottom: 0.5rem;
+  margin-bottom: 8px;
 }
+
+.checkbox-label {
+  margin-left: 8px;
+}
+
+.groups-selection {
+  margin-bottom: 16px;
+}
+
 .cancelButton {
   padding: 8px 16px;
   background-color: #64748b;
   color: white;
   border: none;
-  border-radius: 0.5rem;
+  border-radius: 8px;
   cursor: pointer;
   font-weight: 500;
 }
+
 .cancelButton:hover {
   background-color: #475569;
 }
+
 .submitButton {
   flex: 1;
   background-color: #3b82f6;
   color: white;
   border: none;
   padding: 8px 16px;
-  border-radius: 0.5rem;
+  border-radius: 8px;
   font-weight: 500;
   cursor: pointer;
 }
+
 .submitButton:hover {
   background-color: #2563eb;
 }
@@ -268,6 +283,14 @@ async function SaveReviewAndClose() {
 .rating-field {
   margin-bottom: 15px;
 }
+
+.rating-label {
+  display: block;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 4px;
+}
+
 .stars {
   display: flex;
   flex-direction: row-reverse;
@@ -289,13 +312,16 @@ async function SaveReviewAndClose() {
 .stars label::before {
   content: '★';
 }
+
 .stars label:hover,
 .stars label:hover ~ label {
   color: #ffca08;
 }
+
 .stars input:checked ~ label {
   color: #ffc107;
 }
+
 .stars input:checked ~ label:hover,
 .stars input:checked ~ label:hover ~ label {
   color: #ffca08;

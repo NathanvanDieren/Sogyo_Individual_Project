@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { apiDelete, apiGet } from "../services/api.ts";
 import ErrorBox from "../components/ErrorBox.vue";
-import ReviewForm from "./ReviewForm.vue"; // 1. Importeer de nieuwe ReviewForm
+import ReviewForm from "./ReviewForm.vue";
 import { ReviewListDto } from "../dtos/ReviewDtos.ts"
 import { ref } from 'vue'
 import { GroupListDto } from "../dtos/GroupDtos.ts";
@@ -90,17 +90,17 @@ async function deleteReview(reviewId: string) {
       @success="GetReviews"
   />
 
-  <div v-else-if="reviewList" class="groups-container">
+  <div v-else-if="reviewList" class="reviews-container">
     <button @click="openCreateModal" class="create-main-btn">+ Schrijf Review</button>
 
     <div v-if="reviewList.reviews.length > 0">
       <p class="total-count">Reviews: {{ reviewList.totalCount }}</p>
 
-      <ul class="groups-list">
+      <ul class="reviews-list">
         <li
             v-for="review in reviewList.reviews"
             :key="review.id"
-            class="group-item"
+            class="review-item"
         >
           <div class="review-header">
             <h3>{{ review.title }}</h3>
@@ -113,7 +113,7 @@ async function deleteReview(reviewId: string) {
           </div>
 
           <div class="rating-field">
-            <label class="block font-medium text-gray-700 mb-1">Beoordeling:</label>
+            <label class="rating-label">Beoordeling:</label>
 
             <div class="stars-display">
                 <span
@@ -127,8 +127,8 @@ async function deleteReview(reviewId: string) {
             </div>
           </div>
 
-          <small class="members-title">Beschrijving: {{ review.description }}</small>
-          <small class="members-title mb-4">Geschreven door: {{ review.name }}</small>
+          <small class="description-text">Beschrijving: {{ review.description }}</small>
+          <small class="author-text">Geschreven door: {{ review.name }}</small>
 
           <div class="actions-container">
             <button @click.stop="editReview(review)" class="editbutton">Edit</button>
@@ -144,7 +144,7 @@ async function deleteReview(reviewId: string) {
 </template>
 
 <style scoped>
-.groups-container {
+.reviews-container {
   max-width: 500px;
   margin: 40px auto;
   padding: 20px;
@@ -158,19 +158,16 @@ async function deleteReview(reviewId: string) {
   margin-bottom: 20px;
 }
 
-.groups-list, .members-list {
+.reviews-list {
   list-style: none;
   padding: 0;
   margin: 0;
-}
-
-.groups-list {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-.group-item {
+.review-item {
   position: relative;
   background-color: #ffffff;
   border: 2px solid #e0e0e0;
@@ -181,8 +178,7 @@ async function deleteReview(reviewId: string) {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
 
-
-.group-item:active {
+.review-item:active {
   transform: translateY(0);
   background-color: #f8fafc;
 }
@@ -194,10 +190,10 @@ async function deleteReview(reviewId: string) {
   margin-bottom: 8px;
 }
 
-.group-item h3 {
+.review-item h3 {
   margin: 0;
   color: #1e293b;
-  max-width: 70%; /* Voorkomt dat een hele lange titel door je label heen loopt */
+  max-width: 70%;
 }
 
 .itemtype {
@@ -216,23 +212,20 @@ async function deleteReview(reviewId: string) {
   white-space: nowrap;
 }
 
-.members-title {
+.description-text {
   display: block;
   color: #64748b;
   font-weight: 600;
   margin-bottom: 6px;
 }
 
-.members-list li {
-  font-size: 0.9rem;
-  color: #334155;
-  padding: 4px 0;
-  border-bottom: 1px dashed #f1f5f9;
+.author-text {
+  display: block;
+  color: #64748b;
+  font-weight: 600;
+  margin-bottom: 16px;
 }
 
-.members-list li:last-child {
-  border-bottom: none;
-}
 .create-main-btn {
   background-color: #3b82f6;
   color: white;
@@ -286,8 +279,15 @@ async function deleteReview(reviewId: string) {
   opacity: 1;
 }
 
-.mb-4 {
-  margin-bottom: 16px;
+.rating-field {
+  margin-bottom: 12px;
+}
+
+.rating-label {
+  display: block;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 4px;
 }
 
 .stars-display {
@@ -300,7 +300,6 @@ async function deleteReview(reviewId: string) {
   color: #ccc;
   user-select: none;
 }
-
 
 .stars-display .star.active {
   color: #ffc107;

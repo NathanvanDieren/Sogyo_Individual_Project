@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import LogoBar from "../components/LogoBar.vue";
 import AddButton from "../components/AddButton.vue";
 import GroupForm from "../components/GroupForm.vue";
 import ReviewForm from "../components/ReviewForm.vue";
@@ -10,9 +9,7 @@ const showGroupModal = ref(false)
 const showReviewModal = ref(false)
 
 const activeView = ref<'groups' | 'reviews'>('groups')
-
 const displayGroupsRef = ref<InstanceType<typeof DisplayGroups> | null>(null)
-
 const availableGroups = ref<any[]>([])
 
 function handleGroupsLoaded(groups: any[]) {
@@ -25,15 +22,18 @@ function handleSuccess() {
 </script>
 
 <template>
-  <LogoBar />
-
-  <DisplayGroups v-if="activeView === 'groups'" ref="displayGroupsRef" @groups-loaded="handleGroupsLoaded" />
+  <DisplayGroups
+      v-if="activeView === 'groups'"
+      ref="displayGroupsRef"
+      @groups-loaded="handleGroupsLoaded"
+  />
 
   <AddButton
       @open-group="showGroupModal = true"
       @open-review="showReviewModal = true"
   />
 
+  <!-- Modals -->
   <GroupForm
       v-if="showGroupModal"
       @close="showGroupModal = false"
@@ -48,5 +48,4 @@ function handleSuccess() {
 </template>
 
 <style scoped>
-
 </style>

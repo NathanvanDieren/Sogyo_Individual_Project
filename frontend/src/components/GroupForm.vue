@@ -117,21 +117,21 @@ async function saveGroupAndClose() {
   <div class="modal-overlay" @click="emit('close')">
     <form class="modal-content" @click.stop @submit.prevent="saveGroupAndClose">
 
-      <h2 class="font-bold text-2xl mb-4">
+      <h2 class="modal-title">
         {{ props.groupToEdit ? 'Groep bewerken' : 'Creëer nieuwe groep' }}
       </h2>
 
-      <label for="fname" class="block font-medium text-gray-700 mb-1">Naam van de groep:</label>
+      <label for="fname" class="form-label">Naam van de groep:</label>
       <input
           type="text"
           id="fname"
           name="fname"
           v-model="nameInput"
           required
-          class="w-full border border-gray-300 rounded-lg px-3 py-2 mb-4 focus:outline-none focus:border-blue-500 bg-gray-50"
+          class="form-input"
       >
 
-      <div class="email-manager mb-4">
+      <div class="email-manager">
         <h3>E-mailadressen van groepsleden</h3>
 
         <div class="input-group">
@@ -159,7 +159,7 @@ async function saveGroupAndClose() {
 
       <ErrorBox v-if="errorText" :error-type="errorType" :error-text="errorText"></ErrorBox>
 
-      <div class="flex gap-2 mt-4">
+      <div class="form-actions">
         <button type="button" class="cancelButton" @click="emit('close')">Annuleren</button>
         <button type="submit" class="submitButton">
           {{ props.groupToEdit ? 'Opslaan' : 'Creëren' }}
@@ -211,20 +211,52 @@ async function saveGroupAndClose() {
   box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 
+.modal-title {
+  font-weight: bold;
+  font-size: 1.5rem;
+  margin-bottom: 16px;
+}
+
+.form-label {
+  display: block;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 4px;
+}
+
+.form-input {
+  width: 100%;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin-bottom: 16px;
+  background-color: #f9fafb;
+  box-sizing: border-box;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+}
+
 .email-manager {
   max-width: 400px;
   font-family: sans-serif;
+  margin-bottom: 16px;
 }
+
 .input-group {
   display: flex;
   gap: 10px;
 }
+
 input {
   flex: 1;
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
 }
+
 button {
   padding: 8px 12px;
   background-color: #42b883;
@@ -233,11 +265,13 @@ button {
   border-radius: 4px;
   cursor: pointer;
 }
+
 .email-list {
   list-style: none;
   padding: 0;
   margin-top: 15px;
 }
+
 .email-list li {
   display: flex;
   justify-content: space-between;
@@ -247,6 +281,7 @@ button {
   margin-bottom: 5px;
   border-radius: 4px;
 }
+
 .remove-btn {
   background-color: #ff4d4d;
   padding: 2px 6px;
@@ -258,19 +293,18 @@ button {
   font-size: 14px;
   margin-top: 5px;
 }
+
 .meta {
   font-size: 12px;
   color: #666;
 }
-.flex {
+
+.form-actions {
   display: flex;
-}
-.gap-2 {
   gap: 8px;
-}
-.mt-4 {
   margin-top: 16px;
 }
+
 .cancelButton {
   padding: 8px 16px;
   background-color: #64748b;
@@ -280,6 +314,7 @@ button {
   cursor: pointer;
   font-weight: 500;
 }
+
 .cancelButton:hover {
   background-color: #475569;
 }

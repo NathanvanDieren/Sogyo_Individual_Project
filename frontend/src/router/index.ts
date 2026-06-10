@@ -4,13 +4,14 @@ import AuthPage from "../pages/AuthPage.vue";
 import RegisterPage from "../pages/RegisterPage.vue";
 import GroupReviewView from "../pages/GroupReviewView.vue";
 import {apiGet} from "../services/api.ts";
+import MyReviewsView from "../pages/MyReviewsView.vue";
 
 const routes = [
     {
         path: '/',
         name: 'homepage',
         component: HomePage,
-        meta: { requiresAuth: true }
+        meta: { requiresAuth: true, requiresLayout: true }
     },
     {
         path: '/login',
@@ -27,7 +28,13 @@ const routes = [
         name: 'GroupReviews',
         component: GroupReviewView,
         props: true,
-        meta: { requiresAuth: true }
+        meta: { requiresAuth: true, requiresLayout: true }
+    },
+    {
+        path: '/myreviews',
+        name: 'MyReviews',
+        component: MyReviewsView,
+        meta: { requiresAuth: true, requiresLayout: true }
     }
 ]
 
@@ -36,18 +43,22 @@ const router = createRouter({
     routes
 })
 
+let isUserValidated = false
+
 router.beforeEach(async (to, _, next) => {
     if (to.matched.some(record => record.meta.requiresAuth)) {
-        try {
+        if (isUserValidated) {
+            return next()
+        }
 
+        try {
             await apiGet('/api/user/validate')
+            isUserValidated = true
             next()
         } catch (error) {
+            isUserValidated = false
             next('/login')
         }
-    } else {
-        next()
     }
 })
-
 export default router

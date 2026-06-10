@@ -41,46 +41,41 @@ async function RegisterAndGoToAuth() {
 </script>
 
 <template>
-  <div class="w-full min-h-screen bg-gray-50 flex flex-col items-center justify-center p-4
-              md:flex-row md:p-12 md:justify-around">
-
-    <div class="hidden md:block max-w-md">
-      <LogoBig class="block mx-auto mb-6 w-32" />
-      <h1 class="text-4xl font-bold text-gray-900 mb-4">Welkom bij TasteBuds!</h1>
-      <p class="text-gray-600 text-lg">
+  <div class="auth-container">
+    <div class="auth-info desktop-info">
+      <LogoBig class="logo" />
+      <h1 class="info-title">Welkom bij TasteBuds!</h1>
+      <p class="info-text">
         Vul hier je gegevens in om je te registreren.
       </p>
     </div>
 
-    <div class="block md:hidden">
-      <LogoSmall class="block mx-auto mb-6 w-32" />
-      <h1 class="text-2xl font-bold text-gray-900 mb-4">Welkom bij TasteBuds!</h1>
+    <div class="auth-info mobile-info">
+      <LogoSmall class="logo" />
+      <h1 class="info-title">Welkom bij TasteBuds!</h1>
     </div>
 
-    <div class="w-full max-w-sm bg-white border border-gray-200 rounded-2xl p-6 shadow-sm
-                md:max-w-md md:p-10 md:shadow-lg">
+    <div class="auth-form-container">
+      <h2 class="form-title">Registreer Account</h2>
 
-      <h2 class="text-2xl font-bold text-gray-800 mb-6 md:hidden text-center">Registreer Account</h2>
-      <h2 class="text-2xl font-bold text-gray-800 mb-6 hidden md:block">Registreer Account</h2>
+      <form @submit.prevent="RegisterAndGoToAuth" class="auth-form">
 
-      <form @submit.prevent="RegisterAndGoToAuth" class="w-full">
-
-        <label for="username" class="block font-medium text-gray-700 mb-1">Gebruikersnaam</label>
+        <label for="username" class="form-label">Gebruikersnaam</label>
         <input type="text" id="username" v-model="usernameInput" required
-               class="w-full border border-gray-300 rounded-lg px-3 py-2 mb-4 focus:outline-none focus:border-blue-500 bg-gray-50">
+               class="form-input" />
 
-        <label for="email" class="block font-medium text-gray-700 mb-1">Emailadres</label>
+        <label for="email" class="form-label">Emailadres</label>
         <input type="email" id="email" v-model="emailInput" required
-               class="w-full border border-gray-300 rounded-lg px-3 py-2 mb-4 focus:outline-none focus:border-blue-500 bg-gray-50">
+               class="form-input" />
 
-        <label for="password" class="block font-medium text-gray-700 mb-1">Wachtwoord</label>
+        <label for="password" class="form-label">Wachtwoord</label>
         <input type="password" id="password" v-model="passwordInput" required
-               class="w-full border border-gray-300 rounded-lg px-3 py-2 mb-6 focus:outline-none focus:border-blue-500 bg-gray-50">
+               class="form-input" />
 
         <ErrorBox :error-type="errorType" :error-text="errorText" />
 
         <input type="submit" value="Register"
-               class="w-full bg-blue-600 text-white py-2.5 rounded-lg font-semibold cursor-pointer hover:bg-blue-700 transition shadow-sm">
+               class="submit-button">
       </form>
 
     </div>
@@ -88,5 +83,136 @@ async function RegisterAndGoToAuth() {
 </template>
 
 <style scoped>
+.auth-container {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #f9fafb;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
 
+@media (min-width: 768px) {
+  .auth-container {
+    flex-direction: row;
+    padding: 48px;
+    justify-content: center;
+    gap: 48px;
+  }
+}
+
+.auth-info {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .desktop-info {
+    display: block;
+    max-width: 400px;
+  }
+}
+
+.mobile-info {
+  display: block;
+}
+
+@media (min-width: 768px) {
+  .mobile-info {
+    display: none;
+  }
+}
+
+.logo {
+  display: block;
+  margin: 0 auto 24px auto;
+  width: 128px;
+}
+
+.info-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #111827;
+  margin-bottom: 16px;
+}
+
+@media (max-width: 767px) {
+  .info-title {
+    font-size: 1.5rem;
+  }
+}
+
+.info-text {
+  font-size: 1.125rem;
+  color: #4b5563;
+}
+
+.auth-form-container {
+  width: 100%;
+  max-width: 384px;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+@media (min-width: 768px) {
+  .auth-form-container {
+    max-width: 448px;
+    padding: 40px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.form-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #1f2937;
+  margin-bottom: 24px;
+}
+
+.auth-form {
+  width: 100%;
+}
+
+.form-label {
+  display: block;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 4px;
+}
+
+.form-input {
+  width: 100%;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin-bottom: 16px;
+  background-color: #f9fafb;
+  box-sizing: border-box;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+}
+
+.submit-button {
+  width: 100%;
+  background-color: #2563eb;
+  color: #ffffff;
+  padding: 10px 0;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.15s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.submit-button:hover {
+  background-color: #1d4ed8;
+}
 </style>
