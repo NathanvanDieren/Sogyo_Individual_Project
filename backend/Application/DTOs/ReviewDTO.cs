@@ -3,7 +3,7 @@ namespace Application.DTOs;
 
 public record CreateReviewDto(
     string Title,
-    int Rating,
+    double Rating,
     string Description,
     ItemType ItemType,
     List<Guid> GroupsGuids
@@ -23,12 +23,13 @@ public class ReviewDto
 {
     public Guid Id { get; set; }
     public string Title { get; set; } = string.Empty;
-    public int Rating { get; set; }
+    public double Rating { get; set; }
     public string Description { get; set; } = string.Empty;
     public string Itemtype { get; set; }
+    public string Name { get; set; } = string.Empty;
     public List<GroupInReviewDto> Groups { get; set; } = new(); 
     
-    public string Name { get; set; } = string.Empty;
+
 }
 
 public class ReviewListDto 

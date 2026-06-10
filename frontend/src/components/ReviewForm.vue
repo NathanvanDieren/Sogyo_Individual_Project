@@ -122,19 +122,31 @@ async function SaveReviewAndClose() {
       <input type="text" id="description" v-model="description" required class="inputField">
 
       <div class="rating-field">
-        <label class="rating-label">Beoordeling:</label>
+        <label class="rating-label">Beoordeling: {{ rating }}</label>
 
         <div class="stars">
-          <template v-for="star in [5, 4, 3, 2, 1]" :key="star">
+          <template v-for="fullStar in [5, 4, 3, 2, 1]" :key="fullStar">
+
             <input
                 type="radio"
-                :id="'review-star-' + star"
+                :id="'star-' + fullStar"
                 name="review-rating"
-                :value="star"
-                :checked="rating === star"
-                @change="rating = star"
+                :value="fullStar"
+                :checked="rating === fullStar"
+                @change="rating = fullStar"
             />
-            <label :for="'review-star-' + star" :title="star + ' sterren'"></label>
+            <label :for="'star-' + fullStar" class="full" :title="fullStar + ' sterren'"></label>
+
+            <input
+                type="radio"
+                :id="'star-' + (fullStar - 0.5)"
+                name="review-rating"
+                :value="fullStar - 0.5"
+                :checked="rating === (fullStar - 0.5)"
+                @change="rating = (fullStar - 0.5)"
+            />
+            <label :for="'star-' + (fullStar - 0.5)" class="half" :title="(fullStar - 0.5) + ' sterren'"></label>
+
           </template>
         </div>
       </div>
@@ -292,38 +304,53 @@ async function SaveReviewAndClose() {
 }
 
 .stars {
-  display: flex;
+  display: inline-flex;
   flex-direction: row-reverse;
-  justify-content: flex-end;
+  position: relative;
+  height: 30px;
 }
 
-.stars input {
+.stars input[type="radio"] {
   display: none;
 }
 
 .stars label {
-  font-size: 2.5rem;
-  color: #ccc;
+  box-sizing: border-box;
+  display: inline-block;
+  height: 30px;
   cursor: pointer;
-  transition: color 0.15s ease-in-out;
-  padding: 0 4px;
+  font-size: 30px;
+  color: #ccc;
+  position: relative;
 }
 
-.stars label::before {
-  content: '★';
+.stars label:before {
+  content: "★";
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
-.stars label:hover,
+.stars label.full {
+  width: 30px;
+}
+
+.stars label.half {
+  width: 15px;
+  overflow: hidden;
+  margin-right: -15px;
+  z-index: 2;
+}
+
+.stars label.half:before {
+  width: 91%;          /* Jouw gewenste percentage voor de inkleuring */
+  overflow: hidden;
+  white-space: nowrap;
+}
+.stars input[type="radio"]:checked ~ label,
+.stars input[type="radio"]:hover ~ label,
 .stars label:hover ~ label {
-  color: #ffca08;
+  color: #ffca28;
 }
 
-.stars input:checked ~ label {
-  color: #ffc107;
-}
-
-.stars input:checked ~ label:hover,
-.stars input:checked ~ label:hover ~ label {
-  color: #ffca08;
-}
 </style>

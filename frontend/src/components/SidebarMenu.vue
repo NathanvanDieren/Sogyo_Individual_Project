@@ -4,13 +4,18 @@ import router from "../router";
 const isOpen = defineModel<boolean>({ default: false })
 
 function displayMyReviews() {
-  router.push("MyReviews");
+  router.push({ name: 'myreviews' });
+}
+
+function displayMyGroups() {
+  router.push({ name: 'homepage' });
 }
 </script>
 
 <template>
     <aside :class="['sidebar', { 'sidebar-closed': !isOpen }]">
       <div class="menu-items">
+        <button class="menu-button" @click="displayMyGroups">Mijn Groepen</button>
         <button class="menu-button" @click="displayMyReviews">Mijn Reviews</button>
       </div>
     </aside>

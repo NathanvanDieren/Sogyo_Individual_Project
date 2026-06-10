@@ -6,7 +6,7 @@ import {apiPost} from "../services/api.ts";
 import router from "../router";
 
 const emit = defineEmits(['open-menu'])
- function openMenu() {
+function openMenu() {
     emit("open-menu");
 }
 

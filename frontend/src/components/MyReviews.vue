@@ -112,14 +112,17 @@ async function deleteReview(reviewId: string) {
             <label class="rating-label">Beoordeling:</label>
 
             <div class="stars-display">
-                <span
-                    v-for="star in [1, 2, 3, 4, 5]"
-                    :key="star"
-                    class="star"
-                    :class="{ 'active': star <= review.rating }"
-                >
-                  ★
-                </span>
+            <span
+                v-for="star in [1, 2, 3, 4, 5]"
+                :key="star"
+                class="star"
+                :class="{
+                'active': review.rating >= star,
+                'half': review.rating === star - 0.5
+              }"
+            >
+              ★
+            </span>
             </div>
           </div>
 
@@ -254,7 +257,7 @@ async function deleteReview(reviewId: string) {
   opacity: 0.8;
   padding: 4px 12px;
   border-radius: 6px;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
   border: none;
 }
@@ -266,7 +269,7 @@ async function deleteReview(reviewId: string) {
   opacity: 0.8;
   padding: 4px 12px;
   border-radius: 6px;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
   border: none;
 }
@@ -287,17 +290,37 @@ async function deleteReview(reviewId: string) {
 }
 
 .stars-display {
-  display: flex;
-  gap: 4px;
+  display: inline-flex;
+  gap: 2px;
+  line-height: 1;
 }
 
 .stars-display .star {
-  font-size: 2.5rem;
+  display: inline-block;
+  position: relative;
+  font-size: 30px;
+  width: 1.1em;
+  height: 1.1em;
   color: #ccc;
-  user-select: none;
+  text-align: left;
 }
 
 .stars-display .star.active {
-  color: #ffc107;
+  color: #ffca28;
+}
+
+.stars-display .star.half {
+  color: #ccc;
+}
+
+.stars-display .star.half:before {
+  content: "★";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 41%;
+  overflow: hidden;
+  color: #ffca28;
+  white-space: nowrap;
 }
 </style>

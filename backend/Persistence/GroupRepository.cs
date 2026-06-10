@@ -29,6 +29,7 @@ internal class GroupRepository: IGroupRepository
 
         return await _context.Groups
             .Where(u => guids.Contains(u.Id))
+            .OrderByDescending(g => g.LastUpdated)
             .ToListAsync();
     }
 
@@ -47,6 +48,7 @@ internal class GroupRepository: IGroupRepository
 
         var groups = await _context.Groups
             .Where(g => g.CreatorId == userId || g.Members.Any(m => m.Id == userId))
+            .OrderByDescending(g => g.LastUpdated)
             .Select(g => new GroupDto
             {
                 Id = g.Id,

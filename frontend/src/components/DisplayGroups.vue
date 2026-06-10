@@ -61,7 +61,7 @@ function openCreateModal() {
 }
 
 function goToGroup(groupId: string) {
-  router.push({ name: 'GroupReviews', params: { id: groupId } })
+  router.push({ name: 'groupreviews', params: { id: groupId } })
 }
 
 async function deleteGroup(groupId: string) {
@@ -161,6 +161,7 @@ async function deleteGroup(groupId: string) {
   border-radius: 6px;
   font-weight: 500;
   white-space: nowrap;
+  border: none;
 }
 
 .deletebutton {
@@ -171,8 +172,9 @@ async function deleteGroup(groupId: string) {
   padding: 4px 8px;
   margin: 4px;
   border-radius: 6px;
-  font-weight: 500;
+  font-weight: 600;
   white-space: nowrap;
+  border: none;
 }
 
 .group-item {

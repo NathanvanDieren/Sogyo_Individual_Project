@@ -107,7 +107,7 @@ public class ReviewController: ControllerBase
         
             if (response == null)
             {
-                return BadRequest(new { message = "Groep registratie mislukt. Probeer het opnieuw." });
+                return BadRequest(new { message = "Reviews laden mislukt. Probeer het opnieuw." });
             }
         
             return Ok(response);

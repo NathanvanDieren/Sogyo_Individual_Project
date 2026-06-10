@@ -24,19 +24,20 @@ internal class ReviewRepository : IReviewRepository
     public async Task<Review?> GetReviewWithGroupsByReviewIdAsync(Guid reviewId)
     {
         return await _context.Reviews
-            .Include(r => r.Groups) 
+            .Include(r => r.Groups)
             .FirstOrDefaultAsync(r => r.Id == reviewId);
     }
 
-    public async Task<ReviewListDto> GetAllReviewsByUserIdAsync(User user)
+    public async Task<ReviewListDto> GetAllReviewsByUserIdAsync(Guid userId)
     {
-        if (user != null)
+        if (userId == null)
         {
             return new ReviewListDto { Reviews = new List<ReviewDto>(), TotalCount = 0 };
         }
 
         var reviews = await _context.Reviews
-            .Where(g => g.Creator == user)
+            .Where(g => g.Creator.Id == userId)
+            .OrderByDescending(g => g.LastUpdated)
             .Select(g => new ReviewDto
             {
                 Id = g.Id,
@@ -44,11 +45,13 @@ internal class ReviewRepository : IReviewRepository
                 Rating = g.Rating,
                 Description = g.Description,
                 Itemtype = g.ItemType.ToString(),
+                Name = g.Creator.Username,
                 Groups = g.Groups.Select(m => new GroupInReviewDto
                 {
                     Id = m.Id,
                     Name = m.Name
-                }).ToList()
+                }
+                ).ToList()
             })
             .ToListAsync();
 
@@ -68,6 +71,7 @@ internal class ReviewRepository : IReviewRepository
 
         var reviews = await _context.Reviews
             .Where(r => r.Groups.Any(g => g.Id == groupId))
+            .OrderByDescending(g => g.LastUpdated)
             .Select(g => new ReviewDto
             {
                 Id = g.Id,
@@ -75,9 +79,13 @@ internal class ReviewRepository : IReviewRepository
                 Rating = g.Rating,
                 Description = g.Description,
                 Itemtype = g.ItemType.ToString(),
-                Name = g.Creator.Username
-            })
-            .ToListAsync();
+                Name = g.Creator.Username,
+                Groups = g.Groups.Select(m => new GroupInReviewDto
+                {
+                    Id = m.Id,
+                    Name = m.Name
+                }).ToList()
+            }).ToListAsync();
 
         return new ReviewListDto()
         {
