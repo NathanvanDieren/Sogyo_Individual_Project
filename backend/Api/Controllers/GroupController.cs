@@ -54,10 +54,13 @@ public class GroupController: ControllerBase
         
             return Ok(response);
         }
-        catch (BadHttpRequestException ex)
+        catch (KeyNotFoundException ex)
         {
-
-            return BadRequest(new { message = ex.Message });
+            return NotFound(new { message = ex.Message });
+        }
+        catch (UnauthorizedAccessException ex)
+        {
+            return StatusCode(StatusCodes.Status403Forbidden, new { message = ex.Message });
         }
         catch (Exception ex)
         {
@@ -93,19 +96,26 @@ public class GroupController: ControllerBase
         }
     }
     
+    
     [HttpDelete("delete/{groupId}")]
     public async Task<IActionResult> DeleteGroupByGroupId(Guid groupId)
     {
         try
         {
             await _groupFacade.DeleteGroupByGroupId(groupId);
-            
-            return NoContent(); 
+            return NoContent();
+        }
+        catch (KeyNotFoundException ex)
+        {
+            return NotFound(new { message = ex.Message });
+        }
+        catch (UnauthorizedAccessException ex)
+        {
+            return StatusCode(StatusCodes.Status403Forbidden, new { message = ex.Message });
         }
         catch (Exception ex)
         {
-            return StatusCode(500, new { message = "Er is iets fout gegaan bij het verwijderen.", error = ex.Message });
+            return StatusCode(StatusCodes.Status500InternalServerError, new { message = "Er is een onverwachte fout opgetreden." });
         }
     }
-    
 }

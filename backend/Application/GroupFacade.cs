@@ -29,7 +29,7 @@ public class GroupFacade: IGroupFacade
 
         IEnumerable<User> targetMembers = Enumerable.Empty<User>();
         
-        if (model.Emails != null && model.Emails.Any())
+        if (model.Emails.Any())
         {
             targetMembers = await _userRepository.GetUsersByEmailsAsync(model.Emails);
         }
@@ -50,15 +50,22 @@ public class GroupFacade: IGroupFacade
         }
 
         Group? group = await _groupRepository.GetGroupAndMembersByGroupIdAsync(groupId);
-        if (group.CreatorId != currentUser.Id)
+        if (group == null)
         {
-            throw new UnauthorizedAccessException("Je mag geen reviews van andere gebruikers bewerken.");
+            throw new KeyNotFoundException("De opgevraagde groep kon niet worden gevonden.");
         }
+        
+        bool authorized = group.CheckEditAuthorization(currentUser);
+        if (!authorized)
+        {
+            throw new UnauthorizedAccessException("Je bent niet gemachtigd om deze review aan te passen.");
+        }
+        
         group.ChangeName(model.Name);
         
         IEnumerable<User> targetMembers = Enumerable.Empty<User>();
         
-        if (model.Emails != null && model.Emails.Any())
+        if (model.Emails.Any())
         {
             targetMembers = await _userRepository.GetUsersByEmailsAsync(model.Emails);
         }
@@ -86,19 +93,26 @@ public class GroupFacade: IGroupFacade
 
     public async Task DeleteGroupByGroupId(Guid groupId)
     {
-        try
-        {    var currentUser = _currentUserService.User;
-            Group? group = await _groupRepository.GetGroupByGroupIdAsync(groupId);
-            if (group.Creator != currentUser)
-            {
-                throw new UnauthorizedAccessException("Je mag geen reviews van andere gebruikers bewerken.");
-            }
-            await _groupRepository.DeleteGroupAsync(groupId);
-        }
-        catch (Exception ex)
+        var currentUser = _currentUserService.User;
+        Group? group = await _groupRepository.GetGroupByGroupIdAsync(groupId);
+        
+        if (group == null)
         {
-            throw new ApplicationException("Kon de groep niet verwijderen.", ex);
+            throw new KeyNotFoundException("De opgevraagde groep kon niet worden gevonden.");
         }
+        
+        if (currentUser == null)
+        {
+            throw new KeyNotFoundException("U bent niet ingelogd.");
+        }
+        
+        bool authorised = group.CheckEditAuthorization(currentUser);
+        if (!authorised)
+        {
+            throw new UnauthorizedAccessException("Je bent niet gemachtigd om deze groep te verwijderen.");
+        }
+
+        await _groupRepository.DeleteGroupAsync(groupId);
     }
     
 }

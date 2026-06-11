@@ -1,4 +1,3 @@
-using System.Net;
 using Application.DTOs;
 using Application.Interfaces;
 using Domain;
@@ -33,7 +32,7 @@ internal class ReviewFacade : IReviewFacade
 
         IEnumerable<Group> targetGroups = Enumerable.Empty<Group>();
         
-        if (model.GroupsGuids != null && model.GroupsGuids.Any())
+        if (model.GroupsGuids.Any())
         {
             targetGroups = await _groupRepository.GetGroupsByGuidAsync(model.GroupsGuids);
         }
@@ -53,7 +52,12 @@ internal class ReviewFacade : IReviewFacade
             throw new UnauthorizedAccessException("Gebruiker is niet ingelogd.");
         }
 
-        Review? review = await _reviewRepository.GetReviewWithGroupsByReviewIdAsync(reviewId);
+        Review review = await _reviewRepository.GetReviewWithGroupsByReviewIdAsync(reviewId);
+        bool authorized = review.CheckEditAuthorization(currentUser);
+        if (!authorized)
+        {
+            throw new UnauthorizedAccessException("Je bent niet gemachtigd om deze review aan te passen.");
+        }
         review.ChangeTitle(model.Title);
         review.ChangeRating(model.Rating);
         review.ChangeDescription(model.Description);
@@ -62,7 +66,7 @@ internal class ReviewFacade : IReviewFacade
 
         IEnumerable<Group> targetGroups = Enumerable.Empty<Group>();
         
-        if (model.GroupsGuids != null && model.GroupsGuids.Any())
+        if (model.GroupsGuids.Any())
         {
             targetGroups = await _groupRepository.GetGroupsByGuidAsync(model.GroupsGuids);
         }
@@ -112,16 +116,32 @@ internal class ReviewFacade : IReviewFacade
 
         return reviews;
     }
-    
+
     public async Task DeleteReviewByReviewId(Guid reviewId)
     {
-        try
+        User? currentUser = _currentUserService.User;
+        Review? review = await _reviewRepository.GetReviewByReviewIdAsync(reviewId);
+
+        if (review == null)
         {
-            await _reviewRepository.DeleteReviewAsync(reviewId);
+            throw new KeyNotFoundException("De opgevraagde review kon niet worden gevonden.");
         }
-        catch (Exception ex)
+        if (currentUser == null)
         {
-            throw new ApplicationException("Kon de groep niet verwijderen.", ex);
+            throw new UnauthorizedAccessException("U bent niet ingelogd.");
         }
+        bool authorised = review.CheckEditAuthorization(currentUser);
+        
+        if (!authorised)
+        {
+            throw new UnauthorizedAccessException("Je bent niet gemachtigd om deze review te verwijderen.");
+        }
+
+        await _reviewRepository.DeleteReviewAsync(reviewId);
     }
+
+
+
+
+
 }

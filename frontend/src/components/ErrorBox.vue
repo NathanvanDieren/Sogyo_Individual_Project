@@ -1,12 +1,28 @@
 <script setup lang="ts">
+import { watch } from 'vue' // Zorg dat watch is geïmporteerd
 
-interface Props {
+interface props {
   errorType?: string
   errorText: string
 }
-withDefaults(defineProps<Props>(), {
+
+const props = withDefaults(defineProps<props>(), {
   errorType: 'Fout'
 })
+
+const emit = defineEmits(['clear-error'])
+
+let timer: ReturnType<typeof setTimeout> | null = null
+
+watch(() => props.errorText, (newVal) => {
+  if (timer) clearTimeout(timer)
+
+  if (newVal) {
+    timer = setTimeout(() => {
+      emit('clear-error')
+    }, 5000)
+  }
+}, { immediate: true })
 </script>
 
 <template>

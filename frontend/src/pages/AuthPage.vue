@@ -44,9 +44,11 @@ function goToRegister() {
   <div class="auth-container">
     <div class="auth-info desktop-info">
       <LogoBig class="logo" />
-      <h1 class="info-title">Welkom terug!</h1>
+      <h1 class="info-title">Welkom bij Tastebuds!</h1>
       <p class="info-text">
-        Log in op je account om direct verder te gaan met je individuele project.
+        Het doel van TasteBuds is om mensen op een laagdrempelige en authentieke manier met elkaar in contact te brengen op basis van gedeelde interesses.
+        <br>
+        TasteBuds biedt een gezamenlijk platform waar gebruikers hun ervaringen met content – zoals boeken, films, video's en blogs – kunnen delen. Het platform fungeert als een plek om enerzijds je eigen favoriete media vast te leggen en anderzijds geïnspireerd te raken door de oprechte interesses van je vrienden.
       </p>
     </div>
 
@@ -68,13 +70,13 @@ function goToRegister() {
         <input type="password" id="lname" name="lname" v-model="passwordInput" required
                class="form-input" />
 
-        <ErrorBox :error-type="errorType" :error-text="errorText" />
+        <ErrorBox :error-type="errorType" :error-text="errorText" @clear-error="errorText = ''" />
 
-        <input type="submit" value="Sign In"
+        <input type="submit" value="Log In"
                class="submit-button"
                @click="LoginAndGoToHome()">
         <label for="lname" class="register-label">Nog geen account? </label>
-        <input type="submit" value="Register"
+        <input type="submit" value="Registeer"
                class="register-button"
                @click="goToRegister()">
       </form>

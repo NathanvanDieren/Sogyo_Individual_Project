@@ -9,6 +9,7 @@ public interface IReviewRepository
     Task AddReviewAsync(Review newReview);
     
     Task SaveChangesAsync(); 
+    Task<Review?> GetReviewByReviewIdAsync(Guid reviewId);
 
     Task<ReviewListDto> GetAllReviewsByUserIdAsync(Guid userId);
     

@@ -30,10 +30,12 @@ const errorMessage = ref<string>('')
 const errorType = ref<string>('')
 
 const itemTypeList = ref<ItemTypeDto[]>([])
+const itemTypeListLoaded = ref(false)
 
 async function GetItemTypes() {
   try {
     itemTypeList.value = await apiGet<ItemTypeDto[]>('/api/review/getitemtypes')
+    itemTypeListLoaded.value = true
   } catch (err: any) {
     errorMessage.value = err.message || 'Er is een fout opgetreden bij het ophalen van de types.'
   }
@@ -64,11 +66,19 @@ onMounted(() => {
 
 watch(
     () => props.reviewToEdit,
-    () => {
-      initializeForm()
+    (_newVal) => {
+      if (itemTypeListLoaded.value) {
+        initializeForm()
+      }
     },
     { immediate: true }
 )
+
+watch(itemTypeListLoaded, (loaded) => {
+  if (loaded && props.reviewToEdit) {
+    initializeForm()
+  }
+})
 
 async function SaveReviewAndClose() {
   errorMessage.value = ''
@@ -153,7 +163,7 @@ async function SaveReviewAndClose() {
 
       <label for="itemtypes" class="label">Type</label>
       <select name="itemtypes" id="itemtypes" v-model="itemType" required class="inputField">
-        <option value="" disabled selected>Kies een type...</option>
+        <option value="" disabled>Kies een type...</option>
         <option
             v-for="type in itemTypeList"
             :key="type.value"
@@ -176,7 +186,7 @@ async function SaveReviewAndClose() {
         </div>
       </div>
 
-      <ErrorBox v-if="errorMessage" :error-type="errorType" :error-text="errorMessage"></ErrorBox>
+      <ErrorBox v-if="errorMessage" :error-type="errorType" :error-text="errorMessage" @clear-error="errorMessage = ''"></ErrorBox>
 
       <div class="form-actions">
         <button type="button" class="cancelButton" @click="emit('close')">Annuleren</button>

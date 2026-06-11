@@ -20,6 +20,17 @@ internal class ReviewRepository : IReviewRepository
         _context.Reviews.Add(newReview);
         await _context.SaveChangesAsync();
     }
+
+    public async Task<Review?> GetReviewByReviewIdAsync(Guid reviewId)
+    {
+        if (reviewId == null)
+            {
+            return null;
+            }
+        return await _context.Reviews
+            .Include(r => r.Creator)
+            .FirstOrDefaultAsync(r => r.Id == reviewId);
+    }
     
     public async Task<Review?> GetReviewWithGroupsByReviewIdAsync(Guid reviewId)
     {

@@ -6,7 +6,7 @@ public class Group
     public string Name { get; private set; }
     
     public Guid CreatorId { get; private set; }
-    public User Creator { get; private set; } 
+    public User Creator { get; private set; }
     
     public DateTime LastUpdated { get; private set; }
 
@@ -73,6 +73,11 @@ public class Group
     {
         Name = newName;
         ChangeLastUpdated();
+    }
+
+    public bool CheckEditAuthorization(User user)
+    {
+        return Creator == user;
     }
     public void ChangeLastUpdated()
     {

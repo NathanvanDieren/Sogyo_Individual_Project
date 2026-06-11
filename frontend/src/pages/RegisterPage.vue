@@ -18,7 +18,10 @@ interface RegisterProps {
   email: string
   password: string
 }
-
+function goToLogin()
+{
+  router.push("/")
+}
 async function RegisterAndGoToAuth() {
   errorType.value = ''
   errorText.value = ''
@@ -56,7 +59,12 @@ async function RegisterAndGoToAuth() {
     </div>
 
     <div class="auth-form-container">
-      <h2 class="form-title">Registreer Account</h2>
+      <div class="navbar">
+        <button class="nav-button" @click="goToLogin"><img src="/arrow.png" width="25" height="20"></button>
+
+        <h2 class="form-title">Registreer Account</h2>
+      </div>
+
 
       <form @submit.prevent="RegisterAndGoToAuth" class="auth-form">
 
@@ -72,10 +80,11 @@ async function RegisterAndGoToAuth() {
         <input type="password" id="password" v-model="passwordInput" required
                class="form-input" />
 
-        <ErrorBox :error-type="errorType" :error-text="errorText" />
+        <ErrorBox :error-type="errorType" :error-text="errorText" @clear-error="errorText = ''"/>
 
-        <input type="submit" value="Register"
+        <input type="submit" value="Registreer"
                class="submit-button">
+
       </form>
 
     </div>
@@ -166,11 +175,28 @@ async function RegisterAndGoToAuth() {
   }
 }
 
+.navbar{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.nav-button {
+  width:fit-content;
+  background-color: #ffffff;
+  padding: 2px 2px 0 2px;
+  border:none;
+  border-radius: 5px;
+}
+.nav-button:hover {
+  background-color: lightgray
+}
+
 .form-title {
-  font-size: 1.5rem;
   font-weight: bold;
   color: #1f2937;
-  margin-bottom: 24px;
+  font-size: 24px;
+  margin: 10px 0;
 }
 
 .auth-form {
@@ -204,6 +230,7 @@ async function RegisterAndGoToAuth() {
   background-color: #2563eb;
   color: #ffffff;
   padding: 10px 0;
+  margin: 10px 0;
   border-radius: 8px;
   font-weight: 600;
   cursor: pointer;

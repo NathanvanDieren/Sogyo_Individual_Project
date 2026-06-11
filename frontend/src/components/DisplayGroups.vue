@@ -82,7 +82,7 @@ async function deleteGroup(groupId: string) {
 </script>
 
 <template>
-  <ErrorBox v-if="errorText" :error-text="errorText" :error-type="errorType" />
+  <ErrorBox v-if="errorText" :error-text="errorText" :error-type="errorType" @clear-error="errorText = ''" />
 
   <GroupForm
       v-if="showGroupModal"
@@ -116,7 +116,7 @@ async function deleteGroup(groupId: string) {
           </div>
         </div>
 
-        <small class="members-title">👤: {{ group.members.length }}</small>
+        <small class="members-title">👤: {{ group.members.length }} - {{ group.members.map(a => a.name).join(', ') }}</small>
       </li>
     </ul>
 
@@ -142,7 +142,7 @@ async function deleteGroup(groupId: string) {
 }
 
 
-.groups-list, .members-list {
+.groups-list {
   list-style: none;
   padding: 0;
   margin: 0;

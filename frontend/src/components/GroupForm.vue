@@ -157,7 +157,7 @@ async function saveGroupAndClose() {
         </p>
       </div>
 
-      <ErrorBox v-if="errorText" :error-type="errorType" :error-text="errorText"></ErrorBox>
+      <ErrorBox v-if="errorText" :error-type="errorType" :error-text="errorText" @clear-error="errorText = ''"></ErrorBox>
 
       <div class="form-actions">
         <button type="button" class="cancelButton" @click="emit('close')">Annuleren</button>

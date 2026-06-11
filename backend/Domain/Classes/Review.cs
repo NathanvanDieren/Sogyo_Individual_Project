@@ -97,6 +97,11 @@ public class Review
         ItemType = itemType;
         ChangeLastUpdated();
     }
+    
+    public bool CheckEditAuthorization(User user)
+    {
+        return Creator == user;
+    }
 
     private void ChangeLastUpdated()
     {

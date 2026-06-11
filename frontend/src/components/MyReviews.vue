@@ -67,7 +67,7 @@ async function deleteReview(reviewId: string) {
 
   try {
     await apiDelete(`/api/review/delete/${reviewId}`)
-    await GetReviews() // Ververs de lijst direct
+    await GetReviews()
   } catch (err: any) {
     errorType.value = err.type || 'Fout'
     errorText.value = err.message || 'Kon de review niet verwijderen.'
@@ -76,8 +76,7 @@ async function deleteReview(reviewId: string) {
 </script>
 
 <template>
-  <ErrorBox v-if="errorText" :error-text="errorText" :error-type="errorType" />
-
+  <ErrorBox v-if="errorText" :error-text="errorText" :error-type="errorType" @clear-error="errorText = ''" />
   <ReviewForm
       v-if="showReviewModal"
       :available-groups="groupList?.groups || []"
@@ -90,7 +89,7 @@ async function deleteReview(reviewId: string) {
     <button @click="openCreateModal" class="create-main-btn">+ Schrijf Review</button>
 
     <div v-if="reviewList.reviews.length > 0">
-      <p class="total-count">Reviews: {{ reviewList.totalCount }}</p>
+      <p class="total-count">Mijn Reviews: {{ reviewList.totalCount }}</p>
 
       <ul class="reviews-list">
         <li
@@ -101,16 +100,22 @@ async function deleteReview(reviewId: string) {
           <div class="review-header">
             <h3>{{ review.title }}</h3>
 
-            <div class="itemtype">
-              <small class="itemtext">
-                {{ review.itemtype || 'Onbekend' }}
-              </small>
+            <div class="tags">
+              <div class="creator">
+                <small class="creatortext">
+                  {{ review.name || 'Onbekend' }}
+                </small>
+              </div>
+
+              <div class="itemtype">
+                <small class="itemtext">
+                  {{ review.itemtype || 'Onbekend' }}
+                </small>
+              </div>
             </div>
           </div>
 
           <div class="rating-field">
-            <label class="rating-label">Beoordeling:</label>
-
             <div class="stars-display">
             <span
                 v-for="star in [1, 2, 3, 4, 5]"
@@ -126,8 +131,7 @@ async function deleteReview(reviewId: string) {
             </div>
           </div>
 
-          <small class="description-text">Beschrijving: {{ review.description }}</small>
-          <small class="author-text">Geschreven door: {{ review.name }}</small>
+          <small class="description-text">{{ review.description }}</small>
 
           <div class="actions-container">
             <button @click.stop="editReview(review)" class="editbutton">Edit</button>
@@ -185,7 +189,7 @@ async function deleteReview(reviewId: string) {
 .review-header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   margin-bottom: 8px;
 }
 
@@ -195,10 +199,13 @@ async function deleteReview(reviewId: string) {
   max-width: 70%;
 }
 
+.tags{
+  display: flex;
+  justify-content: flex-end
+}
+
 .itemtype {
-  position: absolute;
-  top: 20px;
-  right: 20px;
+  padding: 0 5px;
 }
 
 .itemtext {
@@ -208,7 +215,19 @@ async function deleteReview(reviewId: string) {
   padding: 4px 8px;
   border-radius: 6px;
   font-weight: 500;
-  white-space: nowrap;
+}
+
+.creator {
+  padding: 0 5px;
+}
+
+.creatortext {
+  font-size: 0.8rem;
+  color: black;
+  background-color: cornflowerblue;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-weight: 800;
 }
 
 .description-text {

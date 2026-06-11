@@ -22,6 +22,8 @@ defineExpose({
 
 const props = defineProps<{
   id: string
+  name: string
+  members: string
 }>()
 
 GetReviews().then(() => {
@@ -58,8 +60,8 @@ function editReview(review: any) {
     title: review.title,
     description: review.description,
     rating: review.rating,
-    itemType: review.itemtype || review.itemType,
-    groupsguids: review.groupsguids || []
+    itemType: review.itemtype || review.itemType || '',
+    groupsguids: review.groupsguids || review.groupIds || []
   }
   showReviewModal.value = true
 }
@@ -95,7 +97,7 @@ const filteredItems = computed(() => {
 </script>
 
 <template>
-  <ErrorBox v-if="errorText" :error-text="errorText" :error-type="errorType" />
+  <ErrorBox v-if="errorText" :error-text="errorText" :error-type="errorType" @clear-error="errorText = ''" />
 
   <ReviewForm
       v-if="showReviewModal"
@@ -132,12 +134,9 @@ const filteredItems = computed(() => {
                     </small>
                   </div>
                 </div>
-
               </div>
 
               <div class="rating-field">
-                <label class="rating-label">Beoordeling:</label>
-
                 <div class="stars-display">
                 <span
                     v-for="star in [1, 2, 3, 4, 5]"
@@ -153,7 +152,7 @@ const filteredItems = computed(() => {
                 </div>
               </div>
 
-              <small class="description-text">Beschrijving: {{ review.description }}</small>
+              <small class="description-text">{{ review.description }}</small>
 
               <div v-if="review.isCreator" class="actions-container">
                 <button @click.stop="editReview(review)" class="editbutton">Edit</button>

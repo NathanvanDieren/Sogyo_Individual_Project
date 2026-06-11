@@ -49,26 +49,22 @@ public class ReviewController: ControllerBase
         try
         {
             ReviewResponseDto response = await _reviewFacade.EditReview(reviewId, model);
-            if (response == null)
-            {
-                return BadRequest(new { message = "Review aanpassen is mislukt. Probeer het opnieuw." });
-            }
         
             return Ok(response);
         }
-        catch (BadHttpRequestException ex)
+        catch (KeyNotFoundException ex)
         {
-
-            return BadRequest(new { message = ex.Message });
+            return NotFound(new { message = ex.Message });
+        }
+        catch (UnauthorizedAccessException ex)
+        {
+            return StatusCode(StatusCodes.Status403Forbidden, new { message = ex.Message });
         }
         catch (Exception ex)
         {
             return StatusCode(500, new 
             { 
                 message = "Er is een interne serverfout opgetreden.",
-                error = ex.Message,                                 // De directe foutmelding (bijv. "NullReferenceException")
-                innerError = ex.InnerException?.Message,            // De dieperliggende fout (bijv. PostgreSQL "Duplicate key violation")
-                type = ex.GetType().Name                            // Het exacte type exception
             });
         }
     }
@@ -138,17 +134,26 @@ public class ReviewController: ControllerBase
     }
     
     [HttpDelete("delete/{reviewId}")]
-    public async Task<IActionResult> DeleteReviewByReviewId(Guid reviewID)
+    public async Task<IActionResult> DeleteReviewByReviewId(Guid reviewId)
     {
         try
         {
-            await _reviewFacade.DeleteReviewByReviewId(reviewID);
+            await _reviewFacade.DeleteReviewByReviewId(reviewId);
             
             return NoContent(); 
         }
+        catch (KeyNotFoundException ex)
+        {
+            return NotFound(new { message = ex.Message });
+        }
+        catch (UnauthorizedAccessException ex)
+        {
+            return StatusCode(StatusCodes.Status403Forbidden, new { message = ex.Message });
+        }
         catch (Exception ex)
         {
-            return StatusCode(500, new { message = "Er is iets fout gegaan bij het verwijderen.", error = ex.Message });
+            return StatusCode(StatusCodes.Status500InternalServerError, new { message = "Er is een onverwachte fout opgetreden." });
         }
     }
+    
 }
