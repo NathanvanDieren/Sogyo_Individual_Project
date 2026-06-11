@@ -56,7 +56,7 @@ const showLayout = computed(() => {
 #logobar {
   position: sticky;
   top: 0;
-  z-index: 100; 
+  z-index: 100;
 }
 
 </style>

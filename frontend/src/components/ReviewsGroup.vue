@@ -3,8 +3,9 @@ import { apiDelete, apiGet } from "../services/api.ts";
 import ErrorBox from "../components/ErrorBox.vue";
 import ReviewForm from "./ReviewForm.vue";
 import { ReviewListDto } from "../dtos/ReviewDtos.ts"
-import { ref } from 'vue'
+import {computed, ref} from 'vue'
 import { GroupListDto } from "../dtos/GroupDtos.ts";
+import TagFilter from "./TagFilter.vue";
 
 const errorType = ref<string>('')
 const errorText = ref<string>('')
@@ -45,12 +46,10 @@ async function GetGroups() {
   }
 }
 
-
 function openCreateModal() {
   selectedReview.value = null
   showReviewModal.value = true
 }
-
 
 function editReview(review: any) {
 
@@ -77,6 +76,22 @@ async function deleteReview(reviewId: string) {
     errorText.value = err.message || 'Kon de review niet verwijderen.'
   }
 }
+
+const activeTags = ref<string[]>([])
+
+const filteredItems = computed(() => {
+  const rawData = reviewList.value
+
+  const allReviews = Array.isArray(rawData)
+      ? rawData
+      : rawData?.reviews || []
+
+  if (activeTags.value.length === 0 || activeTags.value[0] === '') {
+    return allReviews
+  }
+
+  return allReviews.filter(item => activeTags.value.includes(item.name))
+})
 </script>
 
 <template>
@@ -92,54 +107,61 @@ async function deleteReview(reviewId: string) {
 
   <div v-else-if="reviewList" class="reviews-container">
     <button @click="openCreateModal" class="create-main-btn">+ Schrijf Review</button>
-
-    <div v-if="reviewList.reviews.length > 0">
-      <p class="total-count">Reviews: {{ reviewList.totalCount }}</p>
-
-      <ul class="reviews-list">
-        <li
-            v-for="review in reviewList.reviews"
-            :key="review.id"
-            class="review-item"
-        >
-          <div class="review-header">
-            <h3>{{ review.title }}</h3>
-
-            <div class="itemtype">
-              <small class="itemtext">
-                {{ review.itemtype || 'Onbekend' }}
-              </small>
-            </div>
-          </div>
-
-          <div class="rating-field">
-            <label class="rating-label">Beoordeling:</label>
-
-            <div class="stars-display">
-            <span
-                v-for="star in [1, 2, 3, 4, 5]"
-                :key="star"
-                class="star"
-                :class="{
-                'active': review.rating >= star,
-                'half': review.rating === star - 0.5
-              }"
+        <div v-if="reviewList.reviews.length > 0">
+          <p class="total-count">Reviews: {{ reviewList.totalCount }}</p>
+          <TagFilter id="tagFilter" :items="reviewList.reviews || reviewList" v-model="activeTags" />
+          <ul class="reviews-list">
+            <li
+                v-for="review in filteredItems"
+                :key="review.id"
+                class="review-item"
             >
-              ★
-            </span>
-            </div>
-          </div>
+              <div class="review-header">
+                <h3>{{ review.title }}</h3>
 
-          <small class="description-text">Beschrijving: {{ review.description }}</small>
-          <small class="author-text">Geschreven door: {{ review.name }}</small>
+                <div class="tags">
+                  <div class="creator">
+                    <small class="creatortext">
+                      {{ review.name || 'Onbekend' }}
+                    </small>
+                  </div>
 
-          <div class="actions-container">
-            <button @click.stop="editReview(review)" class="editbutton">Edit</button>
-            <button @click.stop="deleteReview(review.id)" class="deletebutton">Delete</button>
-          </div>
-        </li>
-      </ul>
-    </div>
+                  <div class="itemtype">
+                    <small class="itemtext">
+                      {{ review.itemtype || 'Onbekend' }}
+                    </small>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="rating-field">
+                <label class="rating-label">Beoordeling:</label>
+
+                <div class="stars-display">
+                <span
+                    v-for="star in [1, 2, 3, 4, 5]"
+                    :key="star"
+                    class="star"
+                    :class="{
+                    'active': review.rating >= star,
+                    'half': review.rating === star - 0.5
+                  }"
+                >
+                  ★
+                </span>
+                </div>
+              </div>
+
+              <small class="description-text">Beschrijving: {{ review.description }}</small>
+
+              <div v-if="review.isCreator" class="actions-container">
+                <button @click.stop="editReview(review)" class="editbutton">Edit</button>
+                <button @click.stop="deleteReview(review.id)" class="deletebutton">Delete</button>
+              </div>
+            </li>
+          </ul>
+        </div>
 
     <p v-else>Nog geen reviews geschreven</p>
   </div>
@@ -160,6 +182,9 @@ async function deleteReview(reviewId: string) {
   color: #555;
   margin-bottom: 20px;
 }
+#tagFilter {
+  padding: 10px 0px;
+}
 
 .reviews-list {
   list-style: none;
@@ -169,7 +194,6 @@ async function deleteReview(reviewId: string) {
   flex-direction: column;
   gap: 16px;
 }
-
 .review-item {
   position: relative;
   background-color: #ffffff;
@@ -189,7 +213,7 @@ async function deleteReview(reviewId: string) {
 .review-header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   margin-bottom: 8px;
 }
 
@@ -199,10 +223,13 @@ async function deleteReview(reviewId: string) {
   max-width: 70%;
 }
 
+.tags{
+  display: flex;
+  justify-content: flex-end
+}
+
 .itemtype {
-  position: absolute;
-  top: 20px;
-  right: 20px;
+  padding: 0 5px;
 }
 
 .itemtext {
@@ -212,7 +239,19 @@ async function deleteReview(reviewId: string) {
   padding: 4px 8px;
   border-radius: 6px;
   font-weight: 500;
-  white-space: nowrap;
+}
+
+.creator {
+  padding: 0 5px;
+}
+
+.creatortext {
+  font-size: 0.8rem;
+  color: black;
+  background-color: cornflowerblue;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-weight: 800;
 }
 
 .description-text {

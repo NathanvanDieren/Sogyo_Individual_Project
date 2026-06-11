@@ -50,6 +50,10 @@ public class GroupFacade: IGroupFacade
         }
 
         Group? group = await _groupRepository.GetGroupAndMembersByGroupIdAsync(groupId);
+        if (group.CreatorId != currentUser.Id)
+        {
+            throw new UnauthorizedAccessException("Je mag geen reviews van andere gebruikers bewerken.");
+        }
         group.ChangeName(model.Name);
         
         IEnumerable<User> targetMembers = Enumerable.Empty<User>();
@@ -75,6 +79,7 @@ public class GroupFacade: IGroupFacade
         }
         
         var groups = await _groupRepository.GetAllGroupsByUserIdAsync(currentUser.Id);
+        
 
         return groups;
     }
@@ -82,7 +87,12 @@ public class GroupFacade: IGroupFacade
     public async Task DeleteGroupByGroupId(Guid groupId)
     {
         try
-        {
+        {    var currentUser = _currentUserService.User;
+            Group? group = await _groupRepository.GetGroupByGroupIdAsync(groupId);
+            if (group.Creator != currentUser)
+            {
+                throw new UnauthorizedAccessException("Je mag geen reviews van andere gebruikers bewerken.");
+            }
             await _groupRepository.DeleteGroupAsync(groupId);
         }
         catch (Exception ex)

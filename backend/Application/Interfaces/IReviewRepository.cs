@@ -13,7 +13,7 @@ public interface IReviewRepository
     Task<ReviewListDto> GetAllReviewsByUserIdAsync(Guid userId);
     
     Task<Review> GetReviewWithGroupsByReviewIdAsync(Guid reviewId);
-    Task<ReviewListDto> GetReviewsByGroupIdAsync(Guid groupId);
+    public Task<ReviewListDto> GetReviewsByGroupIdAsync(User currentUser, Guid groupId);
     
     Task DeleteReviewAsync(Guid reviewId);
 }

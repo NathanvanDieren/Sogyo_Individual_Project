@@ -106,7 +106,7 @@ async function deleteGroup(groupId: string) {
       >
         <div class="group-header">
           <h3>{{ group.name }}</h3>
-          <div class="editbuttoncontainer">
+          <div v-if="group.isCreator" class="editbuttoncontainer">
             <button @click.stop="editGroup(group)" class="editbutton">
               Edit
             </button>

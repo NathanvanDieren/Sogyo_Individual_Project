@@ -62,7 +62,7 @@ internal class ReviewRepository : IReviewRepository
         };
     }
 
-    public async Task<ReviewListDto> GetReviewsByGroupIdAsync(Guid groupId)
+    public async Task<ReviewListDto> GetReviewsByGroupIdAsync(User currentUser, Guid groupId)
     {
         if (groupId == null)
         {
@@ -80,6 +80,7 @@ internal class ReviewRepository : IReviewRepository
                 Description = g.Description,
                 Itemtype = g.ItemType.ToString(),
                 Name = g.Creator.Username,
+                isCreator =  g.Creator.Id == currentUser.Id,
                 Groups = g.Groups.Select(m => new GroupInReviewDto
                 {
                     Id = m.Id,

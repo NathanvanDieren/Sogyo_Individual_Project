@@ -14,6 +14,7 @@ export interface ReviewDto {
     itemtype: string
     rating: number
     description: string
+    isCreator: boolean
     groupIds: string[]
     name: string
 }

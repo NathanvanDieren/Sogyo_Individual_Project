@@ -108,7 +108,7 @@ internal class ReviewFacade : IReviewFacade
             throw new UnauthorizedAccessException("Gebruiker is niet ingelogd.");
         }
         
-        var reviews = await _reviewRepository.GetReviewsByGroupIdAsync(groupId);
+        var reviews = await _reviewRepository.GetReviewsByGroupIdAsync(currentUser, groupId);
 
         return reviews;
     }

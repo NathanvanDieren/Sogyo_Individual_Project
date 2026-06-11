@@ -20,6 +20,19 @@ internal class GroupRepository: IGroupRepository
         await _context.SaveChangesAsync();
     }
     
+    public async Task<Group?> GetGroupByGroupIdAsync(Guid groupId)
+    {
+        if (groupId == null)
+        {
+            return null;
+        }
+
+        return await _context.Groups
+            .Include(r => r.Creator)
+            .FirstOrDefaultAsync(r => r.Id == groupId);
+    }
+
+    
     public async Task<List<Group>> GetGroupsByGuidAsync(List<Guid> guids)
     {
         if (guids == null || !guids.Any())
@@ -53,6 +66,7 @@ internal class GroupRepository: IGroupRepository
             {
                 Id = g.Id,
                 Name = g.Name,
+                IsCreator =  g.CreatorId == userId,
                 Members = g.Members.Select(m => new GroupMemberDto
                 {
                     Id = m.Id,

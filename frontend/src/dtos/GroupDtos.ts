@@ -6,6 +6,7 @@ export interface GroupListDto {
 export interface GroupDto {
     id: string
     name: string
+    isCreator: boolean
     members:  GroupMemberDto[]
 }
 
