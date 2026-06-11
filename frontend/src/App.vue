@@ -14,7 +14,7 @@ const showLayout = computed(() => {
 
 <template>
   <template v-if="showLayout">
-    <LogoBar @open-menu="showMenuModal = true" />
+    <LogoBar id="logobar" @open-menu="showMenuModal = true" />
 
     <div
       v-if="showMenuModal"
@@ -50,5 +50,13 @@ const showLayout = computed(() => {
   padding: 20px;
   min-height: calc(100vh - 70px);
   background-color: #f8fafc;
+  outline:none;
 }
+
+#logobar {
+  position: sticky;
+  top: 0;
+  z-index: 100; 
+}
+
 </style>

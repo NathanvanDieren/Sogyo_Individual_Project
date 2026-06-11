@@ -30,7 +30,7 @@ async function logout() {
     >   ☰
        </IconButton>
 
-    <LogoSmall/>
+    <LogoSmall class="header-center" />
 
       <IconButton
           ariaLabel="Open account"
@@ -45,14 +45,14 @@ async function logout() {
 <style scoped>
 
 .main-header {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  height: 70px;
   background-color: #007bff;
   color: #ffffff;
+  height: 70px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 0 20px;
+  padding: 10px 10px;
 }
 
 .header-left {
