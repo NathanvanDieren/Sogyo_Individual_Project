@@ -55,11 +55,7 @@ public class GroupFacade: IGroupFacade
             throw new KeyNotFoundException("De opgevraagde groep kon niet worden gevonden.");
         }
         
-        bool authorized = group.CheckEditAuthorization(currentUser);
-        if (!authorized)
-        {
-            throw new UnauthorizedAccessException("Je bent niet gemachtigd om deze review aan te passen.");
-        }
+        group.EnsureCanEdit(currentUser);
         
         group.ChangeName(model.Name);
         
@@ -106,11 +102,7 @@ public class GroupFacade: IGroupFacade
             throw new KeyNotFoundException("U bent niet ingelogd.");
         }
         
-        bool authorised = group.CheckEditAuthorization(currentUser);
-        if (!authorised)
-        {
-            throw new UnauthorizedAccessException("Je bent niet gemachtigd om deze groep te verwijderen.");
-        }
+        group.EnsureCanEdit(currentUser);
 
         await _groupRepository.DeleteGroupAsync(groupId);
     }

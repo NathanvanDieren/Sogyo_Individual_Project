@@ -1,3 +1,5 @@
+using Domain.Exceptions;
+
 namespace Domain;
 
 public class Group
@@ -75,9 +77,12 @@ public class Group
         ChangeLastUpdated();
     }
 
-    public bool CheckEditAuthorization(User user)
+    public void EnsureCanEdit(User user)
     {
-        return Creator == user;
+        if (Creator != user)
+        {
+            throw new UnauthorizedDomainException("Je bent niet gemachtigd om deze groep aan te passen.");
+        }
     }
     public void ChangeLastUpdated()
     {

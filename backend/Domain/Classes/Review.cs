@@ -1,3 +1,5 @@
+using Domain.Exceptions;
+
 namespace Domain.Classes;
 
 public class Review
@@ -98,9 +100,12 @@ public class Review
         ChangeLastUpdated();
     }
     
-    public bool CheckEditAuthorization(User user)
+    public void EnsureCanEdit(User user)
     {
-        return Creator == user;
+        if (Creator != user)
+        {
+            throw new UnauthorizedDomainException("Je bent niet gemachtigd om deze review aan te passen.");
+        }
     }
 
     private void ChangeLastUpdated()

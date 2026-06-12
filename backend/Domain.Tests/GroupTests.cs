@@ -1,4 +1,5 @@
 using Domain;
+using Domain.Exceptions;
 using Xunit;
 
 namespace Domain.Tests;
@@ -101,17 +102,18 @@ public class GroupTests
     }
 
     [Fact]
-    public void TestCheckEditAuthorizationReturnsTrueForCreator()
+    public void TestEnsureCanEditSucceedsForCreator()
     {
         Group newGroup = new Group("Group1", _newUser1);
-        Assert.True(newGroup.CheckEditAuthorization(_newUser1));
+        var ex = Record.Exception(() => newGroup.EnsureCanEdit(_newUser1));
+        Assert.Null(ex);
     }
 
     [Fact]
-    public void TestCheckEditAuthorizationReturnsFalseForOtherUser()
+    public void TestEnsureCanEditThrowsForOtherUser()
     {
         Group newGroup = new Group("Group1", _newUser1);
-        Assert.False(newGroup.CheckEditAuthorization(_newUser2));
+        Assert.Throws<UnauthorizedDomainException>(() => newGroup.EnsureCanEdit(_newUser2));
     }
 
     [Fact]

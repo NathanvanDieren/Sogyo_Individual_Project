@@ -53,17 +53,12 @@ internal class ReviewFacade : IReviewFacade
         }
 
         Review review = await _reviewRepository.GetReviewWithGroupsByReviewIdAsync(reviewId);
-        bool authorized = review.CheckEditAuthorization(currentUser);
-        if (!authorized)
-        {
-            throw new UnauthorizedAccessException("Je bent niet gemachtigd om deze review aan te passen.");
-        }
+        review.EnsureCanEdit(currentUser);
         review.ChangeTitle(model.Title);
         review.ChangeRating(model.Rating);
         review.ChangeDescription(model.Description);
         review.ChangeItemType(model.ItemType);
         
-
         IEnumerable<Group> targetGroups = Enumerable.Empty<Group>();
         
         if (model.GroupsGuids.Any())
@@ -130,12 +125,7 @@ internal class ReviewFacade : IReviewFacade
         {
             throw new UnauthorizedAccessException("U bent niet ingelogd.");
         }
-        bool authorised = review.CheckEditAuthorization(currentUser);
-        
-        if (!authorised)
-        {
-            throw new UnauthorizedAccessException("Je bent niet gemachtigd om deze review te verwijderen.");
-        }
+        review.EnsureCanEdit(currentUser);
 
         await _reviewRepository.DeleteReviewAsync(reviewId);
     }

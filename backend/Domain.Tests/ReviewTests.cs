@@ -1,5 +1,7 @@
 using Domain;
 using Domain.Classes;
+using Domain.Exceptions;
+using Xunit;
 using Xunit;
 
 namespace Domain.Tests;
@@ -182,18 +184,19 @@ public class ReviewTests
     }
 
     [Fact]
-    public void TestCheckEditAuthorizationReturnsTrueForCreator()
+    public void TestEnsureCanEditSucceedsForCreator()
     {
         var review = new Review(_newUser1, "Title", 5, "Description", ItemType.Book);
-        Assert.True(review.CheckEditAuthorization(_newUser1));
+        var ex = Record.Exception(() => review.EnsureCanEdit(_newUser1));
+        Assert.Null(ex);
     }
 
     [Fact]
-    public void TestCheckEditAuthorizationReturnsFalseForOtherUser()
+    public void TestEnsureCanEditThrowsForOtherUser()
     {
         User otherUser = new User("Other", "other@sogyo.nl", "other", "user");
         var review = new Review(_newUser1, "Title", 5, "Description", ItemType.Book);
-        Assert.False(review.CheckEditAuthorization(otherUser));
+        Assert.Throws<UnauthorizedDomainException>(() => review.EnsureCanEdit(otherUser));
     }
 
     [Fact]
