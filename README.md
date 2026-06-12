@@ -3,6 +3,11 @@ In dit project wordt er een fullstack applicatie gebouwd voor het individuele pr
 
 ![TasteBuds Logo](assets/TasteBuds-favicon.png "TasteBuds - Find your media kin")
 
+## Domain coverage
+![Line Coverage](https://gitlab.com/%{project_path}/badges/%{default_branch}/coverage.svg)
+
+
+
 ## Doel
 Het doel van TasteBuds is om mensen op een laagdrempelige en authentieke manier met elkaar in contact te brengen op basis van gedeelde interesses.
 
