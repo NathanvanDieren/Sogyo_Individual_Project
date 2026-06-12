@@ -23,4 +23,9 @@ test_backend:
   stage: test
   script:
     - cd backend
-    - dotnet test --no-build -c Release       
+    - 'dotnet test Domain.Tests/Domain.Tests.csproj --collect="XPlat Code Coverage" --logger:"junit;LogFilePath=testresult.xml"'  
+  artifacts:
+    reports:
+      junit:
+        - "*/testresult.xml"
+      
