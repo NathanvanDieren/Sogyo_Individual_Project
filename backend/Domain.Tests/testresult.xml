@@ -1,65 +1,65 @@
 <testsuites>
-  <testsuite name="Domain.Tests.dll" tests="52" skipped="0" failures="0" errors="0" time="0.055223" timestamp="2026-06-12T07:06:48" hostname="nvdieren" id="0" package="Domain.Tests.dll">
+  <testsuite name="Domain.Tests.dll" tests="52" skipped="0" failures="0" errors="0" time="0.044343300000000016" timestamp="2026-06-12T07:15:30" hostname="nvdieren" id="0" package="Domain.Tests.dll">
     <properties />
-    <testcase classname="Domain.Tests.GroupTests" name="TestChangeNameUpdatesName" time="0.0078682" />
-    <testcase classname="Domain.Tests.UserTest" name="TestDifferentUsersGetDifferentId" time="0.0088462" />
-    <testcase classname="Domain.Tests.ReviewTests" name="TestChangeTitleUpdatesTitle" time="0.0078097" />
-    <testcase classname="Domain.Tests.UserTest" name="TestUsernameIsSetCorrectly" time="0.0002407" />
-    <testcase classname="Domain.Tests.UserTest" name="TestEmailIsNormalizedToLowercase" time="0.0002117" />
-    <testcase classname="Domain.Tests.UserTest" name="TestChangeUsernameReturnsFalseWhenSame" time="0.0004964" />
-    <testcase classname="Domain.Tests.UserTest" name="TestChangeUsernameReturnsTrueWhenDifferent" time="0.0002770" />
-    <testcase classname="Domain.Tests.UserTest" name="TestPasswordHashIsSetCorrectly" time="0.0002121" />
-    <testcase classname="Domain.Tests.UserTest" name="TestNewUserNotNull" time="0.0001360" />
-    <testcase classname="Domain.Tests.UserTest" name="TestRoleIdIsSetCorrectly" time="0.0001769" />
-    <testcase classname="Domain.Tests.UserTest" name="TestChangeUsernameTrimsWhitespace" time="0.0001807" />
-    <testcase classname="Domain.Tests.GroupTests" name="TestRemoveMemberDoesNotThrowOnNull" time="0.0034355" />
-    <testcase classname="Domain.Tests.ReviewTests" name="TestAddGroupToReview" time="0.0042311" />
-    <testcase classname="Domain.Tests.ReviewTests" name="CreateReview_WithValidData_ShouldInitializeCorrectly" time="0.0002105" />
-    <testcase classname="Domain.Tests.GroupTests" name="TestUpdateMembersWithNull" time="0.0017964" />
-    <testcase classname="Domain.Tests.GroupTests" name="TestCheckEditAuthorizationReturnsTrueForCreator" time="0.0002536" />
-    <testcase classname="Domain.Tests.GroupTests" name="TestUpdateMembersPreservesCreator" time="0.0010142" />
-    <testcase classname="Domain.Tests.ReviewTests" name="TestReviewGroupsCountFromConstructor" time="0.0024045" />
-    <testcase classname="Domain.Tests.GroupTests" name="TestRemovingUserFromGroup" time="0.0002695" />
-    <testcase classname="Domain.Tests.GroupTests" name="TestCheckEditAuthorizationReturnsFalseForOtherUser" time="0.0001179" />
-    <testcase classname="Domain.Tests.ReviewTests" name="TestReviewWithoutGroupsConstructor" time="0.0010555" />
-    <testcase classname="Domain.Tests.GroupTests" name="TestCreatorIdIsSetCorrectly" time="0.0010721" />
-    <testcase classname="Domain.Tests.ReviewTests" name="TestReviewContainsGroupsFromConstructor" time="0.0002069" />
-    <testcase classname="Domain.Tests.GroupTests" name="TestAddMemberDoesNotAddNull" time="0.0001387" />
-    <testcase classname="Domain.Tests.ReviewTests" name="TestCheckEditAuthorizationReturnsFalseForOtherUser" time="0.0003093" />
-    <testcase classname="Domain.Tests.GroupTests" name="TestRemovingUserThatDoesNotExist" time="0.0001609" />
-    <testcase classname="Domain.Tests.GroupTests" name="TestAddMemberDoesNotAddDuplicate" time="0.0001328" />
-    <testcase classname="Domain.Tests.GroupTests" name="TestChangeLastUpdatedUpdatesTimestamp" time="0.0001941" />
-    <testcase classname="Domain.Tests.GroupTests" name="TestGroupNameIsSetCorrectly" time="0.0001214" />
-    <testcase classname="Domain.Tests.GroupTests" name="TestUpdateMembersWithNewAndRemovedMembers" time="0.0013675" />
-    <testcase classname="Domain.Tests.GroupTests" name="TestNewGroup" time="0.0001080" />
-    <testcase classname="Domain.Tests.GroupTests" name="TestAddingUserToGroup" time="0.0002408" />
-    <testcase classname="Domain.Tests.ReviewTests" name="TestChangeItemTypeUpdatesItemType" time="0.0024048" />
-    <testcase classname="Domain.Tests.GroupTests" name="TestUpdateMembersAddsMissingMembers" time="0.0001654" />
-    <testcase classname="Domain.Tests.ReviewTests" name="TestChangeDescriptionUpdatesDescription" time="0.0002435" />
-    <testcase classname="Domain.Tests.GroupTests" name="TestCreatorIsSetCorrectly" time="0.0012575" />
-    <testcase classname="Domain.Tests.GroupTests" name="TestCreatorIsAddedAsMember" time="0.0001571" />
-    <testcase classname="Domain.Tests.ReviewTests" name="TestChangeRatingUpdatesRating" time="0.0023796" />
-    <testcase classname="Domain.Tests.ReviewTests" name="TestReviewCreatorIsSetCorrectly" time="0.0001434" />
-    <testcase classname="Domain.Tests.ReviewTests" name="TestReviewWithNullGroupsDoesNotThrow" time="0.0001328" />
-    <testcase classname="Domain.Tests.ReviewTests" name="TestUpdateGroupsRemovesExtraGroups" time="0.0008479" />
-    <testcase classname="Domain.Tests.ReviewTests" name="TestUpdateGroupsAddsMissingGroups" time="0.0002847" />
-    <testcase classname="Domain.Tests.ReviewTests" name="TestCheckEditAuthorizationReturnsTrueForCreator" time="0.0001075" />
-    <testcase classname="Domain.Tests.ReviewTests" name="TestReviewDescriptionIsSetCorrectly" time="0.0001569" />
-    <testcase classname="Domain.Tests.ReviewTests" name="TestReviewIdIsNotEmpty" time="0.0002037" />
-    <testcase classname="Domain.Tests.ReviewTests" name="TestReviewWithEmptyGroupsList" time="0.0002852" />
-    <testcase classname="Domain.Tests.ReviewTests" name="TestReviewTitleIsSetCorrectly" time="0.0001173" />
-    <testcase classname="Domain.Tests.ReviewTests" name="TestReviewRatingIsSetCorrectly" time="0.0001730" />
-    <testcase classname="Domain.Tests.ReviewTests" name="TestChangeLastUpdatedUpdatesTimestamp" time="0.0001988" />
-    <testcase classname="Domain.Tests.ReviewTests" name="TestRemoveGroupFromReview" time="0.0002977" />
-    <testcase classname="Domain.Tests.ReviewTests" name="TestUpdateGroupsWithNull" time="0.0002089" />
-    <testcase classname="Domain.Tests.ReviewTests" name="TestReviewItemTypeIsSetCorrectly" time="0.0001605" />
+    <testcase classname="Domain.Tests.ReviewTests" name="TestChangeTitleUpdatesTitle" time="0.0066335" />
+    <testcase classname="Domain.Tests.GroupTests" name="TestChangeNameUpdatesName" time="0.0066590" />
+    <testcase classname="Domain.Tests.UserTest" name="TestDifferentUsersGetDifferentId" time="0.0076974" />
+    <testcase classname="Domain.Tests.UserTest" name="TestUsernameIsSetCorrectly" time="0.0001589" />
+    <testcase classname="Domain.Tests.UserTest" name="TestEmailIsNormalizedToLowercase" time="0.0001827" />
+    <testcase classname="Domain.Tests.UserTest" name="TestChangeUsernameReturnsFalseWhenSame" time="0.0003147" />
+    <testcase classname="Domain.Tests.UserTest" name="TestChangeUsernameReturnsTrueWhenDifferent" time="0.0001900" />
+    <testcase classname="Domain.Tests.UserTest" name="TestPasswordHashIsSetCorrectly" time="0.0001248" />
+    <testcase classname="Domain.Tests.UserTest" name="TestNewUserNotNull" time="0.0001183" />
+    <testcase classname="Domain.Tests.UserTest" name="TestRoleIdIsSetCorrectly" time="0.0001428" />
+    <testcase classname="Domain.Tests.UserTest" name="TestChangeUsernameTrimsWhitespace" time="0.0000981" />
+    <testcase classname="Domain.Tests.GroupTests" name="TestRemoveMemberDoesNotThrowOnNull" time="0.0021165" />
+    <testcase classname="Domain.Tests.GroupTests" name="TestUpdateMembersWithNull" time="0.0008688" />
+    <testcase classname="Domain.Tests.ReviewTests" name="TestAddGroupToReview" time="0.0030785" />
+    <testcase classname="Domain.Tests.ReviewTests" name="CreateReview_WithValidData_ShouldInitializeCorrectly" time="0.0001823" />
+    <testcase classname="Domain.Tests.GroupTests" name="TestCheckEditAuthorizationReturnsTrueForCreator" time="0.0002452" />
+    <testcase classname="Domain.Tests.GroupTests" name="TestUpdateMembersPreservesCreator" time="0.0008393" />
+    <testcase classname="Domain.Tests.GroupTests" name="TestRemovingUserFromGroup" time="0.0002270" />
+    <testcase classname="Domain.Tests.GroupTests" name="TestCheckEditAuthorizationReturnsFalseForOtherUser" time="0.0000983" />
+    <testcase classname="Domain.Tests.ReviewTests" name="TestReviewGroupsCountFromConstructor" time="0.0019610" />
+    <testcase classname="Domain.Tests.GroupTests" name="TestCreatorIdIsSetCorrectly" time="0.0009560" />
+    <testcase classname="Domain.Tests.GroupTests" name="TestAddMemberDoesNotAddNull" time="0.0001181" />
+    <testcase classname="Domain.Tests.GroupTests" name="TestRemovingUserThatDoesNotExist" time="0.0001197" />
+    <testcase classname="Domain.Tests.GroupTests" name="TestAddMemberDoesNotAddDuplicate" time="0.0001131" />
+    <testcase classname="Domain.Tests.ReviewTests" name="TestReviewWithoutGroupsConstructor" time="0.0009098" />
+    <testcase classname="Domain.Tests.GroupTests" name="TestChangeLastUpdatedUpdatesTimestamp" time="0.0001914" />
+    <testcase classname="Domain.Tests.GroupTests" name="TestGroupNameIsSetCorrectly" time="0.0000983" />
+    <testcase classname="Domain.Tests.ReviewTests" name="TestReviewContainsGroupsFromConstructor" time="0.0001713" />
+    <testcase classname="Domain.Tests.ReviewTests" name="TestCheckEditAuthorizationReturnsFalseForOtherUser" time="0.0002277" />
+    <testcase classname="Domain.Tests.GroupTests" name="TestUpdateMembersWithNewAndRemovedMembers" time="0.0009969" />
+    <testcase classname="Domain.Tests.GroupTests" name="TestNewGroup" time="0.0000899" />
+    <testcase classname="Domain.Tests.GroupTests" name="TestAddingUserToGroup" time="0.0001700" />
+    <testcase classname="Domain.Tests.GroupTests" name="TestUpdateMembersAddsMissingMembers" time="0.0001842" />
+    <testcase classname="Domain.Tests.ReviewTests" name="TestChangeItemTypeUpdatesItemType" time="0.0020560" />
+    <testcase classname="Domain.Tests.GroupTests" name="TestCreatorIsSetCorrectly" time="0.0010716" />
+    <testcase classname="Domain.Tests.ReviewTests" name="TestChangeDescriptionUpdatesDescription" time="0.0002650" />
+    <testcase classname="Domain.Tests.GroupTests" name="TestCreatorIsAddedAsMember" time="0.0001069" />
+    <testcase classname="Domain.Tests.ReviewTests" name="TestChangeRatingUpdatesRating" time="0.0019315" />
+    <testcase classname="Domain.Tests.ReviewTests" name="TestReviewCreatorIsSetCorrectly" time="0.0001139" />
+    <testcase classname="Domain.Tests.ReviewTests" name="TestReviewWithNullGroupsDoesNotThrow" time="0.0000947" />
+    <testcase classname="Domain.Tests.ReviewTests" name="TestUpdateGroupsRemovesExtraGroups" time="0.0007143" />
+    <testcase classname="Domain.Tests.ReviewTests" name="TestUpdateGroupsAddsMissingGroups" time="0.0002412" />
+    <testcase classname="Domain.Tests.ReviewTests" name="TestCheckEditAuthorizationReturnsTrueForCreator" time="0.0000991" />
+    <testcase classname="Domain.Tests.ReviewTests" name="TestReviewDescriptionIsSetCorrectly" time="0.0001261" />
+    <testcase classname="Domain.Tests.ReviewTests" name="TestReviewIdIsNotEmpty" time="0.0001555" />
+    <testcase classname="Domain.Tests.ReviewTests" name="TestReviewWithEmptyGroupsList" time="0.0002642" />
+    <testcase classname="Domain.Tests.ReviewTests" name="TestReviewTitleIsSetCorrectly" time="0.0000919" />
+    <testcase classname="Domain.Tests.ReviewTests" name="TestReviewRatingIsSetCorrectly" time="0.0001157" />
+    <testcase classname="Domain.Tests.ReviewTests" name="TestChangeLastUpdatedUpdatesTimestamp" time="0.0001591" />
+    <testcase classname="Domain.Tests.ReviewTests" name="TestRemoveGroupFromReview" time="0.0001936" />
+    <testcase classname="Domain.Tests.ReviewTests" name="TestUpdateGroupsWithNull" time="0.0001473" />
+    <testcase classname="Domain.Tests.ReviewTests" name="TestReviewItemTypeIsSetCorrectly" time="0.0001122" />
     <system-out>
 Test Framework Informational Messages:
 [xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)
 [xUnit.net 00:00:00.08]   Discovering: Domain.Tests
 [xUnit.net 00:00:00.13]   Discovered:  Domain.Tests
-[xUnit.net 00:00:00.16]   Starting:    Domain.Tests
-[xUnit.net 00:00:00.30]   Finished:    Domain.Tests
+[xUnit.net 00:00:00.15]   Starting:    Domain.Tests
+[xUnit.net 00:00:00.27]   Finished:    Domain.Tests
 </system-out>
     <system-err></system-err>
   </testsuite>

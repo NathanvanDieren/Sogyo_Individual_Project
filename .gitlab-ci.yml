@@ -23,9 +23,10 @@ test_backend:
   stage: test
   script:
     - cd backend
-    - 'dotnet test Domain.Tests/Domain.Tests.csproj --collect="XPlat Code Coverage" --logger:"junit;LogFilePath=testresult.xml"'  
+    - 'dotnet test Domain.Tests/Domain.Tests.csproj --logger:"junit;LogFileName=../../artifacts/testresult.xml"'
   artifacts:
+    when: always
     reports:
       junit:
-        - "*/testresult.xml"
+        - "backend/artifacts/testresult.xml"
       
