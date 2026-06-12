@@ -41,4 +41,5 @@ test_backend_and_coverage:
 verify_formatting:
   stage: formatter
   script:
+    - cd backend
     - dotnet format --verify-no-changes
