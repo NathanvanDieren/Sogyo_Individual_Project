@@ -4,7 +4,7 @@ In dit project wordt er een fullstack applicatie gebouwd voor het individuele pr
 ![TasteBuds Logo](assets/TasteBuds-favicon.png "TasteBuds - Find your media kin")
 
 ## Domain coverage
-![Line Coverage](https://gitlab.com/%{project_path}/badges/%{default_branch}/coverage.svg)
+![Line Coverage](https://git.sogyo.nl/nvdieren/individual-project/badges/development/coverage.svg)
 
 
 
