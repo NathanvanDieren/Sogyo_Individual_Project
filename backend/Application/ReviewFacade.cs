@@ -28,7 +28,7 @@ internal class ReviewFacade : IReviewFacade
 
         var newReview = new Review(currentUser, model.Title, model.Rating, model.Description, model.ItemType);
 
-        IEnumerable<Group> targetGroups = Enumerable.Empty<Group>();
+        var targetGroups = Enumerable.Empty<Group>();
 
         if (model.GroupsGuids.Any())
         {
@@ -51,13 +51,9 @@ internal class ReviewFacade : IReviewFacade
         }
 
         var review = await _reviewRepository.GetReviewWithGroupsByReviewIdAsync(reviewId);
-        review.EnsureCanEdit(currentUser);
-        review.ChangeTitle(model.Title);
-        review.ChangeRating(model.Rating);
-        review.ChangeDescription(model.Description);
-        review.ChangeItemType(model.ItemType);
+        review.EditReview(currentUser, model.Title, model.Rating, model.Description, model.ItemType);
 
-        IEnumerable<Group> targetGroups = Enumerable.Empty<Group>();
+        var targetGroups = Enumerable.Empty<Group>();
 
         if (model.GroupsGuids.Any())
         {

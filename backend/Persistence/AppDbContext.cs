@@ -1,11 +1,7 @@
-using Domain.Classes;
-
-namespace Persistence;
-
-using Domain;
+﻿using Domain.Classes;
 using Microsoft.EntityFrameworkCore;
 
-
+namespace Persistence;
 internal class AppDbContext : DbContext
 {
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)

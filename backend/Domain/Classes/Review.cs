@@ -34,6 +34,16 @@ public class Review
     {
     }
 
+    public void EditReview(User currentUser, string title, double rating, string description, ItemType itemType)
+    {
+        EnsureCanEdit(currentUser);
+        ChangeTitle(title);
+        ChangeRating(rating);
+        ChangeDescription(description);
+        ChangeItemType(itemType);
+
+    }
+
     private void AddGroup(Group group)
     {
         if (group != null && !_groups.Contains(group))

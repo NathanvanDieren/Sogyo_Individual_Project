@@ -24,6 +24,13 @@ public class Group
         LastUpdated = DateTime.UtcNow;
     }
 
+    public void EditGroup(User user, string name)
+    {
+        EnsureCanEdit(user);
+        ChangeName(name);
+    }
+
+
     public void AddMember(User user)
     {
         if (user != null && !_members.Any(m => m.Id == user.Id))

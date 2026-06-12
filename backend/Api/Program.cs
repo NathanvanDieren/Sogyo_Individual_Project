@@ -24,4 +24,8 @@ app.UseHttpsRedirection();
 app.UseMiddleware<UserLoaderMiddleware>();
 app.MapControllers();
 
+app.UseStaticFiles();
+
+app.MapFallbackToFile("index.html");
+
 app.Run();

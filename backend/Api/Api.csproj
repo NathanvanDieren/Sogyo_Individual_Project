@@ -6,7 +6,41 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
-  <ItemGroup>
+    <PropertyGroup>
+        <FrontendRoot>..\..\frontend</FrontendRoot>
+        <FrontendBuildOutput>$(FrontendRoot)\dist</FrontendBuildOutput>
+    </PropertyGroup>
+
+
+    <Target Name="BuildFrontend" BeforeTargets="Build;Publish">
+
+        <Exec Command="bash -i -c 'node --version'" ContinueOnError="true" IgnoreExitCode="true">
+            <Output TaskParameter="ExitCode" PropertyName="NodeExitCode" />
+        </Exec>
+        <Error Condition="$(NodeExitCode) != 0" Text="Node.js v20+ is vereist. Controleer je installatie." />
+
+        <Message Importance="high" Text="--- Frontend: Dependencies installeren ---" />
+        <Exec Command="bash -i -c 'npm install'" WorkingDirectory="$(FrontendRoot)" />
+
+        <Message Importance="high" Text="--- Frontend: Artifact bouwen ---" />
+        <Exec Command="bash -i -c 'npm run build'" WorkingDirectory="$(FrontendRoot)" />
+
+        <Message Importance="high" Text="--- Frontend: Bestanden kopiëren naar API wwwroot ---" />
+        <ItemGroup>
+            <FrontendFiles Include="$(FrontendBuildOutput)\**\*.*" />
+        </ItemGroup>
+
+        <Copy SourceFiles="@(FrontendFiles)"
+              DestinationFiles="@(FrontendFiles->'wwwroot\%(RecursiveDir)%(Filename)%(Extension)')"
+              SkipUnchangedFiles="true" />
+    </Target>
+
+
+    <Target Name="CleanFrontend" AfterTargets="Clean">
+        <RemoveDir Directories="wwwroot" />
+    </Target>
+
+    <ItemGroup>
     <PackageReference Include="DotNetEnv" Version="3.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.8" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.5" />

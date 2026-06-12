@@ -315,6 +315,7 @@ async function SaveReviewAndClose() {
 
 .stars {
   display: inline-flex;
+  margin-left: 25%;
   flex-direction: row-reverse;
   position: relative;
   height: 30px;

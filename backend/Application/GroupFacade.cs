@@ -55,11 +55,7 @@ public class GroupFacade : IGroupFacade
             throw new KeyNotFoundException("De opgevraagde groep kon niet worden gevonden.");
         }
 
-        group.EnsureCanEdit(currentUser);
-
-        group.ChangeName(model.Name);
-
-        IEnumerable<User> targetMembers = Enumerable.Empty<User>();
+        var targetMembers = Enumerable.Empty<User>();
 
         if (model.Emails.Any())
         {
