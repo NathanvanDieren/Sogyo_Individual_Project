@@ -7,10 +7,14 @@ stages:
 
 build_backend:
   stage: build
+  before_script:
+    - apt-get update && apt-get install -y curl
+    - curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
+    - apt-get install -y nodejs
   script:
     - cd backend
-    - dotnet restore 
-    - dotnet build --no-restore -c Release    
+    - dotnet restore
+    - dotnet build --no-restore -c Release
 
 build_frontend:
   stage: build
