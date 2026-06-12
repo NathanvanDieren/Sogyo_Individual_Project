@@ -12,7 +12,7 @@ public class GroupTests
     public void TestNewGroup()
     {
         Group newGroup = new Group("Group1", _newUser1);
-        Assert.NotNull(newGroup); 
+        Assert.NotNull(newGroup);
     }
 
     [Fact]
@@ -38,5 +38,122 @@ public class GroupTests
         Group newGroup = new Group("Group1", _newUser1);
         newGroup.RemoveMember(_newUser2);
         Assert.Single(newGroup.Members);
+    }
+
+    [Fact]
+    public void TestGroupNameIsSetCorrectly()
+    {
+        Group newGroup = new Group("TestGroup", _newUser1);
+        Assert.Equal("TestGroup", newGroup.Name);
+    }
+
+    [Fact]
+    public void TestCreatorIdIsSetCorrectly()
+    {
+        Group newGroup = new Group("Group1", _newUser1);
+        Assert.Equal(_newUser1.Id, newGroup.CreatorId);
+    }
+
+    [Fact]
+    public void TestCreatorIsSetCorrectly()
+    {
+        Group newGroup = new Group("Group1", _newUser1);
+        Assert.Equal(_newUser1, newGroup.Creator);
+    }
+
+    [Fact]
+    public void TestCreatorIsAddedAsMember()
+    {
+        Group newGroup = new Group("Group1", _newUser1);
+        Assert.Contains(_newUser1, newGroup.Members);
+    }
+
+    [Fact]
+    public void TestAddMemberDoesNotAddNull()
+    {
+        Group newGroup = new Group("Group1", _newUser1);
+        newGroup.AddMember(null!);
+        Assert.Single(newGroup.Members);
+    }
+
+    [Fact]
+    public void TestAddMemberDoesNotAddDuplicate()
+    {
+        Group newGroup = new Group("Group1", _newUser1);
+        newGroup.AddMember(_newUser1);
+        Assert.Single(newGroup.Members);
+    }
+
+    [Fact]
+    public void TestRemoveMemberDoesNotThrowOnNull()
+    {
+        Group newGroup = new Group("Group1", _newUser1);
+        newGroup.RemoveMember(null!);
+        Assert.Single(newGroup.Members);
+    }
+
+    [Fact]
+    public void TestChangeNameUpdatesName()
+    {
+        Group newGroup = new Group("Group1", _newUser1);
+        newGroup.ChangeName("NewName");
+        Assert.Equal("NewName", newGroup.Name);
+    }
+
+    [Fact]
+    public void TestCheckEditAuthorizationReturnsTrueForCreator()
+    {
+        Group newGroup = new Group("Group1", _newUser1);
+        Assert.True(newGroup.CheckEditAuthorization(_newUser1));
+    }
+
+    [Fact]
+    public void TestCheckEditAuthorizationReturnsFalseForOtherUser()
+    {
+        Group newGroup = new Group("Group1", _newUser1);
+        Assert.False(newGroup.CheckEditAuthorization(_newUser2));
+    }
+
+    [Fact]
+    public void TestUpdateMembersWithNewAndRemovedMembers()
+    {
+        Group newGroup = new Group("Group1", _newUser1);
+        newGroup.AddMember(_newUser2);
+        User _newUser3 = new User("Third", "third@sogyo.nl", "third", "user");
+        newGroup.UpdateMembers([_newUser1, _newUser3]);
+        Assert.DoesNotContain(_newUser2, newGroup.Members);
+    }
+
+    [Fact]
+    public void TestUpdateMembersAddsMissingMembers()
+    {
+        Group newGroup = new Group("Group1", _newUser1);
+        newGroup.UpdateMembers([_newUser1, _newUser2]);
+        Assert.Contains(_newUser2, newGroup.Members);
+    }
+
+    [Fact]
+    public void TestUpdateMembersPreservesCreator()
+    {
+        Group newGroup = new Group("Group1", _newUser1);
+        newGroup.UpdateMembers([_newUser2]);
+        Assert.Contains(_newUser1, newGroup.Members);
+    }
+
+    [Fact]
+    public void TestUpdateMembersWithNull()
+    {
+        Group newGroup = new Group("Group1", _newUser1);
+        newGroup.UpdateMembers(null!);
+        Assert.Single(newGroup.Members);
+    }
+
+    [Fact]
+    public void TestChangeLastUpdatedUpdatesTimestamp()
+    {
+        Group newGroup = new Group("Group1", _newUser1);
+        DateTime originalTime = newGroup.LastUpdated;
+        newGroup.ChangeLastUpdated();
+        Assert.True(newGroup.LastUpdated > originalTime);
     }
 }

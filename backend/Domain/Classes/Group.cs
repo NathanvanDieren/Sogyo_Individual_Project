@@ -17,7 +17,7 @@ public class Group
     {
         Id = Guid.NewGuid();
         Name = name;
-        Creator = creator ?? throw new ArgumentNullException(nameof(creator));
+        Creator = creator;
         CreatorId = creator.Id;
         
         _members.Add(creator);
