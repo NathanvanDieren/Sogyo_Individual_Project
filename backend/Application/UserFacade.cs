@@ -1,7 +1,7 @@
-using Application.Services;
 using Application.DTOs;
 using Application.Interfaces;
-using Domain;
+using Application.Services;
+using Domain.Classes;
 using Microsoft.AspNetCore.Http;
 using BC = BCrypt.Net.BCrypt;
 
@@ -11,7 +11,7 @@ internal class UserFacade : IUserFacade
 {
     private readonly IUserRepository _userRepository;
     private readonly TokenService _tokenService;
-    
+
     public UserFacade(IUserRepository userRepository, TokenService tokenService)
     {
         _userRepository = userRepository;
@@ -25,13 +25,13 @@ internal class UserFacade : IUserFacade
         {
             throw new BadHttpRequestException("Dit e-mailadres is al in gebruik.");
         }
-        
-        string hashedPassword = BC.HashPassword(password);
-        
-        User newUser = new User(username, email, hashedPassword, "user");
-        
+
+        var hashedPassword = BC.HashPassword(password);
+
+        var newUser = new User(username, email, hashedPassword, "user");
+
         await _userRepository.AddUserAsync(newUser);
-        
+
         return new UserResponseDto(
             newUser.Id,
             newUser.Username,
@@ -42,10 +42,10 @@ internal class UserFacade : IUserFacade
 
     public async Task<UserResponseDto?> GetUserById(Guid guid)
     {
-        User? user = await _userRepository.GetUserByIdAsync(guid);
-        
+        var user = await _userRepository.GetUserByIdAsync(guid);
+
         if (user == null) return null;
-        
+
         return new UserResponseDto(
             user.Id,
             user.Username,
@@ -53,24 +53,22 @@ internal class UserFacade : IUserFacade
             user.RoleId
         );
     }
-    
+
     public async Task<LoginResponseDto?> UserLogin(string email, string password)
     {
-        User? user = await _userRepository.GetUserByEmailAsync(email);
-        
+        var user = await _userRepository.GetUserByEmailAsync(email);
+
         if (user == null) return null;
-        
-        bool isPasswordCorrect = BC.Verify(password, user.PasswordHash);
-        
+
+        var isPasswordCorrect = BC.Verify(password, user.PasswordHash);
+
         if (!isPasswordCorrect) return null;
 
-        string token = _tokenService.GenerateToken(user);
-            
+        var token = _tokenService.GenerateToken(user);
+
         return new LoginResponseDto(
             user.Id,
-            token 
+            token
         );
     }
-    
-    
 }

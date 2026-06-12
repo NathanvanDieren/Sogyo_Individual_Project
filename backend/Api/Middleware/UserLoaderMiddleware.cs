@@ -10,9 +10,9 @@ public class UserLoaderMiddleware
     {
         _next = next;
     }
-    
+
     public async Task InvokeAsync(
-        HttpContext context, 
+        HttpContext context,
         ICurrentUserService currentUserService)
     {
         if (context.Request.Cookies.TryGetValue("UserId", out string? cookieValue))

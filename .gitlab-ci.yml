@@ -3,6 +3,7 @@ image: mcr.microsoft.com/dotnet/sdk:10.0
 stages:
   - build
   - test
+  - formatter
 
 build_backend:
   stage: build
@@ -36,3 +37,8 @@ test_backend_and_coverage:
     reports:
       junit:
         - "backend/artifacts/testresult.xml"
+
+verify_formatting:
+  stage: formatter
+  script:
+    - dotnet format --verify-no-changes

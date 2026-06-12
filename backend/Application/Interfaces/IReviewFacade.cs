@@ -9,7 +9,7 @@ public interface IReviewFacade
     public Task<IEnumerable<object>> GetItemTypes();
     public Task<ReviewListDto> GetReviews();
     public Task<ReviewListDto> GetReviewsByGroupId(Guid groupId);
-    
+
     public Task DeleteReviewByReviewId(Guid userId);
 
     public Task<ReviewResponseDto> EditReview(Guid reviewId, CreateReviewDto model);

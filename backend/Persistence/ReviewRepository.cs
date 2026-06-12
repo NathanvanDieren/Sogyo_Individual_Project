@@ -24,14 +24,14 @@ internal class ReviewRepository : IReviewRepository
     public async Task<Review?> GetReviewByReviewIdAsync(Guid reviewId)
     {
         if (reviewId == null)
-            {
+        {
             return null;
-            }
+        }
         return await _context.Reviews
             .Include(r => r.Creator)
             .FirstOrDefaultAsync(r => r.Id == reviewId);
     }
-    
+
     public async Task<Review?> GetReviewWithGroupsByReviewIdAsync(Guid reviewId)
     {
         return await _context.Reviews
@@ -91,7 +91,7 @@ internal class ReviewRepository : IReviewRepository
                 Description = g.Description,
                 Itemtype = g.ItemType.ToString(),
                 Name = g.Creator.Username,
-                isCreator =  g.Creator.Id == currentUser.Id,
+                isCreator = g.Creator.Id == currentUser.Id,
                 Groups = g.Groups.Select(m => new GroupInReviewDto
                 {
                     Id = m.Id,
@@ -119,7 +119,7 @@ internal class ReviewRepository : IReviewRepository
 
     public Task SaveChangesAsync()
     {
-        return  _context.SaveChangesAsync();
+        return _context.SaveChangesAsync();
     }
 
 }

@@ -18,8 +18,6 @@ internal class ReviewFacade : IReviewFacade
         _groupRepository = groupRepository;
     }
 
-    
-    
     public async Task<ReviewResponseDto> CreateReview(CreateReviewDto model)
     {
         var currentUser = _currentUserService.User;
@@ -27,23 +25,23 @@ internal class ReviewFacade : IReviewFacade
         {
             throw new UnauthorizedAccessException("Gebruiker is niet ingelogd.");
         }
-        
+
         var newReview = new Review(currentUser, model.Title, model.Rating, model.Description, model.ItemType);
 
         IEnumerable<Group> targetGroups = Enumerable.Empty<Group>();
-        
+
         if (model.GroupsGuids.Any())
         {
             targetGroups = await _groupRepository.GetGroupsByGuidAsync(model.GroupsGuids);
         }
-        
+
         newReview.UpdateGroups(targetGroups);
-        
+
         await _reviewRepository.AddReviewAsync(newReview);
-        
+
         return new ReviewResponseDto(newReview.Id);
     }
-    
+
     public async Task<ReviewResponseDto> EditReview(Guid reviewId, CreateReviewDto model)
     {
         var currentUser = _currentUserService.User;
@@ -52,24 +50,24 @@ internal class ReviewFacade : IReviewFacade
             throw new UnauthorizedAccessException("Gebruiker is niet ingelogd.");
         }
 
-        Review review = await _reviewRepository.GetReviewWithGroupsByReviewIdAsync(reviewId);
+        var review = await _reviewRepository.GetReviewWithGroupsByReviewIdAsync(reviewId);
         review.EnsureCanEdit(currentUser);
         review.ChangeTitle(model.Title);
         review.ChangeRating(model.Rating);
         review.ChangeDescription(model.Description);
         review.ChangeItemType(model.ItemType);
-        
+
         IEnumerable<Group> targetGroups = Enumerable.Empty<Group>();
-        
+
         if (model.GroupsGuids.Any())
         {
             targetGroups = await _groupRepository.GetGroupsByGuidAsync(model.GroupsGuids);
         }
-        
+
         review.UpdateGroups(targetGroups);
 
         await _reviewRepository.SaveChangesAsync();
-        
+
         return new ReviewResponseDto(review.Id);
     }
 
@@ -77,10 +75,10 @@ internal class ReviewFacade : IReviewFacade
     {
         var itemTypes = Enum.GetValues(typeof(ItemType))
             .Cast<ItemType>()
-            .Select(e => new 
-            { 
-                Value = (int)e, 
-                Name = e.ToString() 
+            .Select(e => new
+            {
+                Value = (int)e,
+                Name = e.ToString()
             });
 
         return await Task.FromResult(itemTypes);
@@ -93,7 +91,7 @@ internal class ReviewFacade : IReviewFacade
         {
             throw new UnauthorizedAccessException("Gebruiker is niet ingelogd.");
         }
-        
+
         var reviews = await _reviewRepository.GetAllReviewsByUserIdAsync(currentUser.Id);
 
         return reviews;
@@ -106,7 +104,7 @@ internal class ReviewFacade : IReviewFacade
         {
             throw new UnauthorizedAccessException("Gebruiker is niet ingelogd.");
         }
-        
+
         var reviews = await _reviewRepository.GetReviewsByGroupIdAsync(currentUser, groupId);
 
         return reviews;
@@ -114,8 +112,8 @@ internal class ReviewFacade : IReviewFacade
 
     public async Task DeleteReviewByReviewId(Guid reviewId)
     {
-        User? currentUser = _currentUserService.User;
-        Review? review = await _reviewRepository.GetReviewByReviewIdAsync(reviewId);
+        var currentUser = _currentUserService.User;
+        var review = await _reviewRepository.GetReviewByReviewIdAsync(reviewId);
 
         if (review == null)
         {
@@ -129,9 +127,4 @@ internal class ReviewFacade : IReviewFacade
 
         await _reviewRepository.DeleteReviewAsync(reviewId);
     }
-
-
-
-
-
 }

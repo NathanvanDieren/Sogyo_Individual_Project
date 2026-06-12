@@ -1,14 +1,14 @@
 using System.Text.Json.Serialization;
-using Persistence;
-using Application;
 using Api.Middleware;
+using Application;
+using Persistence;
 
 DotNetEnv.Env.Load();
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddOpenApi();
-builder.Services.AddControllers(); 
+builder.Services.AddControllers();
 
 builder.Services.AddPersistenceServices(builder.Configuration);
 builder.Services.AddApplicationServices();

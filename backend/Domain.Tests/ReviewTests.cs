@@ -1,7 +1,4 @@
-using Domain;
 using Domain.Classes;
-using Domain.Exceptions;
-using Xunit;
 using Xunit;
 
 namespace Domain.Tests;
@@ -9,20 +6,20 @@ namespace Domain.Tests;
 public class ReviewTests
 {
     private User _newUser1 = new User("Nathan", "nvdieren@sogyo.nl", "nvdieren", "user");
-    
+
     [Fact]
     public void CreateReview_WithValidData_ShouldInitializeCorrectly()
     {
         var group1 = new Group("Boekenclub", _newUser1);
         var groups = new List<Group> { group1 };
 
-        string title = "Het Gouden Ei";
-        string description = "Ik vond hem erg spannend en vlot geschreven.";
-        int rating = 5;
-        ItemType type = ItemType.Book;
-        
+        var title = "Het Gouden Ei";
+        var description = "Ik vond hem erg spannend en vlot geschreven.";
+        var rating = 5;
+        var type = ItemType.Book;
+
         var review = new Review(_newUser1, title, rating, description, type, groups);
-        
+
         Assert.NotNull(review);
     }
 
@@ -194,9 +191,9 @@ public class ReviewTests
     [Fact]
     public void TestEnsureCanEditThrowsForOtherUser()
     {
-        User otherUser = new User("Other", "other@sogyo.nl", "other", "user");
+        var otherUser = new User("Other", "other@sogyo.nl", "other", "user");
         var review = new Review(_newUser1, "Title", 5, "Description", ItemType.Book);
-        Assert.Throws<UnauthorizedDomainException>(() => review.EnsureCanEdit(otherUser));
+        Assert.Throws<UnauthorizedAccessException>(() => review.EnsureCanEdit(otherUser));
     }
 
     [Fact]
@@ -211,7 +208,7 @@ public class ReviewTests
     public void TestChangeLastUpdatedUpdatesTimestamp()
     {
         var review = new Review(_newUser1, "Title", 5, "Description", ItemType.Book);
-        DateTime originalTime = review.LastUpdated;
+        var originalTime = review.LastUpdated;
         review.ChangeTitle("NewTitle");
         Assert.True(review.LastUpdated > originalTime);
     }

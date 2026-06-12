@@ -1,9 +1,9 @@
-using Domain;
-using Microsoft.EntityFrameworkCore;
 using Application.Interfaces;
+using Domain.Classes;
+using Microsoft.EntityFrameworkCore;
 namespace Persistence;
 
-internal class UserRepository: IUserRepository
+internal class UserRepository : IUserRepository
 {
     private readonly AppDbContext _context;
 
@@ -38,12 +38,12 @@ internal class UserRepository: IUserRepository
         {
             return new List<User>();
         }
-        
+
         var cleanEmails = emails
             .Where(e => !string.IsNullOrWhiteSpace(e))
             .Select(e => e.Trim().ToLower())
             .ToList();
-        
+
         return await _context.Users
             .Where(u => cleanEmails.Contains(u.Email.ToLower()))
             .ToListAsync();

@@ -1,4 +1,4 @@
-﻿using Domain;
+using Domain.Classes;
 using Xunit;
 
 namespace Domain.Tests;
@@ -6,7 +6,7 @@ namespace Domain.Tests;
 public class UserTest
 {
     private User newUser = new User("Nathan", "nvdieren@sogyo.nl", "nvdieren", "user");
-    
+
     [Fact]
     public void TestNewUserNotNull()
     {
@@ -16,7 +16,7 @@ public class UserTest
     [Fact]
     public void TestDifferentUsersGetDifferentId()
     {
-        User secondUser = new User("Nathan", "nvdieren@sogyo.nl", "nvdieren", "user");
+        var secondUser = new User("Nathan", "nvdieren@sogyo.nl", "nvdieren", "user");
         Assert.NotEqual(newUser.Id, secondUser.Id);
     }
 
@@ -29,7 +29,7 @@ public class UserTest
     [Fact]
     public void TestEmailIsNormalizedToLowercase()
     {
-        User user = new User("TestUser", "UPPER@CASE.COM", "password", "admin");
+        var user = new User("TestUser", "UPPER@CASE.COM", "password", "admin");
         Assert.Equal("upper@case.com", user.Email);
     }
 

@@ -1,32 +1,32 @@
-using Microsoft.AspNetCore.Mvc;
 using Application.DTOs;
 using Application.Interfaces;
 using Domain.Classes;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
 
 [ApiController]
 [Route("api/review/")]
-public class ReviewController: ControllerBase
+public class ReviewController : ControllerBase
 {
-    private readonly IReviewFacade _reviewFacade;       
+    private readonly IReviewFacade _reviewFacade;
 
     public ReviewController(IReviewFacade groupFacade)
     {
         _reviewFacade = groupFacade;
     }
-    
+
     [HttpPost("create")]
     public async Task<IActionResult> CreateReview([FromBody] CreateReviewDto model)
-    {   
+    {
         try
         {
-            ReviewResponseDto response = await _reviewFacade.CreateReview(model);
+            var response = await _reviewFacade.CreateReview(model);
             if (response == null)
             {
                 return BadRequest(new { message = "Review aanmaken is mislukt. Probeer het opnieuw." });
             }
-        
+
             return Ok(response);
         }
         catch (BadHttpRequestException ex)
@@ -36,20 +36,20 @@ public class ReviewController: ControllerBase
         }
         catch (Exception ex)
         {
-            return StatusCode(500, new 
-            { 
+            return StatusCode(500, new
+            {
                 message = "Er is een interne serverfout opgetreden.",
             });
         }
     }
-    
+
     [HttpPost("edit/{reviewId}")]
     public async Task<IActionResult> CreateReview([FromRoute] Guid reviewId, [FromBody] CreateReviewDto model)
-    {   
+    {
         try
         {
             ReviewResponseDto response = await _reviewFacade.EditReview(reviewId, model);
-        
+
             return Ok(response);
         }
         catch (KeyNotFoundException ex)
@@ -62,8 +62,8 @@ public class ReviewController: ControllerBase
         }
         catch (Exception ex)
         {
-            return StatusCode(500, new 
-            { 
+            return StatusCode(500, new
+            {
                 message = "Er is een interne serverfout opgetreden.",
             });
         }
@@ -93,19 +93,19 @@ public class ReviewController: ControllerBase
             return StatusCode(500, new { message = "Er is een interne serverfout opgetreden." });
         }
     }
-    
+
     [HttpGet("getreviews")]
     public async Task<IActionResult> GetReviews()
     {
         try
         {
-            ReviewListDto response = await _reviewFacade.GetReviews();
-        
+            var response = await _reviewFacade.GetReviews();
+
             if (response == null)
             {
                 return BadRequest(new { message = "Reviews laden mislukt. Probeer het opnieuw." });
             }
-        
+
             return Ok(response);
         }
         catch (BadHttpRequestException ex)
@@ -118,13 +118,13 @@ public class ReviewController: ControllerBase
             return StatusCode(500, new { message = "Er is een interne serverfout opgetreden." });
         }
     }
-    
+
     [HttpGet("getreviews/{groupId}")]
     public async Task<IActionResult> GetReviewsByGroup([FromRoute] Guid groupId)
     {
         try
         {
-            ReviewListDto response = await _reviewFacade.GetReviewsByGroupId(groupId);
+            var response = await _reviewFacade.GetReviewsByGroupId(groupId);
             return Ok(response);
         }
         catch (Exception ex)
@@ -132,15 +132,15 @@ public class ReviewController: ControllerBase
             return StatusCode(500, new { message = "Fout bij ophalen van groepsreviews." });
         }
     }
-    
+
     [HttpDelete("delete/{reviewId}")]
     public async Task<IActionResult> DeleteReviewByReviewId(Guid reviewId)
     {
         try
         {
             await _reviewFacade.DeleteReviewByReviewId(reviewId);
-            
-            return NoContent(); 
+
+            return NoContent();
         }
         catch (KeyNotFoundException ex)
         {
@@ -155,5 +155,5 @@ public class ReviewController: ControllerBase
             return StatusCode(StatusCodes.Status500InternalServerError, new { message = "Er is een onverwachte fout opgetreden." });
         }
     }
-    
+
 }

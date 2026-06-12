@@ -1,4 +1,5 @@
 namespace Application.DTOs;
+
 public record LoginResponseDto(
     Guid Id,
     string Token

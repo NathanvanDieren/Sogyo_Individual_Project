@@ -1,9 +1,9 @@
-﻿using Domain.Classes;
+using Domain.Classes;
 
 namespace Persistence;
 
-using Microsoft.EntityFrameworkCore;
 using Domain;
+using Microsoft.EntityFrameworkCore;
 
 
 internal class AppDbContext : DbContext
@@ -21,18 +21,18 @@ internal class AppDbContext : DbContext
         {
             entity.HasIndex(u => u.Email)
                 .IsUnique();
-            
+
         });
         modelBuilder.Entity<Group>(entity =>
         {
             entity.HasKey(g => g.Id);
             entity.Property(g => g.Name).IsRequired().HasMaxLength(100);
-            
+
             entity.HasOne(g => g.Creator)
                 .WithMany()
                 .HasForeignKey(g => g.CreatorId)
                 .OnDelete(DeleteBehavior.Restrict);
-            
+
             entity.HasMany(g => g.Members)
                 .WithMany()
                 .UsingEntity(j => j.ToTable("GroupMembers"));
@@ -41,16 +41,16 @@ internal class AppDbContext : DbContext
                 .HasField("_members")
                 .UsePropertyAccessMode(PropertyAccessMode.Field);
         });
-        
+
         modelBuilder.Entity<Review>(entity =>
         {
             entity.HasKey(r => r.Id);
             entity.Property(r => r.Title).IsRequired().HasMaxLength(150);
-            
+
             entity.Property(r => r.ItemType)
                 .HasConversion<string>();
             entity.HasMany(r => r.Groups)
-                .WithMany() 
+                .WithMany()
                 .UsingEntity(j => j.ToTable("GroupReviews"));
 
             entity.Navigation(r => r.Groups)

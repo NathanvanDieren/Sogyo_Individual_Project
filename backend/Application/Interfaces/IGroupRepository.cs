@@ -1,5 +1,5 @@
-using Domain;
 using Application.DTOs;
+using Domain.Classes;
 namespace Application.Interfaces;
 
 public interface IGroupRepository
@@ -10,7 +10,7 @@ public interface IGroupRepository
     public Task<List<Group>> GetGroupsByGuidAsync(List<Guid> guids);
 
     public Task<GroupListDto> GetAllGroupsByUserIdAsync(Guid userId);
-    
+
     public Task DeleteGroupAsync(Guid groupId);
 
     public Task<Group?> GetGroupAndMembersByGroupIdAsync(Guid groupId);

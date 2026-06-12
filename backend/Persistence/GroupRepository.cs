@@ -1,11 +1,11 @@
-using Domain;
-using Application.Interfaces;
 using Application.DTOs;
+using Application.Interfaces;
+using Domain.Classes;
 using Microsoft.EntityFrameworkCore;
 
 namespace Persistence;
 
-internal class GroupRepository: IGroupRepository
+internal class GroupRepository : IGroupRepository
 {
     private readonly AppDbContext _context;
 
@@ -19,7 +19,7 @@ internal class GroupRepository: IGroupRepository
         _context.Groups.Add(newGroup);
         await _context.SaveChangesAsync();
     }
-    
+
     public async Task<Group?> GetGroupByGroupIdAsync(Guid groupId)
     {
         if (groupId == null)
@@ -32,7 +32,7 @@ internal class GroupRepository: IGroupRepository
             .FirstOrDefaultAsync(r => r.Id == groupId);
     }
 
-    
+
     public async Task<List<Group>> GetGroupsByGuidAsync(List<Guid> guids)
     {
         if (guids == null || !guids.Any())
@@ -49,7 +49,7 @@ internal class GroupRepository: IGroupRepository
     public async Task<Group?> GetGroupAndMembersByGroupIdAsync(Guid groupId)
     {
         return await _context.Groups
-            .Include(r => r.Members) 
+            .Include(r => r.Members)
             .FirstOrDefaultAsync(r => r.Id == groupId);
     }
     public async Task<GroupListDto> GetAllGroupsByUserIdAsync(Guid userId)
@@ -66,7 +66,7 @@ internal class GroupRepository: IGroupRepository
             {
                 Id = g.Id,
                 Name = g.Name,
-                IsCreator =  g.CreatorId == userId,
+                IsCreator = g.CreatorId == userId,
                 Members = g.Members.Select(m => new GroupMemberDto
                 {
                     Id = m.Id,
@@ -86,7 +86,7 @@ internal class GroupRepository: IGroupRepository
     public async Task DeleteGroupAsync(Guid groupId)
     {
         var group = await _context.Groups.FindAsync(groupId);
-        
+
         if (group != null)
         {
             _context.Groups.Remove(group);

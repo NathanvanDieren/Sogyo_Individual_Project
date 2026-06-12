@@ -19,7 +19,7 @@ public class GroupInReviewDto
     public string Name { get; set; } = string.Empty;
 }
 
-public class ReviewDto 
+public class ReviewDto
 {
     public Guid Id { get; set; }
     public string Title { get; set; } = string.Empty;
@@ -28,12 +28,12 @@ public class ReviewDto
     public string Itemtype { get; set; }
     public string Name { get; set; } = string.Empty;
     public bool isCreator { get; set; } = false;
-    public List<GroupInReviewDto> Groups { get; set; } = new(); 
-    
+    public List<GroupInReviewDto> Groups { get; set; } = new();
+
 
 }
 
-public class ReviewListDto 
+public class ReviewListDto
 {
     public required List<ReviewDto> Reviews { get; set; }
     public int TotalCount { get; set; }

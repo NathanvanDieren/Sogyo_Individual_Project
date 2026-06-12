@@ -1,6 +1,6 @@
-using Microsoft.AspNetCore.Mvc;
 using Application.DTOs;
 using Application.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
 
@@ -8,7 +8,7 @@ namespace Api.Controllers;
 [Route("api/user/")]
 public class UserController : ControllerBase
 {
-    private readonly IUserFacade _userFacade;       
+    private readonly IUserFacade _userFacade;
     private readonly ICurrentUserService _currentUserService;
 
     public UserController(IUserFacade userFacade, ICurrentUserService currentUserService)
@@ -19,16 +19,16 @@ public class UserController : ControllerBase
 
     [HttpPost("register")]
     public async Task<IActionResult> CreateUser([FromBody] CreateUserDto model)
-    {   
-        try 
+    {
+        try
         {
             UserResponseDto response = await _userFacade.CreateUser(model.Username, model.Email, model.Password);
-        
+
             if (response == null)
             {
                 return BadRequest(new { message = "Registratie mislukt. Probeer het opnieuw." });
             }
-        
+
             return Ok(response);
         }
         catch (BadHttpRequestException ex)
@@ -41,30 +41,31 @@ public class UserController : ControllerBase
             return StatusCode(500, new { message = "Er is een interne serverfout opgetreden." });
         }
     }
-    
+
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] LoginDto model)
     {
         LoginResponseDto? response = await _userFacade.UserLogin(model.Email, model.Password);
-        
+
         if (response == null)
         {
             return Unauthorized(new { message = "Ongeldig e-mailadres of wachtwoord." });
         }
-        
+
         Response.Cookies.Append("UserId", response.Id.ToString(), new CookieOptions
         {
-            HttpOnly = true, 
+            HttpOnly = true,
             Expires = DateTime.UtcNow.AddDays(7)
         });
-        
-       
-        return Ok(new { 
+
+
+        return Ok(new
+        {
             message = "Succesvol ingelogd",
-            Id = response.Id 
+            Id = response.Id
         });
     }
-    
+
     [HttpPost("logout")]
     public async Task<IActionResult> Logout()
     {
@@ -77,7 +78,7 @@ public class UserController : ControllerBase
 
         return Ok(new { message = "Succesvol uitgelogd." });
     }
-    
+
 
     [HttpGet("validate")]
     public async Task<IActionResult> Validate()
