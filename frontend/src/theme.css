@@ -1,0 +1,47 @@
+:root {
+  /* Background colors - warm with green/blue undertones */
+  --bg-primary: #f0f5f0;        /* Soft minty cream page background */
+  --bg-secondary: #fafdf7;      /* Very light green-white for cards, modals, forms */
+  --bg-header: #4a7c59;         /* Rich forest green header */
+  --bg-sidebar: #2d4a35;        /* Dark forest green sidebar */
+  --bg-input: #e8f0e8;          /* Soft mint input fields */
+  --bg-error: #fde8e0;          /* Warm peach error background */
+  --bg-tag: #e0ece0;            /* Soft green tag filter background */
+  --bg-tag-active: #b8d8b8;     /* Soft sage active tag */
+  
+  /* Tag/Label colors */
+  --bg-tag-green: #5a8f65;      /* Sage green tags */
+  --bg-tag-blue: #5b8fb9;       /* Soft blue tags */
+  --bg-tag-hover: #3d5c45;      /* Darker forest green sidebar hover */
+  
+  /* Text colors - strong contrast */
+  --text-primary: #2c3e2d;      /* Deep green-tinted dark */
+  --text-secondary: #5a7a5e;    /* Muted forest green-gray */
+  --text-white: #fafdf7;        /* Light green-white text on dark backgrounds */
+  --text-error: #c0392b;        /* Strong red for errors */
+  --text-sidebar: #d4e8d4;      /* Soft green sidebar text */
+  --text-muted: #7a9a7e;        /* Muted sage */
+  --text-secondary-hover: #4a6a4e;  /* Forest green hover */
+  
+  /* Accent/Brand colors - green/blue palette */
+  --accent-primary: #4a7c59;    /* Forest green primary */
+  --accent-primary-hover: #3a6348;  /* Darker forest green hover */
+  --accent-success: #5b8fb9;    /* Soft blue success */
+  --accent-success-hover: #4a7ba5;  /* Deeper blue hover */
+  --accent-danger: #c0392b;     /* Strong red */
+  --accent-warning: #e6a832;    /* Warm amber */
+  
+  /* Star colors - warm gold */
+  --star-filled: #d4a843;       /* Rich gold star */
+  --star-empty: #c8d8c8;        /* Soft sage empty star */
+  
+  /* Border colors - green-tinted */
+  --border-color: #d0ddd0;      /* Soft green border */
+  --border-focus: #4a7c59;      /* Forest green focus */
+  
+  /* Overlay */
+  --overlay-bg: rgba(45, 74, 53, 0.5);  /* Dark forest green overlay */
+  
+  /* Additional hover states */
+  --group-item-hover-shadow: rgba(74, 124, 89, 0.2);  /* Green shadow */
+}

@@ -1,0 +1,49 @@
+image: mcr.microsoft.com/dotnet/sdk:10.0
+
+stages:
+  - build
+  - test
+  - formatter
+
+build_backend:
+  stage: build
+  before_script:
+    - apt-get update && apt-get install -y curl
+    - curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
+    - apt-get install -y nodejs
+  script:
+    - cd backend
+    - dotnet restore
+    - dotnet build --no-restore -c Release
+
+build_frontend:
+  stage: build
+  image: node:20
+  script:
+    - cd frontend
+    - npm ci
+    - npm run build
+
+test_backend_and_coverage:
+  stage: test
+  script:
+    - cd backend
+    - 'dotnet test Domain.Tests/Domain.Tests.csproj --collect:"XPlat Code Coverage" --logger:"junit;LogFileName=../../artifacts/testresult.xml"'
+    - dotnet tool install -g dotnet-reportgenerator-globaltool
+    - export PATH="$PATH:$HOME/.dotnet/tools"
+    - reportgenerator "-reports:Domain.Tests/TestResults/**/coverage.cobertura.xml" "-targetdir:artifacts/coverage-report" "-reporttypes:Html;TextSummary"
+    - grep -E "Line coverage:|Method coverage:" artifacts/coverage-report/Summary.txt
+  coverage: '/Line coverage: (\d+(?:\.\d+)?)/' 
+  artifacts:
+    when: always
+    paths:
+      - backend/artifacts/coverage-report/
+    reports:
+      junit:
+        - "backend/artifacts/testresult.xml"
+
+verify_formatting:
+  stage: formatter
+  script:
+    - cd backend
+    - dotnet format --verify-no-changes

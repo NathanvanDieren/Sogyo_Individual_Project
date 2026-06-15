@@ -1,0 +1,92 @@
+using Application.DTOs;
+using Application.Interfaces;
+using Microsoft.AspNetCore.Mvc;
+
+namespace Api.Controllers;
+
+[ApiController]
+[Route("api/user/")]
+public class UserController : ControllerBase
+{
+    private readonly IUserFacade _userFacade;
+    private readonly ICurrentUserService _currentUserService;
+
+    public UserController(IUserFacade userFacade, ICurrentUserService currentUserService)
+    {
+        _userFacade = userFacade;
+        _currentUserService = currentUserService;
+    }
+
+    [HttpPost("register")]
+    public async Task<IActionResult> CreateUser([FromBody] CreateUserDto model)
+    {
+        try
+        {
+            UserResponseDto response = await _userFacade.CreateUser(model.Username, model.Email, model.Password);
+
+            if (response == null)
+            {
+                return BadRequest(new { message = "Registratie mislukt. Probeer het opnieuw." });
+            }
+
+            return Ok(response);
+        }
+        catch (BadHttpRequestException ex)
+        {
+
+            return BadRequest(new { message = ex.Message });
+        }
+        catch (Exception)
+        {
+            return StatusCode(500, new { message = "Er is een interne serverfout opgetreden." });
+        }
+    }
+
+    [HttpPost("login")]
+    public async Task<IActionResult> Login([FromBody] LoginDto model)
+    {
+        LoginResponseDto? response = await _userFacade.UserLogin(model.Email, model.Password);
+
+        if (response == null)
+        {
+            return Unauthorized(new { message = "Ongeldig e-mailadres of wachtwoord." });
+        }
+
+        Response.Cookies.Append("UserId", response.Id.ToString(), new CookieOptions
+        {
+            HttpOnly = true,
+            Expires = DateTime.UtcNow.AddDays(7)
+        });
+
+
+        return Ok(new
+        {
+            message = "Succesvol ingelogd",
+            Id = response.Id
+        });
+    }
+
+    [HttpPost("logout")]
+    public async Task<IActionResult> Logout()
+    {
+        Response.Cookies.Delete("UserId", new CookieOptions
+        {
+            HttpOnly = true,
+            Secure = true,
+            SameSite = SameSiteMode.None
+        });
+
+        return Ok(new { message = "Succesvol uitgelogd." });
+    }
+
+
+    [HttpGet("validate")]
+    public async Task<IActionResult> Validate()
+    {
+        if (_currentUserService.IsAuthenticated)
+        {
+            return Ok(new { message = "Succesvol gevalideerd." });
+        }
+        return StatusCode(401, new { message = "U kan niet ingelogd worden" });
+    }
+}

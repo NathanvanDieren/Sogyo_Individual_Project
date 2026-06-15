@@ -1,0 +1,51 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+import AddButton from "../components/AddButton.vue";
+import GroupForm from "../components/GroupForm.vue";
+import ReviewForm from "../components/ReviewForm.vue";
+import DisplayGroups from "../components/DisplayGroups.vue";
+
+const showGroupModal = ref(false)
+const showReviewModal = ref(false)
+
+const activeView = ref<'groups' | 'reviews'>('groups')
+const displayGroupsRef = ref<InstanceType<typeof DisplayGroups> | null>(null)
+const availableGroups = ref<any[]>([])
+
+function handleGroupsLoaded(groups: any[]) {
+  availableGroups.value = groups
+}
+function handleSuccess() {
+  showGroupModal.value = false
+  displayGroupsRef.value?.GetGroups()
+}
+</script>
+
+<template>
+  <DisplayGroups
+      v-if="activeView === 'groups'"
+      ref="displayGroupsRef"
+      @groups-loaded="handleGroupsLoaded"
+  />
+
+  <AddButton
+      @open-group="showGroupModal = true"
+      @open-review="showReviewModal = true"
+  />
+
+  <!-- Modals -->
+  <GroupForm
+      v-if="showGroupModal"
+      @close="showGroupModal = false"
+      @success="handleSuccess"
+  />
+
+  <ReviewForm
+      v-if="showReviewModal"
+      @close="showReviewModal = false"
+      :available-groups="availableGroups"
+  />
+</template>
+
+<style scoped>
+</style>

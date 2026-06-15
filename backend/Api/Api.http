@@ -1,5 +1,37 @@
-@Api_HostAddress = http://localhost:5075
+@Api_HostAddress = https://localhost:7082
 
-GET {{Api_HostAddress}}/
+### Registreer een nieuwe gebruiker
+POST {{Api_HostAddress}}/api/user/register
+Content-Type: application/json
+
+{
+  "username": "NathanvdDieren",
+  "email": "nathan@example.com",
+  "password": "MijnVeiligWachtwoord123!"
+}
+### Log een gebruiker in
+POST {{Api_HostAddress}}/api/user/login
+Content-Type: application/json
+
+{
+"email": "nathan@example.com",
+"password": "MijnVeiligWachtwoord123!"
+}
+### Log een gebruiker uit
+POST {{Api_HostAddress}}/api/user/logout
+
+
+### Maak een nieuwe groep aan
+POST {{Api_HostAddress}}/api/group/create
+Content-Type: application/json
+
+{
+"name": "nathan@example.com",
+"emails": ["nathan@example.com", "nathanvdieren@gmail.com"]
+}
+
+### 3. Test GetGroups
+GET {{Api_HostAddress}}/api/group/getgroups
 Accept: application/json
-
+### 3. Test GetGroups
+GET{{Api_HostAddress}}/api/review/getitemtypes
