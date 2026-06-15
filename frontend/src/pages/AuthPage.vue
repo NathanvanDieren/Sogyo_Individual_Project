@@ -88,7 +88,7 @@ function goToRegister() {
 .auth-container {
   width: 100%;
   min-height: 100vh;
-  background-color: #f9fafb;
+  background-color: var(--bg-input);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -135,7 +135,7 @@ function goToRegister() {
 .info-title {
   font-size: 2rem;
   font-weight: bold;
-  color: #111827;
+  color: var(--text-primary);
   margin-bottom: 16px;
 }
 
@@ -147,14 +147,14 @@ function goToRegister() {
 
 .info-text {
   font-size: 1.125rem;
-  color: #4b5563;
+  color: var(--text-secondary);
 }
 
 .auth-form-container {
   width: 100%;
   max-width: 384px;
-  background-color: #ffffff;
-  border: 1px solid #e5e7eb;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
   border-radius: 16px;
   padding: 24px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
@@ -171,7 +171,7 @@ function goToRegister() {
 .form-title {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #1f2937;
+  color: var(--text-primary);
   margin-bottom: 24px;
 }
 
@@ -202,29 +202,29 @@ function goToRegister() {
 .form-label {
   display: block;
   font-weight: 500;
-  color: #374151;
+  color: var(--text-primary);
   margin-bottom: 4px;
 }
 
 .form-input {
   width: 100%;
-  border: 1px solid #d1d5db;
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   padding: 8px 12px;
   margin-bottom: 16px;
-  background-color: #f9fafb;
+  background-color: var(--bg-input);
   box-sizing: border-box;
 }
 
 .form-input:focus {
   outline: none;
-  border-color: #3b82f6;
+  border-color: var(--accent-primary);
 }
 
 .submit-button {
   width: 100%;
-  background-color: #2563eb;
-  color: #ffffff;
+  background-color: var(--accent-primary);
+  color: var(--text-white);
   padding: 10px 0;
   border-radius: 8px;
   font-weight: 600;
@@ -235,21 +235,21 @@ function goToRegister() {
 }
 
 .submit-button:hover {
-  background-color: #1d4ed8;
+  background-color: var(--accent-primary-hover);
 }
 
 .register-label {
   display: block;
   font-weight: 500;
   padding-top: 16px;
-  color: #374151;
+  color: var(--text-primary);
   margin-bottom: 4px;
 }
 
 .register-button {
   width: 100%;
-  background-color: #2563eb;
-  color: #ffffff;
+  background-color: var(--accent-primary);
+  color: var(--text-white);
   padding: 10px 0;
   border-radius: 8px;
   font-weight: 600;
@@ -260,6 +260,6 @@ function goToRegister() {
 }
 
 .register-button:hover {
-  background-color: #1d4ed8;
+  background-color: var(--accent-primary-hover);
 }
 </style>

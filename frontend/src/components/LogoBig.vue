@@ -16,6 +16,6 @@
   object-fit: contain;
 
   border-radius: 16px;
-  background-color: white; /* Geeft de loze ruimte een nette achtergrond */
+  background-color: var(--bg-secondary); /* Geeft de loze ruimte een nette achtergrond */
 }
 </style>

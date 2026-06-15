@@ -36,7 +36,7 @@ public class UserController : ControllerBase
 
             return BadRequest(new { message = ex.Message });
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             return StatusCode(500, new { message = "Er is een interne serverfout opgetreden." });
         }

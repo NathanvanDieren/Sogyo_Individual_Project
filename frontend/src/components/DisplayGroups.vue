@@ -137,7 +137,7 @@ async function deleteGroup(groupId: string) {
 .total-count {
   text-align: left;
   font-weight: bold;
-  color: #555;
+  color: var(--text-secondary);
   margin-bottom: 20px;
 }
 
@@ -153,8 +153,8 @@ async function deleteGroup(groupId: string) {
 
 .editbutton {
   font-size: 0.8rem;
-  color: black;
-  background-color: mediumseagreen;
+  color: var(--text-primary);
+  background-color: var(--accent-success);
   opacity: 0.7;
   padding: 4px 8px;
   margin: 4px;
@@ -166,8 +166,8 @@ async function deleteGroup(groupId: string) {
 
 .deletebutton {
   font-size: 0.8rem;
-  color: white;
-  background-color: red;
+  color: var(--text-white);
+  background-color: var(--accent-danger);
   opacity: 0.7;
   padding: 4px 8px;
   margin: 4px;
@@ -178,8 +178,8 @@ async function deleteGroup(groupId: string) {
 }
 
 .group-item {
-  background-color: #ffffff;
-  border: 2px solid #e0e0e0;
+  background-color: var(--bg-secondary);
+  border: 2px solid var(--border-color);
   border-radius: 12px;
   padding: 20px;
   cursor: pointer;
@@ -188,34 +188,34 @@ async function deleteGroup(groupId: string) {
 }
 
 .group-item:hover {
-  border-color: #3b82f6;
+  border-color: var(--accent-primary);
   transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(59, 130, 246, 0.15);
+  box-shadow: 0 6px 12px var(--group-item-hover-shadow);
 }
 
 .group-item:active {
   transform: translateY(0);
-  background-color: #f8fafc;
+  background-color: var(--bg-input);
 }
 
 .group-item h3 {
   margin-top: 0;
   margin-bottom: 8px;
-  color: #1e293b;
+  color: var(--text-primary);
 }
 
 .members-title {
   display: block;
-  color: #64748b;
+  color: var(--text-secondary);
   font-weight: 600;
   margin-bottom: 6px;
 }
 
 .members-list li {
   font-size: 0.9rem;
-  color: #334155;
+  color: var(--text-primary);
   padding: 4px 0;
-  border-bottom: 1px dashed #f1f5f9;
+  border-bottom: 1px dashed var(--bg-input);
 }
 
 .members-list li:last-child {
@@ -230,8 +230,8 @@ async function deleteGroup(groupId: string) {
 }
 
 .create-main-btn {
-  background-color: #3b82f6;
-  color: white;
+  background-color: var(--accent-primary);
+  color: var(--text-white);
   border: none;
   padding: 10px 20px;
   border-radius: 8px;
@@ -243,6 +243,6 @@ async function deleteGroup(groupId: string) {
 }
 
 .create-main-btn:hover {
-  background-color: #2563eb;
+  background-color: var(--accent-primary-hover);
 }
 </style>

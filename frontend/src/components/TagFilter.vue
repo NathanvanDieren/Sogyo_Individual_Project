@@ -117,21 +117,21 @@ onUnmounted(() => {
 .dropdown-btn {
   width: 100%;
   padding: 8px 12px;
-  border: 1px solid #cbd5e1;
-  background-color: white;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-secondary);
   cursor: pointer;
   border-radius: 4px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-size: 14px;
-  color: #1e293b;
+  color: var(--text-primary);
   transition: border-color 0.15s ease;
 }
 
 .dropdown-btn.active {
-  border-color: #3b82f6;
-  background-color: #eff6ff;
+  border-color: var(--accent-primary);
+  background-color: var(--bg-tag-active);
   color: #1d4ed8;
   font-weight: 500;
 }
@@ -139,7 +139,7 @@ onUnmounted(() => {
 .arrow {
   font-size: 10px;
   transition: transform 0.2s ease;
-  color: #64748b;
+  color: var(--text-secondary);
 }
 
 .arrow.open {
@@ -151,8 +151,8 @@ onUnmounted(() => {
   top: 100%;
   left: 0;
   width: 100%;
-  background-color: white;
-  border: 1px solid #cbd5e1;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
   border-radius: 4px;
   box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
   margin-top: 4px;
@@ -167,12 +167,12 @@ onUnmounted(() => {
   padding: 8px 12px;
   cursor: pointer;
   font-size: 14px;
-  color: #334155;
+  color: var(--text-primary);
   user-select: none;
 }
 
 .dropdown-item:hover {
-  background-color: #f8fafc;
+  background-color: var(--bg-input);
 }
 
 .dropdown-item input {
@@ -182,12 +182,12 @@ onUnmounted(() => {
 
 .dropdown-divider {
   border: 0;
-  border-top: 1px solid #e2e8f0;
+  border-top: 1px solid var(--border-color);
   margin: 4px 0;
 }
 
 .reset-item {
   font-weight: 600;
-  color: #1e293b;
+  color: var(--text-primary);
 }
 </style>

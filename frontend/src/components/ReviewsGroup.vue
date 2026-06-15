@@ -178,7 +178,7 @@ const filteredItems = computed(() => {
 .total-count {
   text-align: left;
   font-weight: bold;
-  color: #555;
+  color: var(--text-secondary);
   margin-bottom: 20px;
 }
 #tagFilter {
@@ -195,8 +195,8 @@ const filteredItems = computed(() => {
 }
 .review-item {
   position: relative;
-  background-color: #ffffff;
-  border: 2px solid #e0e0e0;
+  background-color: var(--bg-secondary);
+  border: 2px solid var(--border-color);
   border-radius: 12px;
   padding: 20px;
   cursor: pointer;
@@ -206,7 +206,7 @@ const filteredItems = computed(() => {
 
 .review-item:active {
   transform: translateY(0);
-  background-color: #f8fafc;
+  background-color: var(--bg-input);
 }
 
 .review-header {
@@ -218,7 +218,7 @@ const filteredItems = computed(() => {
 
 .review-item h3 {
   margin: 0;
-  color: #1e293b;
+  color: var(--text-primary);
   max-width: 70%;
 }
 
@@ -233,8 +233,8 @@ const filteredItems = computed(() => {
 
 .itemtext {
   font-size: 0.8rem;
-  color: black;
-  background-color: mediumseagreen;
+  color: var(--text-primary);
+  background-color: var(--bg-tag-green);
   padding: 4px 8px;
   border-radius: 6px;
   font-weight: 500;
@@ -246,8 +246,8 @@ const filteredItems = computed(() => {
 
 .creatortext {
   font-size: 0.8rem;
-  color: black;
-  background-color: cornflowerblue;
+  color: var(--text-primary);
+  background-color: var(--bg-tag-blue);
   padding: 4px 8px;
   border-radius: 6px;
   font-weight: 800;
@@ -255,21 +255,21 @@ const filteredItems = computed(() => {
 
 .description-text {
   display: block;
-  color: #64748b;
+  color: var(--text-secondary);
   font-weight: 600;
   margin-bottom: 6px;
 }
 
 .author-text {
   display: block;
-  color: #64748b;
+  color: var(--text-secondary);
   font-weight: 600;
   margin-bottom: 16px;
 }
 
 .create-main-btn {
-  background-color: #3b82f6;
-  color: white;
+  background-color: var(--accent-primary);
+  color: var(--text-white);
   border: none;
   padding: 10px 20px;
   border-radius: 8px;
@@ -281,21 +281,21 @@ const filteredItems = computed(() => {
 }
 
 .create-main-btn:hover {
-  background-color: #2563eb;
+  background-color: var(--accent-primary-hover);
 }
 
 .actions-container {
   display: flex;
   gap: 8px;
   margin-top: 12px;
-  border-top: 1px solid #f1f5f9;
+  border-top: 1px solid var(--bg-input);
   padding-top: 12px;
 }
 
 .editbutton {
   font-size: 0.8rem;
-  color: black;
-  background-color: mediumseagreen;
+  color: var(--text-primary);
+  background-color: var(--accent-success);
   opacity: 0.8;
   padding: 4px 12px;
   border-radius: 6px;
@@ -306,8 +306,8 @@ const filteredItems = computed(() => {
 
 .deletebutton {
   font-size: 0.8rem;
-  color: white;
-  background-color: red;
+  color: var(--text-white);
+  background-color: var(--accent-danger);
   opacity: 0.8;
   padding: 4px 12px;
   border-radius: 6px;
@@ -327,7 +327,7 @@ const filteredItems = computed(() => {
 .rating-label {
   display: block;
   font-weight: 500;
-  color: #374151;
+  color: var(--text-primary);
   margin-bottom: 4px;
 }
 
@@ -343,16 +343,16 @@ const filteredItems = computed(() => {
   font-size: 30px;
   width: 1.1em;
   height: 1.1em;
-  color: #ccc;
+  color: var(--border-color);
   text-align: left;
 }
 
 .stars-display .star.active {
-  color: #ffca28;
+  color: var(--star-filled);
 }
 
 .stars-display .star.half {
-  color: #ccc;
+  color: var(--star-empty);
 }
 
 .stars-display .star.half:before {
@@ -362,7 +362,7 @@ const filteredItems = computed(() => {
   top: 0;
   width: 41%;
   overflow: hidden;
-  color: #ffca28;
+  color: var(--star-filled);
   white-space: nowrap;
 }
 </style>

@@ -49,7 +49,7 @@ const showLayout = computed(() => {
 .main-content {
   padding: 20px;
   min-height: calc(100vh - 70px);
-  background-color: #f8fafc;
+  background-color: var(--bg-primary);
   outline:none;
 }
 

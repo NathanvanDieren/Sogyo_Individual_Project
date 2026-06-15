@@ -70,8 +70,8 @@ onUnmounted(() => {
   width: 56px;
   height: 56px;
   border-radius: 50%;
-  background-color: #007bff;
-  color: white;
+  background-color: var(--accent-primary);
+  color: var(--text-white);
   border: none;
   cursor: pointer;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
@@ -82,7 +82,7 @@ onUnmounted(() => {
 }
 
 .floating-button:hover {
-  background-color: #0056b3;
+  background-color: var(--accent-primary-hover);
 }
 .plus-icon {
   font-size: 28px;
@@ -102,8 +102,8 @@ onUnmounted(() => {
   position: absolute;
   bottom: 110%;
   right: 0;
-  background-color: white;
-  border: 1px solid #ddd;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
   list-style: none;
   padding: 8px 0;
   margin: 0;
@@ -118,7 +118,7 @@ onUnmounted(() => {
 
 .submenu a {
   text-decoration: none;
-  color: #333;
+  color: var(--text-primary);
   display: block;
   padding: 10px 20px;
   cursor: pointer;
@@ -127,7 +127,7 @@ onUnmounted(() => {
 }
 
 .submenu a:hover {
-  background-color: #f8f9fa;
-  color: #007bff;
+  background-color: var(--bg-input);
+  color: var(--accent-primary);
 }
 </style>

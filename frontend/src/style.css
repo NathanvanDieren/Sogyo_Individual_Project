@@ -1,3 +1,6 @@
+/* Theme variables */
+@import './theme.css';
+
 /* Global styles */
 * {
   margin: 0;

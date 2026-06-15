@@ -35,7 +35,7 @@ public class GroupController : ControllerBase
 
             return BadRequest(new { message = ex.Message });
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             return StatusCode(500, new { message = "Er is een interne serverfout opgetreden." });
         }
@@ -63,7 +63,7 @@ public class GroupController : ControllerBase
         {
             return StatusCode(StatusCodes.Status403Forbidden, new { message = ex.Message });
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             return StatusCode(500, new
             {
@@ -91,7 +91,7 @@ public class GroupController : ControllerBase
 
             return BadRequest(new { message = ex.Message });
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             return StatusCode(500, new { message = "Er is een interne serverfout opgetreden." });
         }
@@ -114,7 +114,7 @@ public class GroupController : ControllerBase
         {
             return StatusCode(StatusCodes.Status403Forbidden, new { message = ex.Message });
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             return StatusCode(StatusCodes.Status500InternalServerError, new { message = "Er is een onverwachte fout opgetreden." });
         }

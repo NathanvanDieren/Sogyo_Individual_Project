@@ -34,9 +34,9 @@ watch(() => props.errorText, (newVal) => {
 
 <style scoped>
 .error-box {
-  background-color: #fde8e8;
+  background-color: var(--bg-error);
   border: 1px solid #f8b4b4;
-  color: #9b1c1c;
+  color: var(--text-error);
   padding: 12px;
   border-radius: 6px;
   margin-bottom: 16px;

@@ -213,7 +213,7 @@ async function SaveReviewAndClose() {
 }
 
 .modal-content {
-  background: white;
+  background: var(--bg-secondary);
   padding: 30px;
   border-radius: 8px;
   min-width: 350px;
@@ -229,14 +229,14 @@ async function SaveReviewAndClose() {
 .label {
   display: block;
   font-weight: 500;
-  color: #374151;
+  color: var(--text-primary);
   margin-bottom: 4px;
 }
 
 .inputField {
   width: 100%;
-  background-color: #f9fafb;
-  border: 1px solid #d1d5db;
+  background-color: var(--bg-input);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   padding: 8px 12px;
   margin-bottom: 16px;
@@ -245,11 +245,11 @@ async function SaveReviewAndClose() {
 
 .inputField:focus {
   outline: none;
-  border-color: #3b82f6;
+  border-color: var(--accent-primary);
 }
 
 .error {
-  color: red;
+  color: var(--text-error);
   font-size: 14px;
 }
 
@@ -275,8 +275,8 @@ async function SaveReviewAndClose() {
 
 .cancelButton {
   padding: 8px 16px;
-  background-color: #64748b;
-  color: white;
+  background-color: var(--text-secondary);
+  color: var(--text-white);
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -284,13 +284,13 @@ async function SaveReviewAndClose() {
 }
 
 .cancelButton:hover {
-  background-color: #475569;
+  background-color: var(--text-secondary-hover);
 }
 
 .submitButton {
   flex: 1;
-  background-color: #3b82f6;
-  color: white;
+  background-color: var(--accent-primary);
+  color: var(--text-white);
   border: none;
   padding: 8px 16px;
   border-radius: 8px;
@@ -299,7 +299,7 @@ async function SaveReviewAndClose() {
 }
 
 .submitButton:hover {
-  background-color: #2563eb;
+  background-color: var(--accent-primary-hover);
 }
 
 .rating-field {
@@ -309,7 +309,7 @@ async function SaveReviewAndClose() {
 .rating-label {
   display: block;
   font-weight: 500;
-  color: #374151;
+  color: var(--text-primary);
   margin-bottom: 4px;
 }
 
@@ -331,7 +331,7 @@ async function SaveReviewAndClose() {
   height: 30px;
   cursor: pointer;
   font-size: 30px;
-  color: #ccc;
+  color: var(--star-empty);
   position: relative;
 }
 
@@ -361,7 +361,7 @@ async function SaveReviewAndClose() {
 .stars input[type="radio"]:checked ~ label,
 .stars input[type="radio"]:hover ~ label,
 .stars label:hover ~ label {
-  color: #ffca28;
+  color: var(--star-filled);
 }
 
 </style>

@@ -176,8 +176,8 @@ async function saveGroupAndClose() {
   font-size: clamp(0.875rem, 1.2vw, 1.25rem);
 
   border-radius: 10px;
-  background-color: #007bff;
-  color: white;
+  background-color: var(--accent-primary);
+  color: var(--text-white);
   cursor: pointer;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
   display: flex;
@@ -187,7 +187,7 @@ async function saveGroupAndClose() {
 }
 
 .submitButton:hover {
-  background-color: #0056b3;
+  background-color: var(--accent-primary-hover);
 }
 
 .modal-overlay {
@@ -204,7 +204,7 @@ async function saveGroupAndClose() {
 }
 
 .modal-content {
-  background: white;
+  background: var(--bg-secondary);
   padding: 30px;
   border-radius: 8px;
   min-width: 300px;
@@ -220,23 +220,23 @@ async function saveGroupAndClose() {
 .form-label {
   display: block;
   font-weight: 500;
-  color: #374151;
+  color: var(--text-primary);
   margin-bottom: 4px;
 }
 
 .form-input {
   width: 100%;
-  border: 1px solid #d1d5db;
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   padding: 8px 12px;
   margin-bottom: 16px;
-  background-color: #f9fafb;
+  background-color: var(--bg-input);
   box-sizing: border-box;
 }
 
 .form-input:focus {
   outline: none;
-  border-color: #3b82f6;
+  border-color: var(--accent-primary);
 }
 
 .email-manager {
@@ -253,14 +253,14 @@ async function saveGroupAndClose() {
 input {
   flex: 1;
   padding: 8px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border-color);
   border-radius: 4px;
 }
 
 button {
   padding: 8px 12px;
-  background-color: #42b883;
-  color: white;
+  background-color: var(--accent-success);
+  color: var(--text-white);
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -277,26 +277,26 @@ button {
   justify-content: space-between;
   align-items: center;
   padding: 6px 10px;
-  background-color: #f3f3f3;
+  background-color: var(--bg-input);
   margin-bottom: 5px;
   border-radius: 4px;
 }
 
 .remove-btn {
-  background-color: #ff4d4d;
+  background-color: var(--accent-danger);
   padding: 2px 6px;
   font-size: 12px;
 }
 
 .error {
-  color: red;
+  color: var(--text-error);
   font-size: 14px;
   margin-top: 5px;
 }
 
 .meta {
   font-size: 12px;
-  color: #666;
+  color: var(--text-secondary);
 }
 
 .form-actions {
@@ -307,8 +307,8 @@ button {
 
 .cancelButton {
   padding: 8px 16px;
-  background-color: #64748b;
-  color: white;
+  background-color: var(--text-secondary);
+  color: var(--text-white);
   border: none;
   border-radius: 10px;
   cursor: pointer;
@@ -316,6 +316,6 @@ button {
 }
 
 .cancelButton:hover {
-  background-color: #475569;
+  background-color: var(--text-secondary-hover);
 }
 </style>

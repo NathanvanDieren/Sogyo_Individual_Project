@@ -28,8 +28,8 @@ function displayMyGroups() {
   left: 0;
   width: 200px;
   height: calc(100vh - 70px);
-  background-color: #1e293b;
-  color: white;
+  background-color: var(--bg-sidebar);
+  color: var(--text-white);
   padding: 15px;
   z-index: 100;
   transition: transform 0.3s ease;
@@ -42,7 +42,7 @@ function displayMyGroups() {
 .menu-button {
   background: none;
   border: none;
-  color: #94a3b8;
+  color: var(--text-muted);
   font-size: 1rem;
   font-weight: 500;
   cursor: pointer;
@@ -55,8 +55,8 @@ function displayMyGroups() {
   transition: all 0.2s ease;
 }
 .menu-button:hover {
-  background-color: #334155;
-  color: #ffffff;
+  background-color: var(--bg-tag-hover);
+  color: var(--text-white);
   padding-left: 30px;
 }
 
