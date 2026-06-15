@@ -159,7 +159,7 @@ async function deleteGroup(groupId: string) {
   padding: 4px 8px;
   margin: 4px;
   border-radius: 6px;
-  font-weight: 500;
+  font-weight: 600;
   white-space: nowrap;
   border: none;
 }

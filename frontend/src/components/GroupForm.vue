@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import ErrorBox from "./ErrorBox.vue";
-import {ref, onMounted, watch } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { apiPost } from "../services/api.ts";
 
 interface GroupEditData {
@@ -34,7 +34,6 @@ function initializeForm() {
   if (props.groupToEdit) {
     nameInput.value = props.groupToEdit.name
     emailList.value = props.groupToEdit.emails
-
   } else {
     nameInput.value = ''
     emailList.value = []
@@ -141,7 +140,7 @@ async function saveGroupAndClose() {
               placeholder="vriend@voorbeeld.nl"
               @keyup.enter.prevent="addEmail"
           />
-          <button @click="addEmail" type="button">Toevoegen</button>
+          <button @click="addEmail" type="button" class="add-btn">Toevoegen</button>
         </div>
         <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
 
@@ -170,26 +169,7 @@ async function saveGroupAndClose() {
 </template>
 
 <style scoped>
-.submitButton {
-  width: clamp(100px, 15vw, 200px);
-  height: clamp(40px, 6vh, 70px);
-  font-size: clamp(0.875rem, 1.2vw, 1.25rem);
-
-  border-radius: 10px;
-  background-color: var(--accent-primary);
-  color: var(--text-white);
-  cursor: pointer;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background-color 0.2s, transform 0.2s;
-}
-
-.submitButton:hover {
-  background-color: var(--accent-primary-hover);
-}
-
+/* Modal Basis */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -205,15 +185,18 @@ async function saveGroupAndClose() {
 
 .modal-content {
   background: var(--bg-secondary);
-  padding: 30px;
+  padding: 24px;
   border-radius: 8px;
-  min-width: 300px;
+  width: 100%;
+  max-width: 420px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  box-sizing: border-box;
 }
 
 .modal-title {
   font-weight: bold;
-  font-size: 1.5rem;
+  font-size: 1.35rem;
+  margin-top: 0;
   margin-bottom: 16px;
 }
 
@@ -221,17 +204,19 @@ async function saveGroupAndClose() {
   display: block;
   font-weight: 500;
   color: var(--text-primary);
-  margin-bottom: 4px;
+  margin-bottom: 6px;
+  font-size: 14px;
 }
 
 .form-input {
   width: 100%;
   border: 1px solid var(--border-color);
-  border-radius: 8px;
-  padding: 8px 12px;
+  border-radius: 6px;
+  padding: 6px 10px;
   margin-bottom: 16px;
   background-color: var(--bg-input);
   box-sizing: border-box;
+  font-size: 14px;
 }
 
 .form-input:focus {
@@ -240,24 +225,31 @@ async function saveGroupAndClose() {
 }
 
 .email-manager {
-  max-width: 400px;
-  font-family: sans-serif;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
+}
+
+.email-manager h3 {
+  font-size: 14px;
+  margin-top: 0;
+  margin-bottom: 8px;
+  font-weight: 500;
 }
 
 .input-group {
   display: flex;
-  gap: 10px;
+  gap: 8px;
 }
 
-input {
+.input-group input {
   flex: 1;
-  padding: 8px;
+  padding: 6px 10px;
   border: 1px solid var(--border-color);
-  border-radius: 4px;
+  border-radius: 6px;
+  font-size: 14px;
+  background-color: var(--bg-input);
 }
 
-button {
+.add-btn {
   padding: 8px 12px;
   background-color: var(--accent-success);
   color: var(--text-white);
@@ -269,53 +261,82 @@ button {
 .email-list {
   list-style: none;
   padding: 0;
-  margin-top: 15px;
+  margin: 10px 0 0 0;
+  max-height: 150px;
+  overflow-y: auto;
 }
 
 .email-list li {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 6px 10px;
+  padding: 4px 8px;
   background-color: var(--bg-input);
-  margin-bottom: 5px;
+  margin-bottom: 4px;
   border-radius: 4px;
+  font-size: 13px;
 }
 
 .remove-btn {
   background-color: var(--accent-danger);
+  color: var(--text-white);
+  border: none;
+  border-radius: 4px;
   padding: 2px 6px;
   font-size: 12px;
+  cursor: pointer;
 }
 
 .error {
   color: var(--text-error);
-  font-size: 14px;
-  margin-top: 5px;
+  font-size: 13px;
+  margin: 4px 0 0 0;
 }
 
 .meta {
   font-size: 12px;
   color: var(--text-secondary);
+  margin: 6px 0 0 0;
 }
 
 .form-actions {
   display: flex;
+  align-items: center;
   gap: 8px;
-  margin-top: 16px;
+  margin-top: 24px;
+}
+
+.cancelButton, .submitButton {
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 13px;
+  white-space: nowrap;
+  cursor: pointer;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .cancelButton {
-  padding: 8px 16px;
+  padding: 6px 16px;
   background-color: var(--text-secondary);
   color: var(--text-white);
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  font-weight: 500;
 }
 
 .cancelButton:hover {
   background-color: var(--text-secondary-hover);
+}
+
+.submitButton {
+  flex: 1;
+  padding: 6px 16px;
+  background-color: var(--accent-primary);
+  color: var(--text-white);
+}
+
+.submitButton:hover {
+  background-color: var(--accent-primary-hover);
 }
 </style>

@@ -1,47 +1,47 @@
 :root {
-  /* Background colors - warm, cozy palette */
-  --bg-primary: #faf6f1;        /* Warm cream page background */
-  --bg-secondary: #fff9f5;      /* Warm white for cards, modals, forms */
-  --bg-header: #c2591d;         /* Terracotta/orange header */
-  --bg-sidebar: #4a3728;        /* Warm dark brown sidebar */
-  --bg-input: #f5ece4;          /* Warm beige input fields */
+  /* Background colors - warm with green/blue undertones */
+  --bg-primary: #f0f5f0;        /* Soft minty cream page background */
+  --bg-secondary: #fafdf7;      /* Very light green-white for cards, modals, forms */
+  --bg-header: #4a7c59;         /* Rich forest green header */
+  --bg-sidebar: #2d4a35;        /* Dark forest green sidebar */
+  --bg-input: #e8f0e8;          /* Soft mint input fields */
   --bg-error: #fde8e0;          /* Warm peach error background */
-  --bg-tag: #f0e6dc;            /* Warm beige tag filter background */
-  --bg-tag-active: #fddcc4;     /* Warm peach active tag background */
+  --bg-tag: #e0ece0;            /* Soft green tag filter background */
+  --bg-tag-active: #b8d8b8;     /* Soft sage active tag */
   
-  /* Tag/Label colors - warm tones */
-  --bg-tag-green: #b8860b;      /* Dark goldenrod for green tags */
-  --bg-tag-blue: #d4814a;       /* Warm sienna for blue tags */
-  --bg-tag-hover: #5c4333;      /* Warm brown sidebar hover */
+  /* Tag/Label colors */
+  --bg-tag-green: #5a8f65;      /* Sage green tags */
+  --bg-tag-blue: #5b8fb9;       /* Soft blue tags */
+  --bg-tag-hover: #3d5c45;      /* Darker forest green sidebar hover */
   
-  /* Text colors - warm, softer tones */
-  --text-primary: #3e2723;      /* Deep warm brown */
-  --text-secondary: #795548;    /* Warm medium brown */
-  --text-white: #fff9f5;        /* Warm white text on dark backgrounds */
-  --text-error: #c62828;        /* Warm red for errors */
-  --text-sidebar: #f5ece4;      /* Warm light brown sidebar text */
-  --text-muted: #a1887f;        /* Warm muted brown */
-  --text-secondary-hover: #6d4c41;  /* Warm brown hover */
+  /* Text colors - strong contrast */
+  --text-primary: #2c3e2d;      /* Deep green-tinted dark */
+  --text-secondary: #5a7a5e;    /* Muted forest green-gray */
+  --text-white: #fafdf7;        /* Light green-white text on dark backgrounds */
+  --text-error: #c0392b;        /* Strong red for errors */
+  --text-sidebar: #d4e8d4;      /* Soft green sidebar text */
+  --text-muted: #7a9a7e;        /* Muted sage */
+  --text-secondary-hover: #4a6a4e;  /* Forest green hover */
   
-  /* Accent/Brand colors - warm palette */
-  --accent-primary: #c2591d;    /* Terracotta primary */
-  --accent-primary-hover: #a04615;  /* Darker terracotta hover */
-  --accent-success: #6d8b34;    /* Warm olive green */
-  --accent-success-hover: #5a7529;  /* Darker olive hover */
-  --accent-danger: #c62828;     /* Warm red */
-  --accent-warning: #f9a825;    /* Warm amber */
+  /* Accent/Brand colors - green/blue palette */
+  --accent-primary: #4a7c59;    /* Forest green primary */
+  --accent-primary-hover: #3a6348;  /* Darker forest green hover */
+  --accent-success: #5b8fb9;    /* Soft blue success */
+  --accent-success-hover: #4a7ba5;  /* Deeper blue hover */
+  --accent-danger: #c0392b;     /* Strong red */
+  --accent-warning: #e6a832;    /* Warm amber */
   
   /* Star colors - warm gold */
-  --star-filled: #ffb300;       /* Warm golden star */
-  --star-empty: #d7ccc8;        /* Warm light brown empty star */
+  --star-filled: #d4a843;       /* Rich gold star */
+  --star-empty: #c8d8c8;        /* Soft sage empty star */
   
-  /* Border colors - warm tones */
-  --border-color: #e0d5c9;      /* Warm beige border */
-  --border-focus: #c2591d;      /* Terracotta focus */
+  /* Border colors - green-tinted */
+  --border-color: #d0ddd0;      /* Soft green border */
+  --border-focus: #4a7c59;      /* Forest green focus */
   
   /* Overlay */
-  --overlay-bg: rgba(62, 39, 35, 0.5);  /* Warm dark overlay */
+  --overlay-bg: rgba(45, 74, 53, 0.5);  /* Dark forest green overlay */
   
   /* Additional hover states */
-  --group-item-hover-shadow: rgba(194, 89, 29, 0.15);  /* Warm terracotta shadow */
+  --group-item-hover-shadow: rgba(74, 124, 89, 0.2);  /* Green shadow */
 }

@@ -66,6 +66,10 @@
   <ItemGroup>
     <_ContentIncludedByDefault Remove="wwwroot\assets\index-CcwT0Vzn.js" />
     <_ContentIncludedByDefault Remove="wwwroot\assets\index-CV6lL_Rq.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\index-Bzq1LIaF.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\index-CDqfbItQ.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\index-CvXHqbZN.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\index-DuHv04du.css" />
   </ItemGroup>
 
   <ItemGroup>
