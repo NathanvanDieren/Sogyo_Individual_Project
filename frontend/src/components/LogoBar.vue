@@ -19,6 +19,9 @@ async function logout() {
     console.error("Uitloggen mislukt:", err)
   }
 }
+function goToHome() {
+  router.push('/');
+}
 </script>
 
 <template>
@@ -35,7 +38,7 @@ async function logout() {
         </svg>
       </IconButton>
 
-      <LogoSmall class="header-center" />
+      <button class="logobutton" @click="goToHome"><LogoSmall class="header-center" /></button>
 
       <IconButton
           ariaLabel="Uitloggen"
@@ -76,5 +79,16 @@ async function logout() {
 .header-right {
   justify-self: end;
 }
+
+.logobutton {
+  background-color: transparent;
+  width: fit-content;
+  border: none;
+  cursor: pointer;
+}
+
+
+
+
 
 </style>

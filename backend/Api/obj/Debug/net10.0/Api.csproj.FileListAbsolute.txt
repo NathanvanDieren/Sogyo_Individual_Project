@@ -315,5 +315,8 @@
 /home/nvdieren/Documents/Sogyo/repositories/individual-project/backend/Api/obj/Debug/net10.0/compressed/uxdahps17f-{0}-qnslqciykp-qnslqciykp.gz
 /home/nvdieren/Documents/Sogyo/repositories/individual-project/backend/Api/obj/Debug/net10.0/compressed/pm9d850oi8-{0}-xallkj0ejo-xallkj0ejo.gz
 /home/nvdieren/Documents/Sogyo/repositories/individual-project/backend/Api/obj/Debug/net10.0/compressed/zbm8059ldq-{0}-5n1rjpb7ng-5n1rjpb7ng.gz
-/home/nvdieren/Documents/Sogyo/repositories/individual-project/backend/Api/obj/Debug/net10.0/compressed/3m8nc8hszb-{0}-4je0nrk65n-4je0nrk65n.gz
-/home/nvdieren/Documents/Sogyo/repositories/individual-project/backend/Api/obj/Debug/net10.0/compressed/omvbnctoyo-{0}-yaxxrg4ft1-yaxxrg4ft1.gz
+/home/nvdieren/Documents/Sogyo/repositories/individual-project/backend/Api/obj/Debug/net10.0/compressed/8w3mjrq2vk-{0}-a1tzkehfaz-a1tzkehfaz.gz
+/home/nvdieren/Documents/Sogyo/repositories/individual-project/backend/Api/obj/Debug/net10.0/compressed/do28ktde95-{0}-j6k4y2wds9-j6k4y2wds9.gz
+/home/nvdieren/Documents/Sogyo/repositories/individual-project/backend/Api/obj/Debug/net10.0/compressed/ifo0ftu00x-{0}-hrkkerw24d-hrkkerw24d.gz
+/home/nvdieren/Documents/Sogyo/repositories/individual-project/backend/Api/obj/Debug/net10.0/compressed/3m8nc8hszb-{0}-wigdjm6psb-wigdjm6psb.gz
+/home/nvdieren/Documents/Sogyo/repositories/individual-project/backend/Api/obj/Debug/net10.0/compressed/omvbnctoyo-{0}-sxv5cnibox-sxv5cnibox.gz
