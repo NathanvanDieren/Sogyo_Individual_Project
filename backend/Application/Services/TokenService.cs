@@ -19,7 +19,8 @@ internal class TokenService
 
     public string GenerateToken(User user)
     {
-        var secretKey = _configuration["JwtSettings:Secret"];
+
+        var secretKey = Environment.GetEnvironmentVariable("JWT_SECRET");
 
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey!));
 
@@ -33,8 +34,8 @@ internal class TokenService
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
         var tokenOptions = new JwtSecurityToken(
-            issuer: _configuration["JwtSettings:Issuer"],
-            audience: _configuration["JwtSettings:Audience"],
+            issuer: Environment.GetEnvironmentVariable("JWT_ISSUER"),
+            audience: Environment.GetEnvironmentVariable("JWT_AUDIENCE"),
             claims: claims,
             expires: DateTime.UtcNow.AddMinutes(15),
             signingCredentials: creds
