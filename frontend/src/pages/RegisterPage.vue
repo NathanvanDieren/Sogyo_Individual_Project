@@ -124,19 +124,17 @@ async function RegisterAndGoToAuth() {
 }
 
 .mobile-info {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 @media (min-width: 768px) {
   .mobile-info {
     display: none;
   }
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 24px auto;
-  width: 128px;
 }
 
 .info-title {
