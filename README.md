@@ -117,6 +117,7 @@ De Api-laag is het **entry point** van de applicatie. Controllers ontvangen HTTP
 De frontend communiceert met de backend via de `apiPost`/`apiGet` functies in [api.ts](file:///home/nvdieren/Documents/Sogyo/repositories/individual-project/frontend/src/services/api.ts), die de `fetch` API gebruiken met `credentials: "include"` voor cookie-based authenticatie.
 
 <img src="Architecture_TasteBuds.png">
+
 ## Leerdoelen
 ### 🚀 Technisch
 
