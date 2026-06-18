@@ -20,7 +20,7 @@ internal class UserFacade : IUserFacade
 
     public async Task<UserResponseDto> CreateUser(string username, string email, string password)
     {
-        var existingUser = await _userRepository.GetUserByEmailAsync(email);
+        var existingUser = await _userRepository.GetUserByEmailAsync(email.ToLower().Trim());
         if (existingUser != null)
         {
             throw new BadHttpRequestException("Dit e-mailadres is al in gebruik.");
@@ -56,7 +56,7 @@ internal class UserFacade : IUserFacade
 
     public async Task<LoginResponseDto?> UserLogin(string email, string password)
     {
-        var user = await _userRepository.GetUserByEmailAsync(email);
+        var user = await _userRepository.GetUserByEmailAsync(email.ToLower().Trim());
 
         if (user == null) return null;
 

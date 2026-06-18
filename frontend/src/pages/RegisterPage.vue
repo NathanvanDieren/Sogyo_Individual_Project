@@ -238,6 +238,6 @@ async function RegisterAndGoToAuth() {
 }
 
 .submit-button:hover {
-  background-color: #1d4ed8;
+  background-color: var(--accent-primary-hover);
 }
 </style>
