@@ -22,9 +22,10 @@ Zorg ervoor dat de volgende software op je systeem is geïnstalleerd:
 * **.NET SDK**: Versie `9.0+`
 ---
 Open je terminal in de hoofdmap van het project en voer de volgende stappen uit.
-  r naar de frontend-map, herstel de pakketten en start de development server:
+Ga naar de frontend-map, herstel de pakketten en start de development server:
 
-```bash
+### 1. Frontend
+```bash~~~~
 cd frontend/
 npm clean
 npm run dev
