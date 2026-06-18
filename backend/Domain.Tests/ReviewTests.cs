@@ -16,7 +16,7 @@ public class ReviewTests
         var title = "Het Gouden Ei";
         var description = "Ik vond hem erg spannend en vlot geschreven.";
         var rating = 5;
-        var type = ItemType.Book;
+        var type = ItemType.Boek;
 
         var review = new Review(_newUser1, title, rating, description, type, groups);
 
@@ -26,28 +26,28 @@ public class ReviewTests
     [Fact]
     public void TestReviewIdIsNotEmpty()
     {
-        var review = new Review(_newUser1, "Title", 5, "Description", ItemType.Book);
+        var review = new Review(_newUser1, "Title", 5, "Description", ItemType.Boek);
         Assert.NotEqual(Guid.Empty, review.Id);
     }
 
     [Fact]
     public void TestReviewTitleIsSetCorrectly()
     {
-        var review = new Review(_newUser1, "MyTitle", 5, "Description", ItemType.Book);
+        var review = new Review(_newUser1, "MyTitle", 5, "Description", ItemType.Boek);
         Assert.Equal("MyTitle", review.Title);
     }
 
     [Fact]
     public void TestReviewRatingIsSetCorrectly()
     {
-        var review = new Review(_newUser1, "Title", 4.5, "Description", ItemType.Book);
+        var review = new Review(_newUser1, "Title", 4.5, "Description", ItemType.Boek);
         Assert.Equal(4.5, review.Rating);
     }
 
     [Fact]
     public void TestReviewDescriptionIsSetCorrectly()
     {
-        var review = new Review(_newUser1, "Title", 5, "MyDescription", ItemType.Book);
+        var review = new Review(_newUser1, "Title", 5, "MyDescription", ItemType.Boek);
         Assert.Equal("MyDescription", review.Description);
     }
 
@@ -61,28 +61,28 @@ public class ReviewTests
     [Fact]
     public void TestReviewCreatorIsSetCorrectly()
     {
-        var review = new Review(_newUser1, "Title", 5, "Description", ItemType.Book);
+        var review = new Review(_newUser1, "Title", 5, "Description", ItemType.Boek);
         Assert.Equal(_newUser1, review.Creator);
     }
 
     [Fact]
     public void TestReviewWithNullGroupsDoesNotThrow()
     {
-        var review = new Review(_newUser1, "Title", 5, "Description", ItemType.Book, null!);
+        var review = new Review(_newUser1, "Title", 5, "Description", ItemType.Boek, null!);
         Assert.NotNull(review);
     }
 
     [Fact]
     public void TestReviewWithEmptyGroupsList()
     {
-        var review = new Review(_newUser1, "Title", 5, "Description", ItemType.Book, new List<Group>());
+        var review = new Review(_newUser1, "Title", 5, "Description", ItemType.Boek, new List<Group>());
         Assert.Empty(review.Groups);
     }
 
     [Fact]
     public void TestReviewWithoutGroupsConstructor()
     {
-        var review = new Review(_newUser1, "Title", 5, "Description", ItemType.Book);
+        var review = new Review(_newUser1, "Title", 5, "Description", ItemType.Boek);
         Assert.Empty(review.Groups);
     }
 
@@ -91,7 +91,7 @@ public class ReviewTests
     {
         var group1 = new Group("Group1", _newUser1);
         var groups = new List<Group> { group1 };
-        var review = new Review(_newUser1, "Title", 5, "Description", ItemType.Book, groups);
+        var review = new Review(_newUser1, "Title", 5, "Description", ItemType.Boek, groups);
         Assert.Contains(group1, review.Groups);
     }
 
@@ -101,7 +101,7 @@ public class ReviewTests
         var group1 = new Group("Group1", _newUser1);
         var group2 = new Group("Group2", _newUser1);
         var groups = new List<Group> { group1, group2 };
-        var review = new Review(_newUser1, "Title", 5, "Description", ItemType.Book, groups);
+        var review = new Review(_newUser1, "Title", 5, "Description", ItemType.Boek, groups);
         Assert.Equal(2, review.Groups.Count);
     }
 
@@ -109,7 +109,7 @@ public class ReviewTests
     public void TestAddGroupToReview()
     {
         var group1 = new Group("Group1", _newUser1);
-        var review = new Review(_newUser1, "Title", 5, "Description", ItemType.Book);
+        var review = new Review(_newUser1, "Title", 5, "Description", ItemType.Boek);
         review.UpdateGroups([group1]);
         Assert.Contains(group1, review.Groups);
     }
@@ -120,7 +120,7 @@ public class ReviewTests
         var group1 = new Group("Group1", _newUser1);
         var group2 = new Group("Group2", _newUser1);
         var groups = new List<Group> { group1 };
-        var review = new Review(_newUser1, "Title", 5, "Description", ItemType.Book, groups);
+        var review = new Review(_newUser1, "Title", 5, "Description", ItemType.Boek, groups);
         review.UpdateGroups([group1, group2]);
         review.UpdateGroups([group2]);
         Assert.DoesNotContain(group1, review.Groups);
@@ -132,7 +132,7 @@ public class ReviewTests
         var group1 = new Group("Group1", _newUser1);
         var group2 = new Group("Group2", _newUser1);
         var groups = new List<Group> { group1 };
-        var review = new Review(_newUser1, "Title", 5, "Description", ItemType.Book, groups);
+        var review = new Review(_newUser1, "Title", 5, "Description", ItemType.Boek, groups);
         review.UpdateGroups([group1, group2]);
         Assert.Contains(group2, review.Groups);
     }
@@ -143,7 +143,7 @@ public class ReviewTests
         var group1 = new Group("Group1", _newUser1);
         var group2 = new Group("Group2", _newUser1);
         var groups = new List<Group> { group1, group2 };
-        var review = new Review(_newUser1, "Title", 5, "Description", ItemType.Book, groups);
+        var review = new Review(_newUser1, "Title", 5, "Description", ItemType.Boek, groups);
         review.UpdateGroups([group1]);
         Assert.DoesNotContain(group2, review.Groups);
     }
@@ -151,7 +151,7 @@ public class ReviewTests
     [Fact]
     public void TestChangeTitleUpdatesTitle()
     {
-        var review = new Review(_newUser1, "OriginalTitle", 5, "Description", ItemType.Book);
+        var review = new Review(_newUser1, "OriginalTitle", 5, "Description", ItemType.Boek);
         review.ChangeTitle("NewTitle");
         Assert.Equal("NewTitle", review.Title);
     }
@@ -159,7 +159,7 @@ public class ReviewTests
     [Fact]
     public void TestChangeRatingUpdatesRating()
     {
-        var review = new Review(_newUser1, "Title", 5, "Description", ItemType.Book);
+        var review = new Review(_newUser1, "Title", 5, "Description", ItemType.Boek);
         review.ChangeRating(3.5);
         Assert.Equal(3.5, review.Rating);
     }
@@ -167,7 +167,7 @@ public class ReviewTests
     [Fact]
     public void TestChangeDescriptionUpdatesDescription()
     {
-        var review = new Review(_newUser1, "Title", 5, "OriginalDesc", ItemType.Book);
+        var review = new Review(_newUser1, "Title", 5, "OriginalDesc", ItemType.Boek);
         review.ChangeDescription("NewDesc");
         Assert.Equal("NewDesc", review.Description);
     }
@@ -175,7 +175,7 @@ public class ReviewTests
     [Fact]
     public void TestChangeItemTypeUpdatesItemType()
     {
-        var review = new Review(_newUser1, "Title", 5, "Description", ItemType.Book);
+        var review = new Review(_newUser1, "Title", 5, "Description", ItemType.Boek);
         review.ChangeItemType(ItemType.Film);
         Assert.Equal(ItemType.Film, review.ItemType);
     }
@@ -183,7 +183,7 @@ public class ReviewTests
     [Fact]
     public void TestEnsureCanEditSucceedsForCreator()
     {
-        var review = new Review(_newUser1, "Title", 5, "Description", ItemType.Book);
+        var review = new Review(_newUser1, "Title", 5, "Description", ItemType.Boek);
         var ex = Record.Exception(() => review.EnsureCanEdit(_newUser1));
         Assert.Null(ex);
     }
@@ -192,14 +192,14 @@ public class ReviewTests
     public void TestEnsureCanEditThrowsForOtherUser()
     {
         var otherUser = new User("Other", "other@sogyo.nl", "other", "user");
-        var review = new Review(_newUser1, "Title", 5, "Description", ItemType.Book);
+        var review = new Review(_newUser1, "Title", 5, "Description", ItemType.Boek);
         Assert.Throws<UnauthorizedAccessException>(() => review.EnsureCanEdit(otherUser));
     }
 
     [Fact]
     public void TestUpdateGroupsWithNull()
     {
-        var review = new Review(_newUser1, "Title", 5, "Description", ItemType.Book);
+        var review = new Review(_newUser1, "Title", 5, "Description", ItemType.Boek);
         review.UpdateGroups(null!);
         Assert.Empty(review.Groups);
     }
@@ -207,7 +207,7 @@ public class ReviewTests
     [Fact]
     public void TestChangeLastUpdatedUpdatesTimestamp()
     {
-        var review = new Review(_newUser1, "Title", 5, "Description", ItemType.Book);
+        var review = new Review(_newUser1, "Title", 5, "Description", ItemType.Boek);
         var originalTime = review.LastUpdated;
         review.ChangeTitle("NewTitle");
         Assert.True(review.LastUpdated > originalTime);

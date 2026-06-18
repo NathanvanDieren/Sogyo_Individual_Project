@@ -76,7 +76,7 @@ function goToRegister() {
                class="submit-button"
                @click="LoginAndGoToHome()">
         <label for="lname" class="register-label">Nog geen account? </label>
-        <input type="submit" value="Registeer"
+        <input type="submit" value="Registreer"
                class="register-button"
                @click="goToRegister()">
       </form>
@@ -117,20 +117,20 @@ function goToRegister() {
 }
 
 .mobile-info {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
-@media (min-width: 768px) {
+
+  @media (min-width: 768px) {
   .mobile-info {
     display: none;
   }
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 24px auto;
-  width: 128px;
-}
 
 .info-title {
   font-size: 2rem;

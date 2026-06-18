@@ -22,6 +22,30 @@ namespace Persistence.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("Domain.Classes.Group", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("CreatorId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("LastUpdated")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatorId");
+
+                    b.ToTable("Groups");
+                });
+
             modelBuilder.Entity("Domain.Classes.Review", b =>
                 {
                     b.Property<Guid>("Id")
@@ -57,31 +81,7 @@ namespace Persistence.Migrations
                     b.ToTable("Reviews");
                 });
 
-            modelBuilder.Entity("Domain.Group", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("CreatorId")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("LastUpdated")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreatorId");
-
-                    b.ToTable("Groups");
-                });
-
-            modelBuilder.Entity("Domain.User", b =>
+            modelBuilder.Entity("Domain.Classes.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -144,20 +144,9 @@ namespace Persistence.Migrations
                     b.ToTable("GroupMembers", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.Classes.Review", b =>
+            modelBuilder.Entity("Domain.Classes.Group", b =>
                 {
-                    b.HasOne("Domain.User", "Creator")
-                        .WithMany()
-                        .HasForeignKey("CreatorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Creator");
-                });
-
-            modelBuilder.Entity("Domain.Group", b =>
-                {
-                    b.HasOne("Domain.User", "Creator")
+                    b.HasOne("Domain.Classes.User", "Creator")
                         .WithMany()
                         .HasForeignKey("CreatorId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -166,9 +155,20 @@ namespace Persistence.Migrations
                     b.Navigation("Creator");
                 });
 
+            modelBuilder.Entity("Domain.Classes.Review", b =>
+                {
+                    b.HasOne("Domain.Classes.User", "Creator")
+                        .WithMany()
+                        .HasForeignKey("CreatorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Creator");
+                });
+
             modelBuilder.Entity("GroupReview", b =>
                 {
-                    b.HasOne("Domain.Group", null)
+                    b.HasOne("Domain.Classes.Group", null)
                         .WithMany()
                         .HasForeignKey("GroupsId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -183,13 +183,13 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("GroupUser", b =>
                 {
-                    b.HasOne("Domain.Group", null)
+                    b.HasOne("Domain.Classes.Group", null)
                         .WithMany()
                         .HasForeignKey("GroupId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.User", null)
+                    b.HasOne("Domain.Classes.User", null)
                         .WithMany()
                         .HasForeignKey("MembersId")
                         .OnDelete(DeleteBehavior.Cascade)

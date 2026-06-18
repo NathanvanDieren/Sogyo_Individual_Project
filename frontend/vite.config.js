@@ -9,6 +9,30 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       injectRegister: 'auto',
+      workbox: {
+        // 1. Cache alle statische frontend bestanden
+        globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
+        navigateFallback: '/index.html',
+
+        // 2. Sla API requests en groepen offline op
+        runtimeCaching: [
+          {
+            // Onderschept alle verzoeken die naar /api lopen
+            urlPattern: ({ url }) => url.pathname.startsWith('/api'),
+            handler: 'NetworkFirst', // Eerst live proberen, mislukt? Dan direct de laatste cache!
+            options: {
+              cacheName: 'tastebuds-api-cache',
+              expiration: {
+                maxEntries: 100,           // Maximaal 100 verschillende API-endpoints opslaan
+                maxAgeSeconds: 60 * 60 * 24 * 7 // Data blijft 7 dagen geldig in de cache
+              },
+              cacheableResponse: {
+                statuses: [0, 200]        // Sla alleen succesvolle (200) of ondoorzichtige (0) responses op
+              }
+            }
+          }
+        ]
+      },
       manifest: {
         name: 'TasteBuds',
         short_name: 'TasteBuds',

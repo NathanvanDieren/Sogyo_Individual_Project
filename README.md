@@ -22,9 +22,10 @@ Zorg ervoor dat de volgende software op je systeem is geïnstalleerd:
 * **.NET SDK**: Versie `9.0+`
 ---
 Open je terminal in de hoofdmap van het project en voer de volgende stappen uit.
-  r naar de frontend-map, herstel de pakketten en start de development server:
+Ga naar de frontend-map, herstel de pakketten en start de development server:
 
-```bash
+### 1. Frontend
+```bash~~~~
 cd frontend/
 npm clean
 npm run dev
@@ -32,7 +33,7 @@ npm run dev
 *De frontend is nu bereikbaar via de URL die in de terminal verschijnt (meestal `http://localhost:5173`).*
 
 ### 2. Backend (API)
-Open een nieuwe terminal/tabblad in de hoofdmap en start de .NET Web API op:
+Open een nieuwe terminal/tabblad in de hoofdmap en start de .NET Web API op (deze bevat sinds nieuwe updates eigenlijk ook al de frontend):
 
 ```bash
 cd backend/
@@ -117,6 +118,7 @@ De Api-laag is het **entry point** van de applicatie. Controllers ontvangen HTTP
 De frontend communiceert met de backend via de `apiPost`/`apiGet` functies in [api.ts](file:///home/nvdieren/Documents/Sogyo/repositories/individual-project/frontend/src/services/api.ts), die de `fetch` API gebruiken met `credentials: "include"` voor cookie-based authenticatie.
 
 <img src="Architecture_TasteBuds.png">
+
 ## Leerdoelen
 ### 🚀 Technisch
 

@@ -85,7 +85,7 @@ async function deleteReview(reviewId: string) {
       @success="GetReviews"
   />
 
-  <div v-else-if="reviewList" class="reviews-container">
+  <div v-if="reviewList" class="reviews-container">
     <button @click="openCreateModal" class="create-main-btn">+ Schrijf Review</button>
 
     <div v-if="reviewList.reviews.length > 0">

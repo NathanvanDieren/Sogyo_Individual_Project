@@ -6,35 +6,38 @@ import GroupReviewView from "../pages/GroupReviewView.vue";
 import { apiGet } from "../services/api.ts";
 import MyReviewsView from "../pages/MyReviewsView.vue";
 
+
 const routes = [
     {
         path: '/',
         name: 'homepage',
         component: HomePage,
-        meta: { requiresAuth: true, requiresLayout: true }
+        meta: { title: 'Home - TasteBuds',  requiresAuth: true, requiresLayout: true }
     },
     {
         path: '/login',
         name: 'login',
-        component: AuthPage
+        component: AuthPage,
+        meta: { title: 'Login - TasteBuds'}
     },
     {
         path: '/register',
         name: 'register',
-        component: RegisterPage
+        component: RegisterPage,
+        meta: { title: 'Registreer - TasteBuds'}
     },
     {
         path: '/group/:id',
         name: 'groupreviews',
         component: GroupReviewView,
         props: true,
-        meta: { requiresAuth: true, requiresLayout: true }
+        meta: { title: 'Groep - TasteBuds', requiresAuth: true, requiresLayout: true }
     },
     {
         path: '/myreviews',
         name: 'myreviews',
         component: MyReviewsView,
-        meta: { requiresAuth: true, requiresLayout: true }
+        meta: { title: 'Mijn Reviews - TasteBuds', requiresAuth: true, requiresLayout: true }
     }
 ]
 
@@ -46,6 +49,7 @@ const router = createRouter({
 let isUserValidated = false
 
 router.beforeEach(async (to, _, next) => {
+    document.title = (to.meta.title as string) || 'Standaard Titel';
     if (to.matched.some(record => record.meta.requiresAuth)) {
 
         if (isUserValidated) {
