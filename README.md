@@ -32,7 +32,7 @@ npm run dev
 *De frontend is nu bereikbaar via de URL die in de terminal verschijnt (meestal `http://localhost:5173`).*
 
 ### 2. Backend (API)
-Open een nieuwe terminal/tabblad in de hoofdmap en start de .NET Web API op:
+Open een nieuwe terminal/tabblad in de hoofdmap en start de .NET Web API op (deze bevat sinds nieuwe updates eigenlijk ook al de frontend):
 
 ```bash
 cd backend/
